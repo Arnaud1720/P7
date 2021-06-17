@@ -1,0 +1,87 @@
+
+CREATE TABLE public.blibliotheque (
+                id INTEGER DEFAULT 1 NOT NULL,
+                name VARCHAR(255) NOT NULL,
+                city VARCHAR NOT NULL,
+                streetNumber INTEGER NOT NULL,
+                surface INTEGER NOT NULL,
+                CONSTRAINT blibliotheque_pk PRIMARY KEY (id)
+);
+COMMENT ON COLUMN public.blibliotheque.surface IS 'en m²';
+
+
+CREATE TABLE public.exemplary (
+                id INTEGER NOT NULL,
+                id_blibliotheque INTEGER NOT NULL,
+                exemplaireNumber INTEGER NOT NULL,
+                remainingExemplary INTEGER NOT NULL,
+                CONSTRAINT exemplary_pk PRIMARY KEY (id)
+);
+
+
+CREATE TABLE public.account (
+                number_card_library BIGINT NOT NULL,
+                last_name VARCHAR(15) NOT NULL,
+                phone_number INTEGER NOT NULL,
+                mail VARCHAR(255) NOT NULL,
+                password BYTEA(255) NOT NULL,
+                postal_adress VARCHAR(50) NOT NULL,
+                city VARCHAR(50) NOT NULL,
+                frist_name VARCHAR(15) NOT NULL,
+                CONSTRAINT account_pk PRIMARY KEY (number_card_library)
+);
+
+
+CREATE TABLE public.borrowing (
+                borrowing_id INTEGER NOT NULL,
+                start_date DATE NOT NULL,
+                end_date DATE NOT NULL,
+                id_exemplaire INTEGER NOT NULL,
+                extension BOOLEAN DEFAULT False NOT NULL,
+                number_card_library BIGINT NOT NULL,
+                CONSTRAINT borrowing_pk PRIMARY KEY (borrowing_id)
+);
+COMMENT ON COLUMN public.borrowing.extension IS 'false default value';
+
+
+CREATE TABLE public.book (
+                book_id INTEGER NOT NULL,
+                title VARCHAR(150) NOT NULL,
+                kind VARCHAR(50) NOT NULL,
+                exemplary BIGINT NOT NULL,
+                id_examplary INTEGER NOT NULL,
+                author VARCHAR(50) NOT NULL,
+                editor VARCHAR(50) NOT NULL,
+                ref VARCHAR(15) NOT NULL,
+                synopsis VARCHAR(1500) NOT NULL,
+                CONSTRAINT book_pk PRIMARY KEY (book_id)
+);
+
+
+ALTER TABLE public.exemplary ADD CONSTRAINT blibliotheque_exempl_aie__fk
+FOREIGN KEY (id_blibliotheque)
+REFERENCES public.blibliotheque (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.book ADD CONSTRAINT exempl_aie__book_fk
+FOREIGN KEY (id_examplary)
+REFERENCES public.exemplary (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.borrowing ADD CONSTRAINT exempl_aie__borrowing_fk
+FOREIGN KEY (id_exemplaire)
+REFERENCES public.exemplary (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.borrowing ADD CONSTRAINT account_borrowing_fk
+FOREIGN KEY (number_card_library)
+REFERENCES public.account (number_card_library)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;

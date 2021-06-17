@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<header>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/borrowing/save" >crée une reservation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/account/inscription}">inscription</a>
+            </li>
+
+            <div class="btn-group dropdown ">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" >
+                    Livre
+                </button>
+                <div class="dropdown-menu ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/display/books/available?available=false">Livres disponible</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/display/books/available?available=true">Tout nos livres</a>
+                    </li>
+                </div>
+            </div>
+
+        </ul>
+    </div>
+    <div class="btn-group dropleft">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Menu
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Mon compte</a>
+            <a class="dropdown-item" href="#">Mes reservation</a>
+        </div>
+    </div>
+
+</nav>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="Fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <title>Livre</title>
+
+</head>
+<body>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading"> liste des livre</div>
+    <div class="panel-body">
+      <table class="table">
+        <tr>
+          <th>N°</th>
+          <th>auteur</th>
+          <th>editeur</th>
+          <th>titre</th>
+          <th>genre</th>
+          <th>référence</th>
+          <th>synopsis</th>
+          <th>disponible</th>
+          <th>réserver ce livre</th>
+
+        </tr>
+        <tr th:each="bookTrue : ${bookTrue}">
+          <td th:text="${bookTrue.bookId}"></td>
+          <td th:text="${bookTrue.bookAuthor}"></td>
+          <td th:text="${bookTrue.bookEditor}"></td>
+          <td th:text="${bookTrue.bookTitle}"></td>
+          <td th:text="${bookTrue.bookKide}"></td>
+          <td th:text="${bookTrue.bookRef}"></td>
+          <td th:text="${bookTrue.bookSynopsis}"></td>
+          <td th:text="${bookTrue.available}"></td>
+          <td th:text="${bookTrue.exemplaryId.exemplaryNumbers}"></td>
+
+          <td><a th:href="@{/borrowing/addNewBorrowing(id=${bookTrue.exemplaryId.id})}" >rerserver ce livre</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>
