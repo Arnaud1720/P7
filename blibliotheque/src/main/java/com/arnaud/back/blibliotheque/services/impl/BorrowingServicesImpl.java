@@ -55,8 +55,8 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Override
     public String addExtension(int userid, int borrowingid, boolean available) {
 
-        Account user = accountRepository.findById(userid).orElseThrow(()-> new EntityNotFoundException(" message"));
-        Borrowing borrowing = borrowingRepository.findById(borrowingid).orElseThrow(()-> new EntityNotFoundException("message"));
+        Account user = accountRepository.findById(userid).orElseThrow(()-> new EntityNotFoundException(" l'utilisateur n'existe pas "));
+        Borrowing borrowing = borrowingRepository.findById(borrowingid).orElseThrow(()-> new EntityNotFoundException("la réservation n'exite pas"));
         borrowing.setAccount(user);
         if (available) {
             this.addExtension(borrowing);

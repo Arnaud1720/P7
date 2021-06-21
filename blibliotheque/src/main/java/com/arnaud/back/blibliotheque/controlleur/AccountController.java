@@ -28,7 +28,9 @@ public class AccountController implements UtilisateurApi {
     }
 
     @Override
-    public Account findByFristName(String mail) {
-        return accountService.findByMail(mail);
+    public Account findByMail(String Umail) {
+        return accountService.findAccountByMail(Umail);
     }
+
+
 }

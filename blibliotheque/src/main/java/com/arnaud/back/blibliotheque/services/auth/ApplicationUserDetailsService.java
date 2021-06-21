@@ -21,9 +21,10 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-      Account account = accountRepository.findByMail(mail).
-              orElseThrow(() -> new EntityNotFoundException("le mail ou le mot de passe est invalide"
-              ,ErrorCode.MAIL_OR_PASSWORD_INVALID));
+        Account account = accountRepository.findAccountByMail(mail).
+                orElseThrow(() -> new EntityNotFoundException("password or email invalid for this user",ErrorCode.MAIL_OR_PASSWORD_INVALID));
         return new User(account.getMail(),account.getPassword(), Collections.emptyList());
     }
+
+
 }

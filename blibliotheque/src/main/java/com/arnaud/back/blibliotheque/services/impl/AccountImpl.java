@@ -46,11 +46,11 @@ public class AccountImpl implements AccountService {
     }
 
     @Override
-    public Account findByMail(String mail) {
+    public Account findAccountByMail(String mail) {
         if(!StringUtils.hasLength(mail)){
             log.error("le pseudo n'est pas présent en base");
         }
-            return accountRepository.findByMail(mail).orElseThrow(() ->
+            return accountRepository.findAccountByMail(mail).orElseThrow(() ->
          new EntityNotFoundException("le pseudo de l'utilisateur n'exisite pas",ErrorCode.USER_NOT_VALID));
     }
 
