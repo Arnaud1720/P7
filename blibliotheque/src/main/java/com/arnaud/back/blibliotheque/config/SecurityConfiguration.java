@@ -19,45 +19,57 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private ApplicationUserDetailsService applicationUserDetailService;
 
     @Autowired
-    ApplicationUserDetailsService applicationUserDetailsService;
+    private ApplicationRequestFilter applicationRequestFilter;
+
+    private static final String[] URL_PUBLIC ={
+         "/blibliotheque/v1/**/**",
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html**",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/**/**/authenticate"
+
+
+    };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/**/authenticate",
-                "/blibliotheque/v1/**/**",
-                "/v2/api-docs",
-                "/swagger-resources",
-                "/swagger-resources/**",
-                "/configuration/ui",
-                "/configuration/security",
-                "/swagger-ui.html**",
-                "/webjars/**",
-                "/v3/api-docs/**",
-                "/swagger-ui/**").permitAll()
-                .anyRequest().permitAll()
+        http.csrf().disable().authorizeRequests().antMatchers(URL_PUBLIC).permitAll()
+                .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(applicationRequestFilter,UsernamePasswordAuthenticationFilter.class);
 
-//        http.addFilterBefore(applicationRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(applicationUserDetailsService)
+        auth.userDetailsService(applicationUserDetailService)
                 .passwordEncoder(passwordEncoder());
-    }
-    @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
-        return authenticationManagerBean();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 }

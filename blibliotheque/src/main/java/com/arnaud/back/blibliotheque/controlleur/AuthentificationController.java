@@ -2,8 +2,9 @@ package com.arnaud.back.blibliotheque.controlleur;
 
 import com.arnaud.back.blibliotheque.auth.AuthenticationRequest;
 import com.arnaud.back.blibliotheque.auth.AuthenticationResponse;
+import com.arnaud.back.blibliotheque.auth.JwtUtils;
+import com.arnaud.back.blibliotheque.config.utils.ExtendedAccount;
 import com.arnaud.back.blibliotheque.services.auth.ApplicationUserDetailsService;
-import com.arnaud.back.blibliotheque.services.auth.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,29 +13,32 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
+import static com.arnaud.back.blibliotheque.constant.Constants.AUTHENTIFICATION_END_POINT;
 
 @RestController
-@RequestMapping(APP_ROOT)
+@RequestMapping(AUTHENTIFICATION_END_POINT)
 public class AuthentificationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+   private AuthenticationManager authenticationManager;
+
     @Autowired
     private ApplicationUserDetailsService userDetailsService;
+
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtUtils jwtUtils;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request)
-    {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(request.getMail(),request.getPassword())
-//        );
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken
+                        (request.getMail(),request.getPassword())
 
-        final UserDetails userDetails= userDetailsService.loadUserByUsername(request.getMail());
-        final String jwt = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).build());
+        );
+         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMail());
+         final String jwt = jwtUtils.generateToken((ExtendedAccount)userDetails);
+         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).build());
+
     }
 
 }

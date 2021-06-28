@@ -1,17 +1,24 @@
 package com.arnaud.back.blibliotheque.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(	name = "account",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "pseudo"),
+                @UniqueConstraint(columnNames = "mail")
+        })
 @Getter
 @Setter
-@Entity(name = "account")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Account {
 
     @Id
@@ -33,6 +40,11 @@ public class Account {
     private String postalAdress;
     @Column(name = "city")
     private String city;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+    @JsonIgnore
+    private List<Roles> roles;
+
 
 
 }
