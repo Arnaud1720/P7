@@ -29,9 +29,6 @@ public class ApplicationUserDetailsService implements UserDetailsService {
         Account account = service.findAccountByMail(mail);
         List<SimpleGrantedAuthority> authority = new ArrayList<>();
         account.getRoles().forEach(roles -> authority.add(new SimpleGrantedAuthority(roles.getRoleName())));
-
         return new ExtendedAccount(account.getMail(),account.getPassword(),authority);
-
-
     }
 }

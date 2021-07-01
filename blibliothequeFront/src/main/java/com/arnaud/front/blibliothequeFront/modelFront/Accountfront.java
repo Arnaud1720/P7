@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Setter
 public class Accountfront {
 
-
     private int id;
     private String pseudo;
     private String lastName;

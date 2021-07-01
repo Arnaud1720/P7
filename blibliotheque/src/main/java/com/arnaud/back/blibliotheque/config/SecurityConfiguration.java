@@ -30,7 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private ApplicationRequestFilter applicationRequestFilter;
 
     private static final String[] URL_PUBLIC ={
-         "/blibliotheque/v1/**/**",
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
@@ -40,7 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/**/**/authenticate"
+            "/authenticate",
+            "/blibliotheque/v1/utilisateur/save"
 
 
     };

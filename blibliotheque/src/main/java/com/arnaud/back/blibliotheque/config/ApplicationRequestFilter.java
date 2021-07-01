@@ -32,7 +32,7 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {
          */
         final String authHeader = request.getHeader("Authorization");
         String mail = null;
-        String jwt= null;
+        String jwt= authHeader;
         /**
          *
          */

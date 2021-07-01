@@ -24,18 +24,18 @@
           <th>réserver ce livre</th>
 
         </tr>
-        <tr th:each="bookTrue : ${bookTrue}">
-          <td th:text="${bookTrue.bookId}"></td>
-          <td th:text="${bookTrue.bookAuthor}"></td>
-          <td th:text="${bookTrue.bookEditor}"></td>
-          <td th:text="${bookTrue.bookTitle}"></td>
-          <td th:text="${bookTrue.bookKide}"></td>
-          <td th:text="${bookTrue.bookRef}"></td>
-          <td th:text="${bookTrue.bookSynopsis}"></td>
-          <td th:text="${bookTrue.available}"></td>
-          <td th:text="${bookTrue.exemplaryId.exemplaryNumbers}"></td>
+        <tr th:each="bt : ${bookTrue}">
+          <td th:text="${bt.bookId}"></td>
+          <td th:text="${bt.bookAuthor}"></td>
+          <td th:text="${bt.bookEditor}"></td>
+          <td th:text="${bt.bookTitle}"></td>
+          <td th:text="${bt.bookKide}"></td>
+          <td th:text="${bt.bookRef}"></td>
+          <td th:text="${bt.bookSynopsis}"></td>
+          <td th:text="${bt.available}"></td>
+          <td th:text="${bt.exemplaryId.exemplaryNumbers}"></td>
 
-          <td><a th:href="@{/borrowing/addNewBorrowing(id=${bookTrue.exemplaryId.id})}" >rerserver ce livre</a></td>
+          <td><a th:href="@{/borrowing/addNewBorrowing(id=${bt.exemplaryId.id})}" >rerserver ce livre</a></td>
         </tr>
       </table>
     </div>

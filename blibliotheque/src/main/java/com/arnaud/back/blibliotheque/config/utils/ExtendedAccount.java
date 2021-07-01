@@ -7,8 +7,8 @@ import java.util.Collection;
 
 public class ExtendedAccount extends User {
 
-    public ExtendedAccount(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    public ExtendedAccount(String mail, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(mail, password, authorities);
     }
 
     public ExtendedAccount(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {

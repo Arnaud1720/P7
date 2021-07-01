@@ -8,7 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
+
 
 @Controller
 public class BookFrontControlleur {
@@ -18,17 +19,14 @@ public class BookFrontControlleur {
 
 
     @GetMapping("/display/books/available")
-  public String findBookByAvailableTrue(@RequestParam(value = "available") boolean available,
-                                   Model model) {
-        if(available){
-            model.addAttribute("bookTrue", microServiceProxy.findBookByAvailableTrue(available));
+    public String findBookByAvailableTrue(@RequestParam(value = "available") boolean available, Model model) {
+        if (available) {
+            model.addAttribute("bookTrue", microServiceProxy.findBookByAvailableTrue(true));
             return "/books/bookList";
-        }else
-        {
-            model.addAttribute("booklist",microServiceProxy.findAll());
+        } else {
+            model.addAttribute("booklist", microServiceProxy.findAll());
             return "/books/bookAvailable";
         }
-
 
 
     }

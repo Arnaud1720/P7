@@ -13,10 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 import static com.arnaud.back.blibliotheque.constant.Constants.AUTHENTIFICATION_END_POINT;
 
 @RestController
-@RequestMapping(AUTHENTIFICATION_END_POINT)
 public class AuthentificationController {
 
     @Autowired

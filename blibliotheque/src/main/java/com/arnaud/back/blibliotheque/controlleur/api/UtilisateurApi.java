@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
-@Api(APP_ROOT+"/utilisateur")
+@Api(APP_ROOT)
 public interface UtilisateurApi {
 
     @PostMapping(value = APP_ROOT+"/utilisateur/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<header th:include="header/header">
+    <meta charset="UTF-8">
+    <title>Ce connecter </title>
+</header>
+<body>
+<div class="container">
+    <form method="POST"    th:object="${AuthenticationRequest}" >
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" >mail:</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{mail}" class="form-control"  placeholder="mail" name="mail">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" >mot de passe:</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{password}" class="form-control"  placeholder="mdp" name="password">
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

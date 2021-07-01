@@ -1,7 +1,9 @@
 package com.arnaud.back.blibliotheque.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -20,8 +22,9 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    public static final String AUTHORIZATION_HEADER = "authToken";
 
      @Bean
     public Docket api() {
@@ -43,7 +46,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+        return new ApiKey("User", AUTHORIZATION_HEADER, passwordEncoder.encode("authToken"));
     }
 
     private SecurityContext securityContext() {
@@ -58,6 +61,6 @@ public class SwaggerConfiguration {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         return Collections.singletonList(
-                new SecurityReference("JWT", authorizationScopes));
+                new SecurityReference("User", authorizationScopes));
     }
 }

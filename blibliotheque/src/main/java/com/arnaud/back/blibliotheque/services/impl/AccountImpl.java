@@ -10,6 +10,7 @@ import com.arnaud.back.blibliotheque.services.AccountService;
 import com.arnaud.back.blibliotheque.validator.AccountValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +24,8 @@ public class AccountImpl implements AccountService {
     private AccountRepository accountRepository;
     @Autowired
     private RolesRepository rolesRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public Account save(Account account) {
         List<String> erros = AccountValidator.chemaValidator(account);
@@ -31,7 +34,7 @@ public class AccountImpl implements AccountService {
             throw new EntityNotFoundException("erreur pendant la création du compte", ErrorCode.USER_NOT_VALID,erros);
         }
         else
-
+           account.setPassword(passwordEncoder.encode(account.getPassword()));
             return accountRepository.save(account);
     }
 
