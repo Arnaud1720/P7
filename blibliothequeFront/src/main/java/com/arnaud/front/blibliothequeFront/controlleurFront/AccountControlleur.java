@@ -1,7 +1,8 @@
 package com.arnaud.front.blibliothequeFront.controlleurFront;
 
-import com.arnaud.back.blibliotheque.auth.AuthenticationRequest;
 import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
+import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationRequest;
+import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationResponse;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,15 +32,22 @@ public class AccountControlleur {
     }
 
     @GetMapping("/connexion")
-    public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest accountfront,Model model){
+    public String connexion(@ModelAttribute("AuthenticationRequest") AuthenticationRequest accountfront, Model model){
         model.addAttribute("AuthenticationRequest",accountfront);
         return "account/connexion";
     }
 
+
     @PostMapping("/connexion")
     public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest request,Model model, HttpSession session){
-        session.setAttribute("token",microServiceProxy.authenticate(request).getBody().getAccesToken());
+        AuthenticationResponse authenticationResponse = microServiceProxy.authenticate(request).getBody();
+        session.setAttribute("token",authenticationResponse.getAccesToken());
 
-        return "account/connexion";
+        /**
+         *
+         */
+        session.setAttribute("email",authenticationResponse.getEmail());
+//        return "books/bookList";
+        return "redirect:/borrowing/"+authenticationResponse.getEmail()+"/listborrowing";
     }
 }

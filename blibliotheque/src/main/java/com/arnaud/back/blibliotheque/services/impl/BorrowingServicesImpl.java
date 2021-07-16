@@ -76,6 +76,11 @@ public class BorrowingServicesImpl implements BorrowingService {
         return borrowingRepository.findAllByAccountId(id);
     }
 
+    @Override
+    public List<Borrowing> findAllByAccountMail(String mail) {
+       return borrowingRepository.findAllByAccountMail(mail);
+    }
+
     /**
      *  ne pas mettre de corrp de méthode dans une interface  la déclaré en privé
      * @param borrowing

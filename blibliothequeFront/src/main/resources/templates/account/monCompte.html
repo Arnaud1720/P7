@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="Fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Livre</title>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">vos reservation</div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>N°</th>
+                    <th>dte debut</th>
+                    <th>dte fin</th>
+                    <th>extension</th>
+                    <th>N°Utilisateur</th>
+                    <th>N°exemplaire</th>
+                </tr>
+                <tr th:each="reservation : ${listReservation}">
+                    <td th:text="${reservation.accountfront.id}"></td>
+                    <td th:text="${reservation.id}"></td>
+                    <td th:text="${reservation.endDate}"></td>
+                    <td th:text="${reservation.startDate}"></td>
+                    <td th:text="${reservation.extension}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

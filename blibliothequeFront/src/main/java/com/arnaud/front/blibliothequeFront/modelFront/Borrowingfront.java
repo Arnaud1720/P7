@@ -11,11 +11,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Borrowingfront {
-
     private int id;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     private boolean extension;
     private Accountfront accountfront;

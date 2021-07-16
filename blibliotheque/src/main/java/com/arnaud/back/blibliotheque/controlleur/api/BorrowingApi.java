@@ -47,12 +47,12 @@ public interface BorrowingApi {
                         @PathVariable(name = "borrowingid") int borrowingid,
                         boolean available);
 
-    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher afficher la liste des reservation selon l'id de l'utilisateur", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Borrowing>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 200, message = "affichage de la liste correspondante"),
             @ApiResponse(code = 404, message = "aucun utilisateur n'existe dans la BDD"),
             @ApiResponse(code = 500, message = "erreur serveur")
     })
-    List<Borrowing> findAllByAccountId(@PathVariable(name = "utilisateurid") Integer id);
+    List<Borrowing> findAllByEmail(@PathVariable("utilisateurmail") String mail);
 }

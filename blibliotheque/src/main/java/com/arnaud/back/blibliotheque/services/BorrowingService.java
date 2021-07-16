@@ -20,4 +20,6 @@ public interface BorrowingService {
     String addExtension(int userid, int borrowingid, boolean available);
 
     List<Borrowing> findAllByAccountId(Integer id);
+
+    List<Borrowing> findAllByAccountMail(String mail);
 }

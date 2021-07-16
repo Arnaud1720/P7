@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Account {
+public class Account  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
