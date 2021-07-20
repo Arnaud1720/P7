@@ -34,8 +34,8 @@ public class BorrowingFrontControlleur {
 
     }
 
-    @GetMapping("/borrowing/{utilisateurid}/listborrowing")
-    public String findAllByAccountId(@PathVariable(name = "utilisateurid") String mail,Model model){
+    @GetMapping("/borrowing/{utilisateurmail}/listborrowing")
+    public String findAllByAccountId(@PathVariable(name = "utilisateurmail") String mail,Model model){
       model.addAttribute(  "listReservation",microServiceProxy.findAllByAccountMail(mail));
         return "/account/monCompte";
     }
