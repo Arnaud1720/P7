@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Getter
 @Setter
 public class Accountfront {

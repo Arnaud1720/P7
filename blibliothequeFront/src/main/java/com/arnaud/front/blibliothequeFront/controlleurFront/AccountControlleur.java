@@ -42,10 +42,6 @@ public class AccountControlleur {
     public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest request,Model model, HttpSession session){
         AuthenticationResponse authenticationResponse = microServiceProxy.authenticate(request).getBody();
         session.setAttribute("token",authenticationResponse.getAccesToken());
-
-        /**
-         *
-         */
         session.setAttribute("email",authenticationResponse.getEmail());
 //        return "books/bookList";
         return "redirect:/borrowing/"+authenticationResponse.getEmail()+"/listborrowing";

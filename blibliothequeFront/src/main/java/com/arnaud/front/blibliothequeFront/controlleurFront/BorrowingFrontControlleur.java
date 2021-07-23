@@ -16,29 +16,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BorrowingFrontControlleur {
 
     @Autowired
-    MicroServiceProxy microServiceProxy ;
+    MicroServiceProxy microServiceProxy;
 
     @GetMapping("/borrowing/save")
-    public String displayForm(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront, Model model)
-    {
-        model.addAttribute("borrowingfront",borrowingfront);
+    public String displayForm(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront, Model model) {
+        model.addAttribute("borrowingfront", borrowingfront);
         return "/borrowing/addNewBorrowing";
 
     }
 
-    @PostMapping(value ="/borrowing/save")
+    @PostMapping(value = "/borrowing/save")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    public String create(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront){
+    public String create(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront) {
         microServiceProxy.save(borrowingfront);
         return "/borrowing/addNewBorrowing";
 
     }
 
     @GetMapping("/borrowing/{utilisateurmail}/listborrowing")
-    public String findAllByAccountId(@PathVariable(name = "utilisateurmail") String mail,Model model){
-      model.addAttribute(  "listReservation",microServiceProxy.findAllByAccountMail(mail));
+    public String findAllByAccountId(@PathVariable(name = "utilisateurmail") String mail, Model model) {
+        model.addAttribute("listReservation", microServiceProxy.findAllByAccountMail(mail));
         return "/account/monCompte";
     }
 
+    @GetMapping("/ajouter/{utilisateurid}/{borrowingid}/reservation")
+    public String addExtension(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront ,
+                               @PathVariable(name = "utilisateurid") Integer utilisateurid,
+                               @PathVariable(name = "borrowingid") Integer borrowingid,Model model) {
+
+        model.addAttribute("extension",microServiceProxy.getExtension(utilisateurid,borrowingid,borrowingfront));
+
+            return "/account/monCompte";
+    }
 
 }

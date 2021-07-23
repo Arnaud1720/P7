@@ -4,13 +4,14 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Borrowingfront {
+public class Borrowingfront  implements Serializable     {
     private int id;
     private LocalDate startDate;
     private LocalDate endDate;

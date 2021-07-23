@@ -4,6 +4,7 @@ import com.arnaud.back.blibliotheque.exception.EntityNotFoundException;
 import com.arnaud.back.blibliotheque.exception.ErrorCode;
 import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.arnaud.back.blibliotheque.model.Exemplary;
 import com.arnaud.back.blibliotheque.repository.AccountRepository;
 import com.arnaud.back.blibliotheque.repository.BorrowingRepository;
 import com.arnaud.back.blibliotheque.services.BorrowingService;
@@ -53,8 +54,8 @@ public class BorrowingServicesImpl implements BorrowingService {
 
 
     @Override
-    public String addExtension(int userid, int borrowingid, boolean available) {
-
+    public String addExtension(int userid, int borrowingid) {
+        boolean available = false;
         Account user = accountRepository.findById(userid).orElseThrow(()-> new EntityNotFoundException(" l'utilisateur n'existe pas "));
         Borrowing borrowing = borrowingRepository.findById(borrowingid).orElseThrow(()-> new EntityNotFoundException("la réservation n'exite pas"));
         borrowing.setAccount(user);

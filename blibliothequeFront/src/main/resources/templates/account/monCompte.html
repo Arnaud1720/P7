@@ -16,20 +16,18 @@
                     <th>dte debut</th>
                     <th>dte fin</th>
                     <th>extension</th>
-                    <th>N°Utilisateur</th>
-                    <th>N°exemplaire</th>
+                    <th> ajouter une extension</th>
                 </tr>
                 <tr th:each="reservation : ${listReservation}">
                     <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.startDate}"> </td>
+                    <td th:text="${reservation.startDate}"></td>
                     <td th:text="${reservation.endDate}"></td>
                     <td th:text="${reservation.extension}"></td>
-<!--                    erreur récup clé étrangère account && exemplary -->
-<!--                    <td th:text="${reservation.accountfront.id}"></td>-->
-<!--                    <td th:text="${reservation.exemplaryfrontId.id}"></td>-->
-<!--                    URI pour prolongé le pret -->
-                    <td><a th:href="@{(id=${bt.exemplaryfrontId.id})}" >rerserver ce livre</a></td>
+                    </td>
+<!--                    /ajouter/{utilisateurid}/{borrowingid}/reservation-->
+                    <td> <a th:href="@{/ajouter/{utilisateurid}/{borrowingid}/reservation/(utilisateurid=${reservation.accountfront.id},borrowingid=${reservation.exemplaryfrontId.id})}">View Post</a>
 
+                    </td>
                 </tr>
             </table>
         </div>

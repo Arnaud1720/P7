@@ -17,7 +17,7 @@ public interface BorrowingService {
     List<Borrowing> findAll();
 
 
-    String addExtension(int userid, int borrowingid, boolean available);
+    String addExtension(int userid, int borrowingid);
 
     List<Borrowing> findAllByAccountId(Integer id);
 

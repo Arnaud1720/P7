@@ -1,12 +1,10 @@
 package com.arnaud.front.blibliothequeFront.proxies;
 
-
-
-import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationResponse;
 import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
-import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationRequest;
 import com.arnaud.front.blibliothequeFront.modelFront.Bookfront;
 import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
+import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationRequest;
+import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationResponse;
 import feign.Headers;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,7 +19,6 @@ import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROO
 @FeignClient(name = "microservice", url = "localhost:8001")
 public interface MicroServiceProxy {
 
-
     @GetMapping(value = APP_ROOT+"/display/books/available",produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseBody
     @RequestLine("GET/{available}")
@@ -30,21 +27,23 @@ public interface MicroServiceProxy {
     @PostMapping(value = APP_ROOT+"utilisateur/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Accountfront save(@RequestBody Accountfront accountfront);
 
-
-
     @PostMapping(value = APP_ROOT + "/borrowing/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-type:application/json")
     Borrowingfront save(@RequestBody Borrowingfront borrowingfront);
 
-
     @GetMapping(value = APP_ROOT+"/display/books/bookList",produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseBody
-    List<Bookfront> findAll();
+     List<Bookfront> findAll();
 
-    @PostMapping("/authenticate")
+     @PostMapping("/authenticate")
      ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request);
 
     @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Borrowingfront> findAllByAccountMail(@PathVariable(name = "utilisateurmail") String mail);
+
+    @GetMapping(value = APP_ROOT + "ajouter/{utilisateurid}/{borrowingid}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    String getExtension(@PathVariable(name = "utilisateurid") int userid,
+                        @PathVariable(name = "borrowingid") int borrowingid,@ModelAttribute("borrowingfront") Borrowingfront borrowing);
+
 
 }
