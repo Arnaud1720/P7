@@ -28,17 +28,29 @@ public class AuthentificationController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @PostMapping("/authenticate")
+//    @PostMapping("/authenticate")
+//    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken
+//                        (request.getMail(),request.getPassword())
+//
+//        );
+//         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMail());
+//         final String jwt = jwtUtils.generateToken((ExtendedAccount)userDetails);
+//         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).email(request.getMail()).build());
+//
+//    }
+
+    @PostMapping("/authenticateid")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken
-                        (request.getMail(),request.getPassword())
+                        (request.getId(),request.getPassword())
 
         );
-         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMail());
-         final String jwt = jwtUtils.generateToken((ExtendedAccount)userDetails);
-         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).email(request.getMail()).build());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMail());
+        final String jwt = jwtUtils.generateToken((ExtendedAccount)userDetails);
+        return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).email(request.getMail()).build());
 
     }
-
 }

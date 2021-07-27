@@ -23,11 +23,10 @@
                     <td th:text="${reservation.startDate}"></td>
                     <td th:text="${reservation.endDate}"></td>
                     <td th:text="${reservation.extension}"></td>
-                    </td>
-<!--                    /ajouter/{utilisateurid}/{borrowingid}/reservation-->
-                    <td> <a th:href="@{/ajouter/{utilisateurid}/{borrowingid}/reservation/(utilisateurid=${reservation.accountfront.id},borrowingid=${reservation.exemplaryfrontId.id})}">View Post</a>
+                    <!--                    <td th:text="${reservation.accountfront.id}"></td>-->
+                    <!--                    /ajouter/{utilisateurid}/{borrowingid}/reservation-->
+                                        <td> <a th:href="@{/ajouter/{utilisateurid}/{borrowingid}/reservation/(utilisateurid=${reservation.accountfront.id},borrowingid=${reservation.exemplaryfrontId.id})}">View Post</a>
 
-                    </td>
                 </tr>
             </table>
         </div>

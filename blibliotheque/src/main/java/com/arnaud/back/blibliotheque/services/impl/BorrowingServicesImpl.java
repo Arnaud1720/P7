@@ -26,6 +26,8 @@ public class BorrowingServicesImpl implements BorrowingService {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private  ExemplaryServicesImpl exemplaryServices;
 
     @Override
     public Borrowing findById(Integer id) {
@@ -38,12 +40,16 @@ public class BorrowingServicesImpl implements BorrowingService {
 
     @Override
     public Borrowing save(Borrowing borrowing) {
+        Exemplary exemplary = new Exemplary();
         List<String> erros = BorrowingValidator.chemaValidator(borrowing);
+
         if (!erros.isEmpty()) {
             log.error("erreur de création de l'utilisateur {}", borrowing);
             throw new EntityNotFoundException("erreur pendant la création du compte", ErrorCode.USER_NOT_VALID, erros);
         } else
+
             return borrowingRepository.save(borrowing);
+
     }
 
     @Override
@@ -93,6 +99,7 @@ public class BorrowingServicesImpl implements BorrowingService {
         borrowing.setEndDate(d2);
 
     }
+
 }
 
 

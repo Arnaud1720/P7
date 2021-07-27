@@ -1,5 +1,6 @@
 package com.arnaud.front.blibliothequeFront.controlleurFront;
 
+import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
 import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,8 @@ public class BorrowingFrontControlleur {
                                @PathVariable(name = "utilisateurid") Integer utilisateurid,
                                @PathVariable(name = "borrowingid") Integer borrowingid,Model model) {
 
-        model.addAttribute("extension",microServiceProxy.getExtension(utilisateurid,borrowingid,borrowingfront));
-
+       model.addAttribute("borrowing",microServiceProxy.getExtension(utilisateurid,borrowingid,borrowingfront));
+       model.addAttribute("test", new Accountfront());
             return "/account/monCompte";
     }
 

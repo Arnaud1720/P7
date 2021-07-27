@@ -13,7 +13,7 @@ public class AuthenticationRequest  {
 
     private String mail;
     private String password;
-    private int id;
+    private Integer id;
 
 
 }
