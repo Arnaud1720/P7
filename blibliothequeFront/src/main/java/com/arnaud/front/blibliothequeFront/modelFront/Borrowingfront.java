@@ -15,8 +15,7 @@ public class Borrowingfront {
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean extension;
-    private Accountfront accountfront;
-    private Exemplaryfront exemplaryfrontId;
-
+    private Accountfront account;
+    private Exemplaryfront exemplaryId;
 
 }

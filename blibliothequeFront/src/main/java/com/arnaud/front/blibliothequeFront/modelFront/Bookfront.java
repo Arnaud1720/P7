@@ -16,7 +16,7 @@ public class Bookfront {
     private String bookEditor;
     private String bookRef;
     private String bookSynopsis;
-    private Exemplaryfront exemplaryfrontId;
+    private Exemplaryfront exemplaryId;
     private boolean available;
     Accountfront accountfront;
 

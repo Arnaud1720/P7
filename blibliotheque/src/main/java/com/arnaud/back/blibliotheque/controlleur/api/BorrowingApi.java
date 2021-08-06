@@ -25,7 +25,7 @@ public interface BorrowingApi {
     Borrowing findById(@PathVariable(name = "idborrowing") Integer id);
 
 
-    @PostMapping(value = APP_ROOT + "/borrowing/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/{exemplaryid}/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher une reservation", notes = " cette méthode permet de recherche une reservation avec son numéro", response = Borrowing.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "la réservation à été crée avec succès"),
@@ -42,10 +42,10 @@ public interface BorrowingApi {
     })
     List<Borrowing> findAll();
 
-    @PostMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}/available", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
     String addExtension(@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,
-                        boolean available);
+                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available",defaultValue = "true")
+                                boolean available);
 
     @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher afficher la liste des reservation selon l'id de l'utilisateur", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Borrowing>")
@@ -54,7 +54,7 @@ public interface BorrowingApi {
             @ApiResponse(code = 404, message = "aucun utilisateur n'existe dans la BDD"),
             @ApiResponse(code = 500, message = "erreur serveur")
     })
-    List<Borrowing> findAllByEmail(@PathVariable("utilisateurmail") String mail);
+    List<Borrowing> findAllByAccountMail(@PathVariable("utilisateurmail") String mail);
 
 
 }

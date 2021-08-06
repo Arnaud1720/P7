@@ -28,13 +28,14 @@ public class BorrowingController implements BorrowingApi {
     }
 
     @Override
-    public String addExtension(int userid, int borrowingid, boolean available) {
-        return borrowingService.addExtension(userid,borrowingid,available);
+    public String addExtension(int userid, int borrowingid,boolean avaible) {
+        return borrowingService.addExtension(userid,borrowingid,avaible);
     }
 
     @Override
-    public List<Borrowing> findAllByEmail(String mail) {
-        return borrowingService.findAllByAccountMail(mail);
+    public List<Borrowing> findAllByAccountMail(String mail) {
+        List<Borrowing> resultList = borrowingService.findAllByAccountMail(mail);
+        return resultList;
     }
 
 

@@ -33,9 +33,8 @@
           <td th:text="${bt.bookRef}"></td>
           <td th:text="${bt.bookSynopsis}"></td>
           <td th:text="${bt.available}"></td>
-          <td th:text="${bt.exemplaryfrontId.exemplaryNumbers}"></td>
 
-          <td><a th:href="@{/borrowing/addNewBorrowing(id=${bt.exemplaryfrontId.id})}" >rerserver ce livre</a></td>
+          <td><a th:href="@{/borrowing/save}" >rerserver ce livre</a></td>
         </tr>
       </table>
     </div>

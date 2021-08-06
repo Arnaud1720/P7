@@ -11,12 +11,14 @@ import lombok.Data;
 public class AuthenticationResponse  {
     private String accesToken;
     private String email;
+    private String id;
 
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public AuthenticationResponse(@JsonProperty("accesToken") String accesToken,@JsonProperty("email") String email) {
+    public AuthenticationResponse(@JsonProperty("id")String id,@JsonProperty("accesToken") String accesToken,@JsonProperty("email") String email) {
         this.accesToken = accesToken;
         this.email = email;
+        this.id = id;
     }
 
     public String getAccesToken() {
@@ -25,5 +27,9 @@ public class AuthenticationResponse  {
 
     public void setAccesToken(String accesToken) {
         this.accesToken = accesToken;
+    }
+
+    public String getId() {
+        return id;
     }
 }

@@ -26,7 +26,8 @@ public class BookController implements BookApi {
 
     @Override
     public List<Book> findAll() {
-        return bookService.findAll();
+        List<Book> resultBookList = bookService.findAll();
+        return resultBookList;
     }
 
 

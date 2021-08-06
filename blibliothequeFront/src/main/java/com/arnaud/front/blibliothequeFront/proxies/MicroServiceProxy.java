@@ -47,4 +47,10 @@ public interface MicroServiceProxy {
     @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Borrowingfront> findAllByAccountMail(@PathVariable(name = "utilisateurmail") String mail);
 
+
+
+    @PostMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    String addExtension(@PathVariable(name = "utilisateurid") int userid,
+                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam("available")
+                        boolean available);
 }
