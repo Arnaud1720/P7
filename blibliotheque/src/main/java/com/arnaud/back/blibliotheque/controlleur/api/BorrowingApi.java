@@ -42,9 +42,10 @@ public interface BorrowingApi {
     })
     List<Borrowing> findAll();
 
-    @PostMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "ajoute un prêt d'une longue d'un mois")
     String addExtension(@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available",defaultValue = "true")
+                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available")
                                 boolean available);
 
     @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
