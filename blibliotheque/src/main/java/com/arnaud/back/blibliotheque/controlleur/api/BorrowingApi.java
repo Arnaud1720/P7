@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.models.auth.In;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,17 +46,17 @@ public interface BorrowingApi {
     @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "ajoute un prêt d'une longue d'un mois")
     String addExtension(@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available")
+                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available",defaultValue = "true")
                                 boolean available);
 
-    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher afficher la liste des reservation selon l'id de l'utilisateur", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Borrowing>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "affichage de la liste correspondante"),
             @ApiResponse(code = 404, message = "aucun utilisateur n'existe dans la BDD"),
             @ApiResponse(code = 500, message = "erreur serveur")
     })
-    List<Borrowing> findAllByAccountMail(@PathVariable("utilisateurmail") String mail);
+    List<Borrowing> findByAccountId(@PathVariable("utilisateurid") Integer Uid);
 
 
 }

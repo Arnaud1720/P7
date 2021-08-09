@@ -31,16 +31,17 @@ public class BorrowingFrontControlleur {
 
     }
 
-    @GetMapping("/borrowing/{utilisateurmail}/listborrowing")
-    public String findAllByAccountId(@PathVariable(name = "utilisateurmail") String mail,Model model){
-      model.addAttribute(  "listReservation",microServiceProxy.findAllByAccountMail(mail));
+    @GetMapping("/borrowing/{utilisateurid}/listborrowing")
+    public String findAllByAccountId(@PathVariable(name = "utilisateurid") Integer id,Model model){
+      model.addAttribute(  "listReservation",microServiceProxy.findByAccountId(id));
         return "/account/monCompte";
     }
 
-    @PostMapping("/borrowing/{utilisateurid}/{borrowingid}/addextension")
-    public String addExtension(@PathVariable(name = "utilisateurid")int userid, @PathVariable(name = "borrowingid") int borrowingid,@RequestParam("available")
-            boolean available){
-        microServiceProxy.addExtension(userid,borrowingid,true);
+    @GetMapping("/borrowing/{utilisateurid}/{borrowingid}")
+    public String addExtension(@PathVariable(name = "utilisateurid")int userid,
+                               @PathVariable(name = "borrowingid") int borrowingid,
+                               @RequestParam(value = "available",defaultValue = "true") boolean available){
+        microServiceProxy.addExtension(userid,borrowingid,available);
         return "/account/monCompte";
     }
 

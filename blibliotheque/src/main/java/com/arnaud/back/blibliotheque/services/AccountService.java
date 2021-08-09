@@ -11,7 +11,8 @@ public interface AccountService {
 
     void deleteById(Integer id);
 
+    Account findByIdAccount(Integer Uid);
+
+
     Account findAccountByMail(String mail);
-
-
 }

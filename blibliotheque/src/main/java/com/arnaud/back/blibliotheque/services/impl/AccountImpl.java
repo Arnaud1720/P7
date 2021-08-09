@@ -55,6 +55,14 @@ public class AccountImpl implements AccountService {
     }
 
     @Override
+    public Account findByIdAccount(Integer Uid) {
+        /**
+         *  TODO a changer orElseThriw
+         */
+        return accountRepository.findById(Uid).orElse(null);
+    }
+
+    @Override
     public Account findAccountByMail(String mail) {
         if(!StringUtils.hasLength(mail)){
             log.error("le pseudo n'est pas présent en base");

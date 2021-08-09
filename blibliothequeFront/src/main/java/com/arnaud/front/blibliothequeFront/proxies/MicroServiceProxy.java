@@ -25,9 +25,10 @@ public interface MicroServiceProxy {
     @GetMapping(value = APP_ROOT+"/display/books/available",produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseBody
     @RequestLine("GET/{available}")
-    List<Bookfront> findBookByAvailableTrue(@RequestParam("available")boolean available);
+    List<Bookfront> findBookByAvailableTrue(@RequestParam(value = "available",defaultValue = "true")boolean available);
 
-    @PostMapping(value = APP_ROOT+"utilisateur/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT+"/utilisateur/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Headers("Content-type:application/json")
     Accountfront save(@RequestBody Accountfront accountfront);
 
 
@@ -44,13 +45,12 @@ public interface MicroServiceProxy {
     @PostMapping("/authenticate")
      ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request);
 
-    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurmail}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Borrowingfront> findAllByAccountMail(@PathVariable(name = "utilisateurmail") String mail);
+    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<Borrowingfront> findByAccountId(@PathVariable(name = "utilisateurid") Integer id);
 
 
 
-    @PostMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
     String addExtension(@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam("available")
-                        boolean available);
+                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available") boolean available);
 }

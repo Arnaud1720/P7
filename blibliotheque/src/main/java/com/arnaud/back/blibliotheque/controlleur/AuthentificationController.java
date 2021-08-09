@@ -4,6 +4,8 @@ import com.arnaud.back.blibliotheque.auth.AuthenticationRequest;
 import com.arnaud.back.blibliotheque.auth.AuthenticationResponse;
 import com.arnaud.back.blibliotheque.auth.JwtUtils;
 import com.arnaud.back.blibliotheque.config.utils.ExtendedAccount;
+import com.arnaud.back.blibliotheque.model.Account;
+import com.arnaud.back.blibliotheque.services.AccountService;
 import com.arnaud.back.blibliotheque.services.auth.ApplicationUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,9 @@ public class AuthentificationController {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private AccountService accountService;
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         authenticationManager.authenticate(
@@ -37,7 +42,8 @@ public class AuthentificationController {
         );
          final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMail());
          final String jwt = jwtUtils.generateToken((ExtendedAccount)userDetails);
-         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).email(request.getMail()).build());
+         Account account =  accountService.findAccountByMail(request.getMail());
+         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).email(request.getMail()).id(account.getId()).build());
 
     }
 

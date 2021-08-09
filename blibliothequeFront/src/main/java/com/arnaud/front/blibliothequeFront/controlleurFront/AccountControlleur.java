@@ -46,8 +46,8 @@ public class AccountControlleur {
         /**
          *
          */
-        session.setAttribute("id",authenticationResponse.getId());
+        session.setAttribute("utilisateurid",authenticationResponse.getId());
 //        return "books/bookList";
-        return "redirect:/borrowing/"+authenticationResponse.getEmail()+"/listborrowing";
+        return "redirect:/borrowing/"+authenticationResponse.getId()+"/listborrowing";
     }
 }

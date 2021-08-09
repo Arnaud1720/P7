@@ -28,8 +28,8 @@ public class AccountController implements UtilisateurApi {
     }
 
     @Override
-    public Account findByMail(String Umail) {
-        return accountService.findAccountByMail(Umail);
+    public Account findByIdAccount(Integer Uid) {
+        return accountService.findByIdAccount(Uid);
     }
 
 

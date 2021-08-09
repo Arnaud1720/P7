@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="Fr">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -25,12 +27,22 @@
                     <td th:text="${reservation.startDate}"></td>
                     <td th:text="${reservation.endDate}"></td>
                     <td th:text="${reservation.extension}"></td>
-                    <td><a th:href="@{/borrowing/utilisateurid/borrowingid/addextension/(utilisateurid=${reservation.account.id},borrowingid=${reservation.id})}">ajouter une extension</a></td>
 
+                    <td><a th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter une extension</a>
+<!--                        <a th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}">-->
                 </tr>
             </table>
+
         </div>
     </div>
 </div>
 </body>
 </html>
+
+<!--<ul>-->
+<!--    <li th:each="detail : ${item.details}">-->
+<!--        <a th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}">-->
+<!--            <span th:text="${detail.description}"></span>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--</ul>-->

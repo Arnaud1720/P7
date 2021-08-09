@@ -33,10 +33,11 @@ public class BorrowingController implements BorrowingApi {
     }
 
     @Override
-    public List<Borrowing> findAllByAccountMail(String mail) {
-        List<Borrowing> resultList = borrowingService.findAllByAccountMail(mail);
+    public List<Borrowing> findByAccountId(Integer Uid) {
+        List<Borrowing> resultList = borrowingService.findAllByAccountId(Uid);
         return resultList;
     }
+
 
 
 }
