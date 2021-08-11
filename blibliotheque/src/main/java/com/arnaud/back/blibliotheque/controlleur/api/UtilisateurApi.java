@@ -17,7 +17,7 @@ public interface UtilisateurApi {
             @ApiResponse(code = 200,message = " utilisateur crée "),
             @ApiResponse(code = 400, message = "l'utilisateur n'est pas valide")
     })
-    Account save(@RequestBody Account account);
+    Account save(@RequestBody Account account) throws Exception;
 
     @GetMapping(value = APP_ROOT+"/utilisateur/{idutilisateur}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher un compte",notes = " cette méthode permet de recherche un compte avec son numéro",response = Account.class)

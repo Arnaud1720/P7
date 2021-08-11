@@ -13,7 +13,9 @@ public class AccountController implements UtilisateurApi {
 
 
     @Override
-    public Account save(Account account) {
+    public Account save(Account account) throws Exception {
+        accountService.validationEmail(account.getMail());
+        accountService.validationMotsDePasse(account.getPassword());
       return   accountService.save(account);
     }
 

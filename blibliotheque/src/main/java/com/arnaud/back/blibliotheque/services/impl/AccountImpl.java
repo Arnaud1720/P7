@@ -71,6 +71,32 @@ public class AccountImpl implements AccountService {
          new EntityNotFoundException("le pseudo de l'utilisateur n'exisite pas",ErrorCode.USER_NOT_VALID));
     }
 
+    /**
+     *
+     * @param email
+     * @throws Exception
+     */
+    @Override
+    public void validationEmail(String email) throws Exception {
+        if(email != null && email.trim().length() !=0){
+            if(email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" )){
+                throw new Exception("l'email n'est pas valide");
+            }
+        }else
+            throw new Exception( "Merci de saisir une adresse mail." );
+    }
+
+    @Override
+    public void validationMotsDePasse(String motDePasse) throws Exception {
+        if (motDePasse != null && motDePasse.trim().length() != 0) {
+;           if (motDePasse.trim().length() < 3) {
+                throw new Exception("Les mots de passe doivent contenir au moins 5 caractères.");
+            }
+        } else {
+            throw new Exception("Merci de saisir et confirmer votre mot de passe.");
+        }
+    }
+    }
 
 
-}
+
