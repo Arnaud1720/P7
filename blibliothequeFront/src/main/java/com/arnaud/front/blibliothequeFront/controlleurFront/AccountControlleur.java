@@ -26,8 +26,8 @@ public class AccountControlleur {
     }
 
     @PostMapping("/utilisateur/save")
-    public String inscriptionValide(@ModelAttribute("accountfront") Accountfront accountfront){
-        microServiceProxy.save(accountfront);
+    public String inscriptionValide(@ModelAttribute("accountfront") Accountfront accountfront,Model model){
+        model.addAttribute("erreur",microServiceProxy.save(accountfront));
          return "/account/inscription";
     }
 
