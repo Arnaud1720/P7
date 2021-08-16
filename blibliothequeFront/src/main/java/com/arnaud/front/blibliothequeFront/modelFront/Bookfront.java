@@ -2,7 +2,7 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 
 import lombok.*;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,6 +18,6 @@ public class Bookfront {
     private String bookSynopsis;
     private Exemplaryfront exemplaryId;
     private boolean available;
-    Accountfront accountfront;
+    private Accountfront account;
 
 }

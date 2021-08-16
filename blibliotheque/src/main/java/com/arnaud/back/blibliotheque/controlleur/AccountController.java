@@ -14,6 +14,8 @@ public class AccountController implements UtilisateurApi {
 
     @Override
     public Account save(Account account) throws Exception {
+        //TODO valid email regex a modifier
+
         accountService.validationEmail(account.getMail());
         accountService.validationMotsDePasse(account.getPassword());
       return   accountService.save(account);

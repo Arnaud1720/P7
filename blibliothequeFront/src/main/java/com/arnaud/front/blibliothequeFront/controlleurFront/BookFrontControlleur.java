@@ -17,6 +17,7 @@ public class BookFrontControlleur {
 
     @GetMapping("/display/books/available")
     public String findBookByAvailableTrue(@RequestParam(value = "available") boolean available, Model model) {
+
         if (available) {
             model.addAttribute("bookTrue", microServiceProxy.findBookByAvailableTrue(true));
             return "/books/bookList";

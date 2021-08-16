@@ -1,10 +1,12 @@
 package com.arnaud.back.blibliotheque.model;
 
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity(name = "borrowing")
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Borrowing {
+public class Borrowing implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "borrowing_id")
@@ -27,7 +29,7 @@ public class Borrowing {
     private LocalDate endDate;
     @Column(name = "extension")
     private boolean extension;
-    @JoinColumn(name ="number_card_library" )
+    @JoinColumn(name ="accountid" )
     @ManyToOne
     private Account account;
     @JoinColumn(name = "id_exemplaire")

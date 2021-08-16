@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,5 +16,6 @@ public class Borrowingfront {
     private boolean extension;
     private Accountfront account;
     private Exemplaryfront exemplaryId;
+
 
 }

@@ -78,8 +78,9 @@ public class AccountImpl implements AccountService {
      */
     @Override
     public void validationEmail(String email) throws Exception {
-        if(email != null && email.trim().length() !=0){
-            if(email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" )){
+        final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@";
+        if(email != null && email.length() !=0){
+            if(!email.matches(EMAIL_REGEX)){
                 throw new Exception("l'email n'est pas valide");
             }
         }else
@@ -87,15 +88,16 @@ public class AccountImpl implements AccountService {
     }
 
     @Override
-    public void validationMotsDePasse(String motDePasse) throws Exception {
-        if (motDePasse != null && motDePasse.trim().length() != 0) {
-;           if (motDePasse.trim().length() < 3) {
+    public void validationMotsDePasse(String password) throws Exception {
+        if (password != null && password.length() != 0) {
+;           if (password.length() <5) {
                 throw new Exception("Les mots de passe doivent contenir au moins 5 caractères.");
             }
         } else {
             throw new Exception("Merci de saisir et confirmer votre mot de passe.");
         }
     }
+
     }
 
 

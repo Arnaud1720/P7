@@ -12,7 +12,7 @@ public interface BorrowingService {
 
     Borrowing findById(Integer id);
 
-    Borrowing save(Borrowing borrowing);
+    Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid);
 
     List<Borrowing> findAll();
 

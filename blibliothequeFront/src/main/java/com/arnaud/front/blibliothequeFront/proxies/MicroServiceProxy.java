@@ -2,6 +2,7 @@ package com.arnaud.front.blibliothequeFront.proxies;
 
 
 
+import com.arnaud.front.blibliothequeFront.exception.BorrowingNotValidException;
 import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationResponse;
 import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
 import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationRequest;
@@ -33,10 +34,10 @@ public interface MicroServiceProxy {
 
 
 
-    @PostMapping(value = APP_ROOT + "/borrowing/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/{exemplaryid}/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-type:application/json")
-    Borrowingfront save(@RequestBody Borrowingfront borrowingfront);
-
+    Borrowingfront save(@RequestBody Borrowingfront borrowing,@PathVariable(name = "utilisateurid")Integer utilisateurid,
+                   @PathVariable(name = "exemplaryid")Integer exemplaryid);
 
     @GetMapping(value = APP_ROOT+"/display/books/bookList",produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseBody
@@ -51,6 +52,6 @@ public interface MicroServiceProxy {
 
 
     @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    String addExtension(@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available") boolean available);
+    String addExtension (@PathVariable(name = "utilisateurid") int userid,
+                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available") boolean available) throws BorrowingNotValidException;
 }

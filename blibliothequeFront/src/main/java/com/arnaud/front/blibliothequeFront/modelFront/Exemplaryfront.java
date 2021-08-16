@@ -7,8 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+
 public class Exemplaryfront {
 
     private int id;

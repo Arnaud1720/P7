@@ -32,7 +32,8 @@ public interface BorrowingApi {
             @ApiResponse(code = 200, message = "la réservation à été crée avec succès"),
             @ApiResponse(code = 500, message = "aucun compte utilisateur n'est lié a cettr reservation  ")
     })
-    Borrowing save(@RequestBody Borrowing borrowing);
+    Borrowing save(@RequestBody Borrowing borrowing,@PathVariable(name = "utilisateurid")Integer utilisateurid,
+                   @PathVariable(name = "exemplaryid")Integer exemplaryid);
 
     @GetMapping(value = APP_ROOT + "/borrowing/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher afficher la liste des reservation", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Borrowing>")

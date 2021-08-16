@@ -2,11 +2,11 @@
 
 <html xmlns:th="http://www.thymeleaf.org" lang="Fr">
 
-<head>
+<header th:include="header/header.html">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <title>Livre</title>
-</head>
+</header>
 <body>
 <div class="container">
     <div class="panel panel-primary">
@@ -27,22 +27,17 @@
                     <td th:text="${reservation.startDate}"></td>
                     <td th:text="${reservation.endDate}"></td>
                     <td th:text="${reservation.extension}"></td>
-
+<!--                    <td><a th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter une extension</a>-->
                     <td><a th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter une extension</a>
-<!--                        <a th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}">-->
+
                 </tr>
             </table>
 
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>
-
-<!--<ul>-->
-<!--    <li th:each="detail : ${item.details}">-->
-<!--        <a th:href="@{/pathvars/item/{itemId}/detail/{dtlId}(itemId = ${item.id}, dtlId = ${dtl.id})}">-->
-<!--            <span th:text="${detail.description}"></span>-->
-<!--        </a>-->
-<!--    </li>-->
-<!--</ul>-->

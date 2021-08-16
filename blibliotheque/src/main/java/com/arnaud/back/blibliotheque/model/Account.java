@@ -13,7 +13,9 @@ import java.util.List;
 @Table(	name = "account",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "pseudo"),
-                @UniqueConstraint(columnNames = "mail")
+                @UniqueConstraint(columnNames = "mail"),
+                @UniqueConstraint(columnNames = "last_name"),
+
         })
 @Getter
 @Setter

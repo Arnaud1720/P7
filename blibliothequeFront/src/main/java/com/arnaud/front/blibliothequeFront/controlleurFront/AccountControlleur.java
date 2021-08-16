@@ -41,13 +41,13 @@ public class AccountControlleur {
     @PostMapping("/connexion")
     public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest request,Model model, HttpSession session){
         AuthenticationResponse authenticationResponse = microServiceProxy.authenticate(request).getBody();
+        assert authenticationResponse != null;
         session.setAttribute("token",authenticationResponse.getAccesToken());
 
         /**
          *
          */
         session.setAttribute("utilisateurid",authenticationResponse.getId());
-//        return "books/bookList";
-        return "redirect:/borrowing/"+authenticationResponse.getId()+"/listborrowing";
+        return "redirect:/borrowing/listborrowing";
     }
 }

@@ -18,8 +18,9 @@ public class BorrowingController implements BorrowingApi {
     }
 
     @Override
-    public Borrowing save(Borrowing borrowing) {
-        return borrowingService.save(borrowing);
+    public Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid) {
+        Borrowing valueReturn = borrowingService.save(borrowing,utilisateurid,exemplaryid);
+        return valueReturn;
     }
 
     @Override
