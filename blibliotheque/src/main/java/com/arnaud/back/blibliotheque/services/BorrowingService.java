@@ -1,11 +1,7 @@
 package com.arnaud.back.blibliotheque.services;
 
 import com.arnaud.back.blibliotheque.model.Borrowing;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface BorrowingService {
@@ -22,4 +18,8 @@ public interface BorrowingService {
     List<Borrowing> findAllByAccountId(Integer id);
 
     List<Borrowing> findAllByAccountMail(String mail);
+
+    List<Borrowing>findAllLateBorrowing();
+
+
 }

@@ -1,6 +1,7 @@
 package com.arnaud.front.blibliothequeFront.controlleurFront;
 
 import com.arnaud.front.blibliothequeFront.exception.BorrowingNotValidException;
+import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
 import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class BorrowingFrontControlleur {
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     public String create(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront,
                          @PathVariable(name = "utilisateurid")Integer utilisateurid,
-                         @PathVariable(name = "exemplaryid")Integer exemplaryid){
+                         @PathVariable(name = "exemplaryid")Integer exemplaryid,Model model){
         microServiceProxy.save(borrowingfront,utilisateurid,exemplaryid);
         return "/borrowing/addNewBorrowing";
 
@@ -38,7 +39,7 @@ public class BorrowingFrontControlleur {
 
     @GetMapping("/borrowing/listborrowing")
     public String findAllByAccountId( Model model, HttpSession session){
-      model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
+        model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
 
         return "/account/monCompte";
     }

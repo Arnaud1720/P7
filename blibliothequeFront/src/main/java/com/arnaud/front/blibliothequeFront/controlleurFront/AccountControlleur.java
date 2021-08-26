@@ -37,6 +37,11 @@ public class AccountControlleur {
         return "account/connexion";
     }
 
+    @GetMapping("/deconexion")
+    public String deconexin(HttpSession session){
+        session.removeAttribute("utilisateurid");
+        return "account/deconexion";
+    }
 
     @PostMapping("/connexion")
     public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest request,Model model, HttpSession session){

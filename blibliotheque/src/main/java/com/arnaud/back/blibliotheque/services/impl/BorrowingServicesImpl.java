@@ -12,14 +12,21 @@ import com.arnaud.back.blibliotheque.repository.ExemplaryRepository;
 import com.arnaud.back.blibliotheque.services.AccountService;
 import com.arnaud.back.blibliotheque.services.BorrowingService;
 import com.arnaud.back.blibliotheque.validator.BorrowingValidator;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
@@ -44,7 +51,7 @@ public class BorrowingServicesImpl implements BorrowingService {
     }
 
     @Override
-    public Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid) {
+    public Borrowing save(Borrowing borrowing, Integer utilisateurid, Integer exemplaryid) {
         List<String> erros = BorrowingValidator.chemaValidator(borrowing);
         Account account = accountRepository.findById(utilisateurid).orElse(null);
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
@@ -56,11 +63,11 @@ public class BorrowingServicesImpl implements BorrowingService {
         } else {
             assert exemplary != null;
             decremente(exemplary);
-            if(exemplary.getExemplaryNumbers()<=0){
+            if (exemplary.getExemplaryNumbers() <= 0) {
                 throw new EntityNotFoundException("le nombre d'exemplaire pour ce livre est de 0");
             }
         }
-            return borrowingRepository.save(borrowing);
+        return borrowingRepository.save(borrowing);
     }
 
     @Override
@@ -69,11 +76,10 @@ public class BorrowingServicesImpl implements BorrowingService {
     }
 
 
-
     @Override
-    public String addExtension(int userid, int borrowingid,boolean available) throws BorrowingNotValidException {
-        Account user = accountRepository.findById(userid).orElseThrow(()-> new EntityNotFoundException(" l'utilisateur n'existe pas "));
-        Borrowing borrowing = borrowingRepository.findById(borrowingid).orElseThrow(()-> new EntityNotFoundException("la réservation n'exite pas"));
+    public String addExtension(int userid, int borrowingid, boolean available) throws BorrowingNotValidException {
+        Account user = accountRepository.findById(userid).orElseThrow(() -> new EntityNotFoundException(" l'utilisateur n'existe pas "));
+        Borrowing borrowing = borrowingRepository.findById(borrowingid).orElseThrow(() -> new EntityNotFoundException("la réservation n'exite pas"));
         borrowing.setAccount(user);
         if (available) {
             this.addExtension(borrowing);
@@ -88,7 +94,7 @@ public class BorrowingServicesImpl implements BorrowingService {
 
     @Override
     public List<Borrowing> findAllByAccountId(Integer id) {
-        if(id ==null){
+        if (id == null) {
             log.error("--------");
         }
         return borrowingRepository.findAllByAccountId(id);
@@ -96,28 +102,35 @@ public class BorrowingServicesImpl implements BorrowingService {
 
     @Override
     public List<Borrowing> findAllByAccountMail(String mail) {
-       return borrowingRepository.findAllByAccountMail(mail);
+        return borrowingRepository.findAllByAccountMail(mail);
     }
 
+    @Override
+    public List <Borrowing> findAllLateBorrowing() {
+        LocalDate dt = LocalDate.now();
+        return borrowingRepository.findAllByEndDateLessThan(dt);
+
+    }
+
+
     /**
-     *  ne pas mettre de corrp de méthode dans une interface  la déclaré en privé
+     * ne pas mettre de corrp de méthode dans une interface  la déclaré en privé
+     *
      * @param borrowing
      */
 
     private void addExtension(Borrowing borrowing) {
-        LocalDate d1 =  borrowing.getEndDate();
+        LocalDate d1 = borrowing.getEndDate();
         LocalDate d2 = d1.plusMonths(1);
         borrowing.setEndDate(d2);
-        if(borrowing.isExtension()==true){
-            throw new BorrowingNotValidException("le prêt ne peut être prolongé que de 1 mois",ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
+        if (borrowing.isExtension() == true) {
+            throw new BorrowingNotValidException("le prêt ne peut être prolongé que de 1 mois", ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
         }
 
     }
 
-    private void decremente(Exemplary exemplary){
-        exemplary.setExemplaryNumbers(exemplary.getExemplaryNumbers()-1);
+    private void decremente(Exemplary exemplary) {
+        exemplary.setExemplaryNumbers(exemplary.getExemplaryNumbers() - 1);
     }
+
 }
-
-
-

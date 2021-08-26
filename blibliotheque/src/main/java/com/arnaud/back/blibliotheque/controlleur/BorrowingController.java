@@ -39,6 +39,10 @@ public class BorrowingController implements BorrowingApi {
         return resultList;
     }
 
+    @Override
+    public List<Borrowing> findAllLateBorrowing() {
+        return borrowingService.findAllLateBorrowing();
+    }
 
 
 }

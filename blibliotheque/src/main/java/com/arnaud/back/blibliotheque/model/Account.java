@@ -47,7 +47,8 @@ public class Account  {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
     @JsonIgnore
     private List<Roles> roles;
-
+    @Transient
+    private Boolean exceeded;
 
 
 }

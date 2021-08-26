@@ -40,7 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**",
             "/authenticate",
             "/blibliotheque/v1/utilisateur/save",
-            "/blibliotheque/v1/**/**"
+            "/blibliotheque/v1/**/**",
+            "http://localhost:8001/test"
 
 
     };

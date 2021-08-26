@@ -54,4 +54,6 @@ public interface MicroServiceProxy {
     @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
     String addExtension (@PathVariable(name = "utilisateurid") int userid,
                         @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available") boolean available) throws BorrowingNotValidException;
+
+
 }

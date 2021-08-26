@@ -35,6 +35,7 @@ public class Borrowing implements Serializable {
     @JoinColumn(name = "id_exemplaire")
     @ManyToOne
     private Exemplary exemplaryId;
-
+    @Transient
+    private Boolean exceeded;
 
 }

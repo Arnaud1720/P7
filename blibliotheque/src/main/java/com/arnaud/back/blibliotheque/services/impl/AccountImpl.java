@@ -71,6 +71,11 @@ public class AccountImpl implements AccountService {
          new EntityNotFoundException("le pseudo de l'utilisateur n'exisite pas",ErrorCode.USER_NOT_VALID));
     }
 
+    public static boolean isValidEmail( String email ) {
+        String regExp = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";
+        return email.matches( regExp );
+    }
+
     /**
      *
      * @param email
@@ -78,10 +83,9 @@ public class AccountImpl implements AccountService {
      */
     @Override
     public void validationEmail(String email) throws Exception {
-        final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@";
         if(email != null && email.length() !=0){
-            if(!email.matches(EMAIL_REGEX)){
-                throw new Exception("l'email n'est pas valide");
+            if(!isValidEmail(email)){
+                log.info("do nothing");
             }
         }else
             throw new Exception( "Merci de saisir une adresse mail." );
@@ -93,8 +97,6 @@ public class AccountImpl implements AccountService {
 ;           if (password.length() <5) {
                 throw new Exception("Les mots de passe doivent contenir au moins 5 caractères.");
             }
-        } else {
-            throw new Exception("Merci de saisir et confirmer votre mot de passe.");
         }
     }
 
