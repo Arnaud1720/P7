@@ -10,6 +10,11 @@
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading"> liste des livre</div>
+       <form th:action="@{/display/books/available}" method="get">
+        <label>mot clé :</label>
+        <input type="text" name="motCle">
+        <button type="submit" class="btn btn-primary">rechercher</button>
+       </form>
         <div class="panel-body">
             <table class="table">
                 <tr>

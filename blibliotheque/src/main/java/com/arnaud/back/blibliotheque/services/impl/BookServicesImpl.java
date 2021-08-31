@@ -18,6 +18,13 @@ public class BookServicesImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
+    public List<Book> findByBookTitleContains(String mc) {
+        List <Book> test =  bookRepository.findByBookTitleContains(mc);
+        System.out.println("======="+mc);
+        return test;
+    }
+
+    @Override
     public List<Book> findBookByAvailableTrue() {
        return bookRepository.findBookByAvailableTrue();
     }

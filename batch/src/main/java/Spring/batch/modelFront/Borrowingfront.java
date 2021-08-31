@@ -1,10 +1,7 @@
 package Spring.batch.modelFront;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -21,4 +18,13 @@ public class Borrowingfront {
     private Exemplaryfront exemplaryId;
 
 
+    @Override
+    public String toString() {
+        return "Borrowingfront{" +
+                "id=" + id +
+                ", endDate=" + endDate +
+                ", extension=" + extension +
+                ", account=" + account +
+                '}';
+    }
 }

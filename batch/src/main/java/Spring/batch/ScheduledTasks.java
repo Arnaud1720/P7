@@ -1,6 +1,7 @@
 package Spring.batch;
 
 import Spring.batch.microserviceproxy.Microservice;
+import Spring.batch.modelFront.Borrowingfront;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,18 +21,13 @@ public class ScheduledTasks {
     @Autowired
     Microservice microservice;
 
-    @Scheduled(fixedRate = 2000)
-    public void scheduleTaskWithFixedRate() {
-        log.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
-    }
+
 
     @Scheduled(fixedRate = 5000)
-    @GetMapping("test")
     public void  findAllLateBorrowing() {
+    List<Borrowingfront> listLate =  microservice.findAllLateBorrowing();
+    log.info("test {}" , listLate.toString());
 
-    log.info("---------------------------------------");
-    microservice.findAllLateBorrowing();
-    log.info("---------------------------------------");
 
     }
 

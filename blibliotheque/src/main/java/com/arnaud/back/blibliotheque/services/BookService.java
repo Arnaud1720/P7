@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookService {
 
-
+    List<Book> findByBookTitleContains(String mc);
     List<Book> findBookByAvailableTrue();
     List<Book> findBookByAvailableFalse();
     List<Book> findAll();

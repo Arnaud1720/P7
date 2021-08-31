@@ -32,4 +32,12 @@ public interface BookApi {
     List<Book> findAll();
 
 
+    @PostMapping(value = APP_ROOT+"/display/book/by/name",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @ApiOperation(value = "affiche le livre recherche par son titre",notes = " cette méthode permet de rechercher un livre",responseContainer = "List<Book>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,message = "le livre a était trouver "),
+            @ApiResponse(code = 500,message = "une erreur serveur c'est produite")
+    })
+    List<Book> findByBookTitleContains(@RequestParam("mc")String mc);
 }

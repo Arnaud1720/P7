@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book,Integer> {
-
+    List<Book> findByBookTitleContains(String mc);
     List<Book> findBookByAvailableTrue();
     List<Book> findBookByAvailableFalse();
     List<Book> findAll();

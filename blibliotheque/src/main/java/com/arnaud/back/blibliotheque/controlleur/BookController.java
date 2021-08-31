@@ -30,5 +30,10 @@ public class BookController implements BookApi {
         return resultBookList;
     }
 
+    @Override
+    public List<Book> findByBookTitleContains(String mc) {
+        return bookService.findByBookTitleContains(mc);
+    }
+
 
 }

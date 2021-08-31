@@ -44,14 +44,11 @@ public class AccountControlleur {
     }
 
     @PostMapping("/connexion")
-    public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest request,Model model, HttpSession session){
+    public String connexion(@ModelAttribute("AuthenticationRequest")AuthenticationRequest request,Model model, HttpSession session,Accountfront accountfront){
         AuthenticationResponse authenticationResponse = microServiceProxy.authenticate(request).getBody();
         assert authenticationResponse != null;
         session.setAttribute("token",authenticationResponse.getAccesToken());
-
-        /**
-         *
-         */
+        session.setAttribute("email",accountfront.getMail());
         session.setAttribute("utilisateurid",authenticationResponse.getId());
         return "redirect:/borrowing/listborrowing";
     }

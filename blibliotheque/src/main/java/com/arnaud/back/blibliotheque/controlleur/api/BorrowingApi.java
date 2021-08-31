@@ -58,12 +58,12 @@ public interface BorrowingApi {
             @ApiResponse(code = 500, message = "erreur serveur")
     })
     List<Borrowing> findByAccountId(@PathVariable("utilisateurid") Integer Uid);
-    @GetMapping(APP_ROOT+"/test")
+
+    @GetMapping(value = APP_ROOT+"/test",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "test logique", notes = " vérife date", responseContainer = "List<Borrowing>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "affichage de la liste correspondante"),
-            @ApiResponse(code = 404, message = "aucun utilisateur n'existe dans la BDD"),
-            @ApiResponse(code = 500, message = "erreur serveur")
+
     })
+    @ResponseBody
      List<Borrowing> findAllLateBorrowing();
 }
