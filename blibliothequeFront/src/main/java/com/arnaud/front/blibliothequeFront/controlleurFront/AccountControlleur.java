@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,8 +27,9 @@ public class AccountControlleur {
     }
 
     @PostMapping("/utilisateur/save")
-    public String inscriptionValide(@ModelAttribute("accountfront") Accountfront accountfront,Model model){
+    public String inscriptionValide(@ModelAttribute("accountfront") Accountfront accountfront, Model model, HttpSession session){
         model.addAttribute("erreur",microServiceProxy.save(accountfront));
+        session.setAttribute("pseudo",accountfront.getPseudo());
          return "/account/inscription";
     }
 
@@ -49,6 +51,7 @@ public class AccountControlleur {
         assert authenticationResponse != null;
         session.setAttribute("token",authenticationResponse.getAccesToken());
         session.setAttribute("email",accountfront.getMail());
+        session.setAttribute("pseudo",accountfront.getPseudo());
         session.setAttribute("utilisateurid",authenticationResponse.getId());
         return "redirect:/borrowing/listborrowing";
     }

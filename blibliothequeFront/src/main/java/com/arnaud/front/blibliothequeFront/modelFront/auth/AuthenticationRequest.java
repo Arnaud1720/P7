@@ -12,13 +12,15 @@ public class AuthenticationRequest  {
 
     private String mail;
     private String password;
+    private String pseudo;
 
 
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public AuthenticationRequest(String mail, String password) {
+    public AuthenticationRequest(String mail, String password,String pseudo) {
         this.mail = mail;
         this.password = password;
+        this.pseudo = pseudo;
     }
 
     public String getMail() {
@@ -35,6 +37,14 @@ public class AuthenticationRequest  {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 }
 

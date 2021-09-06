@@ -64,10 +64,24 @@ public class BorrowingServicesImpl implements BorrowingService {
             assert exemplary != null;
             decremente(exemplary);
             if (exemplary.getExemplaryNumbers() <= 0) {
-                throw new EntityNotFoundException("le nombre d'exemplaire pour ce livre est de 0");
+                throw new EntityNotFoundException("ce livre n'est plus disponible");
             }
         }
         return borrowingRepository.save(borrowing);
+    }
+
+    /**
+     *
+     * @param id
+     * @param exemplaryid
+     * a terminer
+     */
+    @Override
+    public void deleteBorrowingByid(Integer id,Integer exemplaryid) {
+        Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
+        borrowingRepository.deleteById(id);
+        assert exemplary != null;
+        incremente(exemplary);
     }
 
     @Override
@@ -113,6 +127,7 @@ public class BorrowingServicesImpl implements BorrowingService {
     }
 
 
+
     /**
      * ne pas mettre de corrp de méthode dans une interface  la déclaré en privé
      *
@@ -123,14 +138,18 @@ public class BorrowingServicesImpl implements BorrowingService {
         LocalDate d1 = borrowing.getEndDate();
         LocalDate d2 = d1.plusMonths(1);
         borrowing.setEndDate(d2);
-        if (borrowing.isExtension() == true) {
+        if (borrowing.isExtension()) {
             throw new BorrowingNotValidException("le prêt ne peut être prolongé que de 1 mois", ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
         }
 
     }
 
     private void decremente(Exemplary exemplary) {
-        exemplary.setExemplaryNumbers(exemplary.getExemplaryNumbers() - 1);
+        exemplary.setRemainingexemplary(exemplary.getRemainingexemplary() - 1);
+    }
+
+    private void incremente(Exemplary exemplary) {
+        exemplary.setRemainingexemplary(exemplary.getRemainingexemplary() + 1);
     }
 
 }

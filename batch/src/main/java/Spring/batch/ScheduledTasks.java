@@ -23,7 +23,7 @@ public class ScheduledTasks {
 
 
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 86400000)
     public void  findAllLateBorrowing() {
     List<Borrowingfront> listLate =  microservice.findAllLateBorrowing();
     log.info("test {}" , listLate.toString());

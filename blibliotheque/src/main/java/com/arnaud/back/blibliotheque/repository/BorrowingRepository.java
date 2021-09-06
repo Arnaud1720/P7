@@ -2,6 +2,7 @@ package com.arnaud.back.blibliotheque.repository;
 
 
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.arnaud.back.blibliotheque.model.Exemplary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +19,8 @@ public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
     List<Borrowing> findAllByAccountId(Integer id);
 
     List<Borrowing> findAllByAccountMail(String mail);
-//    @Query("select a from Article a where a.creationDateTime <= :creationDateTime")
 
     List<Borrowing> findAllByEndDateLessThan(LocalDate localDate);
+
+
 }

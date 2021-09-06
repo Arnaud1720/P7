@@ -12,32 +12,34 @@ import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 @Api(APP_ROOT+"/book")
 public interface BookApi {
 
-    @GetMapping(value = APP_ROOT+"/display/books/available",produces = MediaType.APPLICATION_JSON_VALUE )
+    @GetMapping(value = APP_ROOT + "/display/books/available", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @ApiOperation(value = "rechercher une liste de livre via filtre (disponible/non disponible) ",notes = " cette méthode permet de recherche une liste de livre disponible (affiche les livre uniquement disponoible) indisponible affiche la liste de tout les livre",responseContainer = "List<Book>")
+    @ApiOperation(value = "rechercher une liste de livre via filtre (disponible/non disponible) ", notes = " cette méthode permet de recherche une liste de livre disponible (affiche les livre uniquement disponoible) indisponible affiche la liste de tout les livre", responseContainer = "List<Book>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200,message = "la liste a été trouver"),
-            @ApiResponse(code = 500,message = "une erreur serveur c'est produite")
+            @ApiResponse(code = 200, message = "la liste a été trouver"),
+            @ApiResponse(code = 500, message = "une erreur serveur c'est produite")
     })
-     List<Book> findBookByAvailableTrue(@ApiParam(value = "disponible vrai ou faux ") @RequestParam("available")boolean available);
+    List<Book> findBookByAvailableTrue(@ApiParam(value = "disponible vrai ou faux ") @RequestParam("available") boolean available);
 
 
-    @GetMapping(value = APP_ROOT+"/display/books/bookList",produces = MediaType.APPLICATION_JSON_VALUE )
+    @GetMapping(value = APP_ROOT + "/display/books/bookList", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @ApiOperation(value = "affiche la liste des livres",notes = " cette méthode permet de rechercher tout les livres (disponible indisponible) ",responseContainer = "List<Book>")
+    @ApiOperation(value = "affiche la liste des livres", notes = " cette méthode permet de rechercher tout les livres (disponible indisponible) ", responseContainer = "List<Book>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200,message = "la liste a été trouver"),
-            @ApiResponse(code = 500,message = "une erreur serveur c'est produite")
+            @ApiResponse(code = 200, message = "la liste a été trouver"),
+            @ApiResponse(code = 500, message = "une erreur serveur c'est produite")
     })
     List<Book> findAll();
 
-
-    @PostMapping(value = APP_ROOT+"/display/book/by/name",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/findbook/by/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @ApiOperation(value = "affiche le livre recherche par son titre",notes = " cette méthode permet de rechercher un livre",responseContainer = "List<Book>")
+    @ApiOperation(value = "rechercher un livre par son titre ", notes = "rechercher un livre par son titre ", responseContainer = "List<Book>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200,message = "le livre a était trouver "),
-            @ApiResponse(code = 500,message = "une erreur serveur c'est produite")
+            @ApiResponse(code = 200, message = "la liste a été trouver"),
+            @ApiResponse(code = 500, message = "une erreur serveur c'est produite")
     })
-    List<Book> findByBookTitleContains(@RequestParam("mc")String mc);
+    List<Book> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
+                                          @RequestParam(value = "author",defaultValue = "")String auteur,
+                                          @RequestParam(value = "kind",defaultValue = "")String genre);
+
 }

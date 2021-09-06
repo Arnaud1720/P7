@@ -4,10 +4,10 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 import lombok.*;
 
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Getter
+@Setter
 public class Exemplaryfront {
 
     private int id;

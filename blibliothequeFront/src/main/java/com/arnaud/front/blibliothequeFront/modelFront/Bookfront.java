@@ -3,8 +3,8 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 import lombok.*;
 
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Bookfront {

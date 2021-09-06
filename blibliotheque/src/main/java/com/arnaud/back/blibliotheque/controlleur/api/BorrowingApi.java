@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.controlleur.api;
 
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.arnaud.back.blibliotheque.model.Exemplary;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -27,7 +28,7 @@ public interface BorrowingApi {
 
 
     @PostMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/{exemplaryid}/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "rechercher une reservation", notes = " cette méthode permet de recherche une reservation avec son numéro", response = Borrowing.class)
+    @ApiOperation(value = "sauvegarder une réservation", notes = " cette méthode permet de sauvegarder une reservation ", response = Borrowing.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "la réservation à été crée avec succès"),
             @ApiResponse(code = 500, message = "aucun compte utilisateur n'est lié a cettr reservation  ")
@@ -59,11 +60,19 @@ public interface BorrowingApi {
     })
     List<Borrowing> findByAccountId(@PathVariable("utilisateurid") Integer Uid);
 
-    @GetMapping(value = APP_ROOT+"/test",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "test logique", notes = " vérife date", responseContainer = "List<Borrowing>")
+    @GetMapping(value = APP_ROOT+"/test",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @ApiOperation(value = "test logique", notes = "vérife date", responseContainer = "List<Borrowing>")
     @ApiResponses(value = {
 
     })
-    @ResponseBody
      List<Borrowing> findAllLateBorrowing();
+
+    @DeleteMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "supprime une réservation", notes = "supprime une réservation", response = Borrowing.class)
+    @ApiResponses(value = {
+    })
+    void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
+                             @PathVariable(name = "exemplaryid")Integer exemplaryid );
+
 }

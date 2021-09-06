@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.services;
 
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.arnaud.back.blibliotheque.model.Exemplary;
 
 import java.util.List;
 
@@ -21,5 +22,5 @@ public interface BorrowingService {
 
     List<Borrowing>findAllLateBorrowing();
 
-
+    void deleteBorrowingByid(Integer id,Integer exemplaryid);
 }

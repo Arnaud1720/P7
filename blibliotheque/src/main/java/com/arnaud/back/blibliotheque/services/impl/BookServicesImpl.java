@@ -17,11 +17,10 @@ public class BookServicesImpl implements BookService {
     @Autowired
     private BookRepository bookRepository;
 
+
     @Override
-    public List<Book> findByBookTitleContains(String mc) {
-        List <Book> test =  bookRepository.findByBookTitleContains(mc);
-        System.out.println("======="+mc);
-        return test;
+    public List<Book> findAllByBookTitleAndBookAuthorAndAndBookKide(String titre,String auteur,String genre) {
+        return bookRepository.findAllByBookTitleOrBookAuthorOrBookKide(titre,auteur,genre);
     }
 
     @Override

@@ -10,11 +10,16 @@
 <body>
 <div class="container">
     <div class="panel panel-primary">
+        <div th:text="${session.utilisateurid}" >
+        </div>
 
-        <p>
-<!--            Is session empty?-->
-<!--            <th:block th:text="${session.isEmpty()} ? 'Yes' : 'No'">Yes</th:block>-->
-        </p>
+
+        <div th:text="${session.email}">
+        </div>
+
+        <div th:text="${session.pseudo}">
+        </div>
+
         <div class="panel-body">
             <table class="table">
                 <tr>
@@ -25,6 +30,7 @@
                     <th>N°Utilisateur</th>
                     <th>N°exemplaire</th>
 
+
                 </tr>
                 <tr th:each="reservation : ${listReservation}">
                     <td th:text="${reservation.id}"></td>
@@ -33,11 +39,13 @@
                     <td th:text="${reservation.extension}"></td>
                     <td>
                         <a th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter
-                            une extension</a>
-
+                            une extension</a> </td>
+                    <td>
+                        <a th:href="@{/delte/{borrowingid}/{exemplaryid}(borrowingid = ${reservation.id}, exemplaryid = ${reservation.exemplaryId.id})}">rendre le livre</a>
+                    </td>
                 </tr>
-            </table>
 
+            </table>
         </div>
     </div>
 </div>

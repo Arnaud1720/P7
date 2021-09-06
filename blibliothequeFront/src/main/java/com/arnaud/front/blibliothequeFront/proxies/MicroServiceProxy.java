@@ -55,5 +55,13 @@ public interface MicroServiceProxy {
     String addExtension (@PathVariable(name = "utilisateurid") int userid,
                         @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available") boolean available) throws BorrowingNotValidException;
 
+        @GetMapping(value = APP_ROOT + "/findbook/by/", consumes = MediaType.APPLICATION_JSON_VALUE)
 
+    List<Bookfront> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
+                                          @RequestParam(value = "author",defaultValue = "")String auteur,
+                                          @RequestParam(value = "kind",defaultValue = "")String genre);
+
+    @DeleteMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}",produces = MediaType.APPLICATION_JSON_VALUE)
+    void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
+                             @PathVariable(name = "exemplaryid")Integer exemplaryid );
 }

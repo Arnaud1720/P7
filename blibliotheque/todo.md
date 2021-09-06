@@ -1,23 +1,5 @@
-*
-    - [ ] **modifier la RegExp de la méthode pour l'email**
 
-
-*
-    -[ ] batch
-
-
-*
-    - [ ] catch les expressison côté front
-
-*
-    - [ ] utiliser HTTPSession path {Utilisateurid}
-
-*
-    - [ ] L'objectif c'est que tu renvoies la liste des prêts en retard depuis ton backend et que tu affiches dans la
-      console les utilisateurs à contacter.
-
------------------------------------------------ 
-
+-------------------------------------------------------------------------------------------------
 *
     - [x] **implémenté la méthode de décrémentation du nombre d'exemplaire**
 
@@ -28,8 +10,35 @@
             * restriction sur le mot de passe
 *
     - [x] **Créé un nouveau projet spring boot, un troisième.**  
+    
+*
+    - [x] **Afficher si un Livre est disponible ou non (tous les exemplaires ont un emprunt en cours;**
+    
+*
+
+    - [x] **Afficher le nombre d'exemplaire disponible pour un livre.**
 
 
+*
+    -[x] batch
+
+
+*
+    - [x] catch les expressison côté front
+
+*
+    - [x] utiliser HTTPSession path {Utilisateurid}
+
+*
+    - [x] L'objectif c'est que tu renvoies la liste des prêts en retard depuis ton backend et que tu affiches dans la
+      console les utilisateurs à contacter.
+
+  - [x] **modifier la RegExp de la méthode pour l'email**
+
+*
+    - [x] **org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property or field 'id' cannot be found on null**
+
+    *
 
 sytaxe TH 
 

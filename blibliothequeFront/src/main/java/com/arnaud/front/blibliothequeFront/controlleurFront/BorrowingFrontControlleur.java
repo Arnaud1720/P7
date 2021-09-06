@@ -28,8 +28,9 @@ public class BorrowingFrontControlleur {
     {
         model.addAttribute("borrowingfront",borrowingfront);
         if(session.getAttribute("utilisateurid")==null){
-            throw new ConnectException("vous devez être connecter pour faire une réservation");
-        }
+
+              throw new ConnectException("vous devez être connecter pour faire une réservation");
+        }else
 
         return "/borrowing/addNewBorrowing";
 
@@ -49,7 +50,7 @@ public class BorrowingFrontControlleur {
     @GetMapping("/borrowing/listborrowing")
     public String findAllByAccountId( Model model, HttpSession session){
         model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
-
+        session.getAttribute("pseudo");
         return "/account/monCompte";
     }
 
@@ -60,6 +61,12 @@ public class BorrowingFrontControlleur {
 
         microServiceProxy.addExtension(userid,borrowingid,available);
         return "/account/monCompte";
+    }
+
+    @GetMapping("/delte/{borrowingid}/{exemplaryid}")
+    void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
+                             @PathVariable(name = "exemplaryid")Integer exemplaryid ){
+        microServiceProxy.deleteBorrowingByid(id,exemplaryid);
     }
 
 }

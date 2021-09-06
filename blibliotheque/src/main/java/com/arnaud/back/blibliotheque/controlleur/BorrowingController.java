@@ -2,7 +2,9 @@ package com.arnaud.back.blibliotheque.controlleur;
 
 import com.arnaud.back.blibliotheque.controlleur.api.BorrowingApi;
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.arnaud.back.blibliotheque.model.Exemplary;
 import com.arnaud.back.blibliotheque.services.BorrowingService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +45,12 @@ public class BorrowingController implements BorrowingApi {
     public List<Borrowing> findAllLateBorrowing() {
         return borrowingService.findAllLateBorrowing();
     }
+
+    @Override
+    public void deleteBorrowingByid(Integer id, Integer exemplaryid) {
+        borrowingService.deleteBorrowingByid(id,exemplaryid);
+    }
+
 
 
 }

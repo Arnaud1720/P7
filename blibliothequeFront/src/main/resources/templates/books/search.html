@@ -10,12 +10,6 @@
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading"> liste des livre</div>
-        <form  method="get" th:action="@{/findbook/by/}">
-            <input type="text" name="title" placeholder="titre">
-            <input type="text" name="author" placeholder="auteur">
-            <input type="text" name="kind"placeholder="genre">
-            <button type="submit" class="btn btn-primary">rechercher</button>
-        </form>
         <div class="panel-body">
             <table class="table">
                 <tr>
@@ -30,28 +24,26 @@
                     <th scope="col">synopsis</th>
                     <th scope="col">disponible</th>
                     <th scope="col">réserver ce livre</th>
-                    <th> ttttttt</th>
 
 
                 </tr>
-                <tr th:each="b:${booklist}">
-                    <td th:text="${b.bookId}"></td>
-                    <td th:text="${b.exemplaryId.exemplaryNumbers}"></td>
-                    <td th:text="${b.exemplaryId.remainingexemplary}"></td>
-                    <td th:text="${b.bookAuthor}"></td>
-                    <td th:text="${b.bookEditor}"></td>
-                    <td th:text="${b.bookTitle}"></td>
-                    <td th:text="${b.bookKide}"></td>
-                    <td th:text="${b.bookRef}"></td>
-                    <td th:text="${b.bookSynopsis}"></td>
-                    <td th:text="${b.available}"></td>
+                <tr th:each="search:${booklist}">
+                    <td th:text="${search.bookId}"></td>
+                    <td th:text="${search.exemplaryId.exemplaryNumbers}"></td>
+                    <td th:text="${search.exemplaryId.remainingexemplary}"></td>
+                    <td th:text="${search.bookAuthor}"></td>
+                    <td th:text="${search.bookEditor}"></td>
+                    <td th:text="${search.bookTitle}"></td>
+                    <td th:text="${search.bookKide}"></td>
+                    <td th:text="${search.bookRef}"></td>
+                    <td th:text="${search.bookSynopsis}"></td>
+                    <td th:text="${search.available}"></td>
+                    <!--                    <td><a th:href="@{/borrowing/accountid/exemplaryId/save(accountid=${session.utilisateurid},exemplaryId=${b.exemplaryId.id})}">reserver ce livre</a></td>-->
+                    <!--                    <td><a th:href="@{/borrowing/utilisateurid/exemplaryid/save(utilisateurid =${session.utilisateurid},exemplaryid =${borrowingfront.exemplaryId.id} )}">test</a></td>-->
 
-
-                    <td><a th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">test</a></td>
 
                 </tr>
             </table>
-
         </div>
     </div>
 </div>

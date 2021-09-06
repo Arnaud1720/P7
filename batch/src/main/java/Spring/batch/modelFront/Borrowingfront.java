@@ -22,6 +22,7 @@ public class Borrowingfront {
     public String toString() {
         return "Borrowingfront{" +
                 "id=" + id +
+                "startdate"+startDate+
                 ", endDate=" + endDate +
                 ", extension=" + extension +
                 ", account=" + account +
