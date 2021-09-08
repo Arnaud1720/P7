@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class Borrowing implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

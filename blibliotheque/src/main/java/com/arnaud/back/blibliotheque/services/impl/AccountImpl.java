@@ -23,8 +23,6 @@ public class AccountImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private RolesRepository rolesRepository;
-    @Autowired
     PasswordEncoder passwordEncoder;
     @Override
     public Account save(Account account) {
