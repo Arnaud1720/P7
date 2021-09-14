@@ -13,7 +13,7 @@ une fois le liens copier crée un nouveau dossier a l'emplacement de votre choix
 git clone https://github.com/Arnaud1720/P7.git
 
 
-Téléchargez le programme d’installation .exe.
+Téléchargez le programme d’installation .exe. ( version ultimate)
 Exécutez le programme d’installation et suivez les étapes.
 À l’étape Options d’installation, vous pouvez configurer l'éléments suivants :
 Ajoutez le répertoire avec les lanceurs de ligne de commande IntelliJ IDEA à la variable d’environnement PATH pour pouvoir les exécuter à partir de n’importe quel répertoire de travail dans l’invite de commandes.
@@ -23,22 +23,10 @@ Ajoutez le répertoire avec les lanceurs de ligne de commande IntelliJ IDEA à l
 une fois Intellij et  gitBash installer installer PgAdmin pour pouvoir éxécuter le jeu de données qui ce trouve dans le dossier /P7\MPD+script/scriptSQL 
  
  postgreSQL installer vous arrivez sur cette fenêtre
+![image](https://user-images.githubusercontent.com/53368804/133218043-8f4aa166-3028-44e0-900d-1429377424a3.png)
+![image](https://user-images.githubusercontent.com/53368804/133218074-7fc5ee5b-4887-4ad6-88b8-7e59ebda4998.png)
 
-	
-
-
-
-
-
-
-
-
-
-une fois vôtre base de données crée cliqué sur      puis copier-collé le contenu du fichier  scriptSQL puis cliquez sur         
-
-  	
-
-
-
-
-
+une fois vôtre base de données crée cliqué sur![image](https://user-images.githubusercontent.com/53368804/133218095-3588a2ea-7a05-441d-9b70-1a588f34d043.png)
+puis copier-collé le contenu du fichier  scriptSQL puis cliquez sur![image](https://user-images.githubusercontent.com/53368804/133218140-4449a131-62af-4ab0-b3fa-ccbdfb2a7149.png)
+     
+     
