@@ -1,0 +1,392 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+-- Started on 2021-09-14 08:18:49
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 202 (class 1259 OID 58062)
+-- Name: account; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.account (
+    id integer NOT NULL,
+    city character varying(255),
+    frist_name character varying(255),
+    last_name character varying(255),
+    mail character varying(255),
+    password character varying(255),
+    phone_number character varying(255),
+    postal_adress character varying(255),
+    pseudo character varying(255)
+);
+
+
+ALTER TABLE public.account OWNER TO "Admin";
+
+--
+-- TOC entry 200 (class 1259 OID 49506)
+-- Name: app_role; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.app_role (
+    id integer NOT NULL,
+    role_id integer NOT NULL,
+    role_name character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.app_role OWNER TO "Admin";
+
+--
+-- TOC entry 203 (class 1259 OID 58070)
+-- Name: blibliotheque; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.blibliotheque (
+    id integer NOT NULL,
+    city character varying(255),
+    name character varying(255),
+    streetnumber character varying(255),
+    surface integer
+);
+
+
+ALTER TABLE public.blibliotheque OWNER TO "Admin";
+
+--
+-- TOC entry 204 (class 1259 OID 58078)
+-- Name: book; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.book (
+    book_id integer NOT NULL,
+    book_available boolean,
+    author character varying(255),
+    editor character varying(255),
+    kind character varying(255),
+    ref character varying(255),
+    synopsis character varying(255),
+    title character varying(255),
+    id_examplary integer
+);
+
+
+ALTER TABLE public.book OWNER TO "Admin";
+
+--
+-- TOC entry 205 (class 1259 OID 58086)
+-- Name: borrowing; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.borrowing (
+    borrowing_id integer NOT NULL,
+    end_date date,
+    extension boolean,
+    start_date date,
+    accountid integer,
+    id_exemplaire integer
+);
+
+
+ALTER TABLE public.borrowing OWNER TO "Admin";
+
+--
+-- TOC entry 206 (class 1259 OID 58091)
+-- Name: exemplary; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.exemplary (
+    id integer NOT NULL,
+    exemplairenumber integer,
+    remainingexemplary integer,
+    id_blibliotheque integer
+);
+
+
+ALTER TABLE public.exemplary OWNER TO "Admin";
+
+--
+-- TOC entry 201 (class 1259 OID 58060)
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO "Admin";
+
+--
+-- TOC entry 207 (class 1259 OID 58096)
+-- Name: roles; Type: TABLE; Schema: public; Owner: Admin
+--
+
+CREATE TABLE public.roles (
+    id integer NOT NULL,
+    rolename character varying(255),
+    id_account integer
+);
+
+
+ALTER TABLE public.roles OWNER TO "Admin";
+
+--
+-- TOC entry 3036 (class 0 OID 58062)
+-- Dependencies: 202
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.account (id, city, frist_name, last_name, mail, password, phone_number, postal_adress, pseudo) FROM stdin;
+17	test	Admin	Admin	Adminadress@adm.com	$2a$10$QSa9F5XsKghlw9oFfx1C7u486KC.0rq9SujasxkUH9NpbfmtD5Vjq	0125141411	adresse de test 	adm_test
+\.
+
+
+--
+-- TOC entry 3034 (class 0 OID 49506)
+-- Dependencies: 200
+-- Data for Name: app_role; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.app_role (id, role_id, role_name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3037 (class 0 OID 58070)
+-- Dependencies: 203
+-- Data for Name: blibliotheque; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.blibliotheque (id, city, name, streetnumber, surface) FROM stdin;
+1	Paris	AA	30	3200
+\.
+
+
+--
+-- TOC entry 3038 (class 0 OID 58078)
+-- Dependencies: 204
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.book (book_id, book_available, author, editor, kind, ref, synopsis, title, id_examplary) FROM stdin;
+1	t	JRR	JRR	SF	ref_001	lbgeroifezbofezfboz	Le Seigneur des anneaux 	1
+2	t	a	a	a	ref_002	rgefdvsfcxhgefsdgtrd	test	2
+\.
+
+
+--
+-- TOC entry 3039 (class 0 OID 58086)
+-- Dependencies: 205
+-- Data for Name: borrowing; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.borrowing (borrowing_id, end_date, extension, start_date, accountid, id_exemplaire) FROM stdin;
+20	0021-09-13	f	2021-01-20	17	1
+\.
+
+
+--
+-- TOC entry 3040 (class 0 OID 58091)
+-- Dependencies: 206
+-- Data for Name: exemplary; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.exemplary (id, exemplairenumber, remainingexemplary, id_blibliotheque) FROM stdin;
+3	7	7	1
+2	10	10	1
+1	20	19	1
+\.
+
+
+--
+-- TOC entry 3041 (class 0 OID 58096)
+-- Dependencies: 207
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY public.roles (id, rolename, id_account) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3047 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('public.hibernate_sequence', 20, true);
+
+
+--
+-- TOC entry 2882 (class 2606 OID 58069)
+-- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2878 (class 2606 OID 49510)
+-- Name: app_role app_role_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.app_role
+    ADD CONSTRAINT app_role_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2880 (class 2606 OID 49538)
+-- Name: app_role app_role_uk; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.app_role
+    ADD CONSTRAINT app_role_uk UNIQUE (role_name);
+
+
+--
+-- TOC entry 2890 (class 2606 OID 58077)
+-- Name: blibliotheque blibliotheque_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.blibliotheque
+    ADD CONSTRAINT blibliotheque_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2892 (class 2606 OID 58085)
+-- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_pkey PRIMARY KEY (book_id);
+
+
+--
+-- TOC entry 2894 (class 2606 OID 58090)
+-- Name: borrowing borrowing_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.borrowing
+    ADD CONSTRAINT borrowing_pkey PRIMARY KEY (borrowing_id);
+
+
+--
+-- TOC entry 2896 (class 2606 OID 58095)
+-- Name: exemplary exemplary_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.exemplary
+    ADD CONSTRAINT exemplary_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2898 (class 2606 OID 58100)
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2884 (class 2606 OID 58106)
+-- Name: account uk9dy9mm9w0y2fdi25288gv4c8j; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT uk9dy9mm9w0y2fdi25288gv4c8j UNIQUE (last_name);
+
+
+--
+-- TOC entry 2886 (class 2606 OID 58102)
+-- Name: account uki1gawxnhd94ot5ascbjggmaew; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT uki1gawxnhd94ot5ascbjggmaew UNIQUE (pseudo);
+
+
+--
+-- TOC entry 2888 (class 2606 OID 58104)
+-- Name: account ukm93yt13m0ygub63ig996dudgo; Type: CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT ukm93yt13m0ygub63ig996dudgo UNIQUE (mail);
+
+
+--
+-- TOC entry 2899 (class 2606 OID 58107)
+-- Name: book fk1dx4be18tqs53v3dks5yyk9id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT fk1dx4be18tqs53v3dks5yyk9id FOREIGN KEY (id_examplary) REFERENCES public.exemplary(id);
+
+
+--
+-- TOC entry 2903 (class 2606 OID 58127)
+-- Name: roles fk2gea6ik9rkf6bs6jliputhbbc; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT fk2gea6ik9rkf6bs6jliputhbbc FOREIGN KEY (id_account) REFERENCES public.account(id);
+
+
+--
+-- TOC entry 2901 (class 2606 OID 58117)
+-- Name: borrowing fkaddqj9hb6fqkddmbgu34yq6ix; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.borrowing
+    ADD CONSTRAINT fkaddqj9hb6fqkddmbgu34yq6ix FOREIGN KEY (id_exemplaire) REFERENCES public.exemplary(id);
+
+
+--
+-- TOC entry 2900 (class 2606 OID 58112)
+-- Name: borrowing fkitggu5goqpk713cpgfh9m4jfx; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.borrowing
+    ADD CONSTRAINT fkitggu5goqpk713cpgfh9m4jfx FOREIGN KEY (accountid) REFERENCES public.account(id);
+
+
+--
+-- TOC entry 2902 (class 2606 OID 58122)
+-- Name: exemplary fkks8dmw9xirs8bge0ib6mkseca; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY public.exemplary
+    ADD CONSTRAINT fkks8dmw9xirs8bge0ib6mkseca FOREIGN KEY (id_blibliotheque) REFERENCES public.blibliotheque(id);
+
+
+-- Completed on 2021-09-14 08:18:49
+
+--
+-- PostgreSQL database dump complete
+--
+

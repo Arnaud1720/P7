@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9</OriginalElement>
+  <nodes>
+    <node x="0.0" y="540.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.roles</node>
+    <node x="266.625" y="0.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.blibliotheque</node>
+    <node x="345.0" y="474.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.book</node>
+    <node x="262.125" y="248.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.exemplary</node>
+    <node x="0.5" y="755.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.app_role</node>
+    <node x="51.875" y="193.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.account</node>
+    <node x="174.0" y="507.0">fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.borrowing</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.borrowing" target="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.account">
+      <point x="-37.75" y="-82.5" />
+      <point x="211.75" y="449.0" />
+      <point x="190.625" y="449.0" />
+      <point x="46.25" y="115.5" />
+    </edge>
+    <edge source="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.app_role" target="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.roles">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.borrowing" target="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.exemplary">
+      <point x="37.75" y="-82.5" />
+      <point x="287.25" y="449.0" />
+      <point x="309.125" y="449.0" />
+      <point x="-47.0" y="60.5" />
+    </edge>
+    <edge source="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.book" target="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.exemplary">
+      <point x="0.0" y="-115.5" />
+      <point x="425.0" y="449.0" />
+      <point x="403.125" y="449.0" />
+      <point x="47.0" y="60.5" />
+    </edge>
+    <edge source="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.roles" target="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.account">
+      <point x="0.0" y="-49.5" />
+      <point x="77.0" y="449.0" />
+      <point x="98.125" y="449.0" />
+      <point x="-46.25" y="115.5" />
+    </edge>
+    <edge source="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.exemplary" target="fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.blibliotheque">
+      <point x="0.0" y="-60.5" />
+      <point x="0.0" y="71.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6510297482837528" x="252.5" y="427.0" />
+  <SelectedNodes>
+    <node>fd8024f9-e5bc-46c8-9c11-6c6a44a5f6f9.TABLE:Bdd_P7_bibliotheaque.public.borrowing</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

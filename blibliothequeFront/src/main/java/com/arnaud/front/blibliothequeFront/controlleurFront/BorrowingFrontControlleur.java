@@ -50,6 +50,7 @@ public class BorrowingFrontControlleur {
     @GetMapping("/borrowing/listborrowing")
     public String findAllByAccountId( Model model, HttpSession session){
         model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
+
         session.getAttribute("pseudo");
         return "/account/monCompte";
     }
@@ -57,16 +58,17 @@ public class BorrowingFrontControlleur {
     @GetMapping("/borrowing/{utilisateurid}/{borrowingid}")
     public String addExtension(@PathVariable(name = "utilisateurid")int userid,
                                @PathVariable(name = "borrowingid") int borrowingid,
-                               @RequestParam(value = "available",defaultValue = "true") boolean available) throws BorrowingNotValidException {
-
-        microServiceProxy.addExtension(userid,borrowingid,available);
+                               @RequestParam(value = "available",defaultValue = "true") boolean available,HttpSession session,Model model) throws BorrowingNotValidException {
+        model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
+         model.addAttribute("extension", microServiceProxy.addExtension(userid,borrowingid,available));
         return "/account/monCompte";
     }
 
-    @GetMapping("/delte/{borrowingid}/{exemplaryid}")
+    @GetMapping("/delete/{borrowingid}/{exemplaryid}/")
     void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
                              @PathVariable(name = "exemplaryid")Integer exemplaryid ){
         microServiceProxy.deleteBorrowingByid(id,exemplaryid);
+
     }
 
 }

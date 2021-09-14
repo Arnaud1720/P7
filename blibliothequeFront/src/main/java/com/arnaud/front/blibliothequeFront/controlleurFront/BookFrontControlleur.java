@@ -41,7 +41,7 @@ public class BookFrontControlleur {
     public String searchBy(@RequestParam(value ="title",defaultValue = "")String titre,
                                  @RequestParam(value = "author",defaultValue = "")String auteur,
                                  @RequestParam(value = "kind",defaultValue = "")String genre,
-                                 Model model, @ModelAttribute("borrowingfront") Bookfront bookfront){
+                                 Model model){
 
         model.addAttribute("booklist",   microServiceProxy.findAllByBookTitleContains(titre,auteur,genre));
 

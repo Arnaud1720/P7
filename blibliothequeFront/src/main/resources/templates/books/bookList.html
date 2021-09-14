@@ -34,10 +34,7 @@
           <td th:text="${bt.bookSynopsis}"></td>
           <td th:text="${bt.available}"></td>
 
-<!--          <td><a th:href="@{/borrowing/accountid/exemplaryId/save(accountid =${bt.account.id},exemplaryId =${bt.exemplaryId.id} )}">reserver ce livre</a></td>-->
-
-
-          <!--<td><a th:href="@{/borrowing/utilisateurid/exemplaryid/save(utilisateurid=${session.utilisateurid},exemplaryid=${borrowingfront.exemplaryId.id})}">test1</a> </td>-->
+          <td><a th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${bt.exemplaryId.id})}">reserver ce livre</a></td>
         </tr>
       </table>
     </div>

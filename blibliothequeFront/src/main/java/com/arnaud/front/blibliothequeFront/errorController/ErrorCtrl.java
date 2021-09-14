@@ -31,8 +31,7 @@ public  class ErrorCtrl implements ErrorController {
             }
         }
 
-
-        return "rrrrr";
+        return "/error";
     }
 
     @Override

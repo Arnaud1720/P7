@@ -68,7 +68,7 @@ public interface BorrowingApi {
     })
      List<Borrowing> findAllLateBorrowing();
 
-    @DeleteMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "supprime une réservation", notes = "supprime une réservation", response = Borrowing.class)
     @ApiResponses(value = {
     })

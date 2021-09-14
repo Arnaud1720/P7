@@ -61,7 +61,8 @@ public interface MicroServiceProxy {
                                           @RequestParam(value = "author",defaultValue = "")String auteur,
                                           @RequestParam(value = "kind",defaultValue = "")String genre);
 
-    @DeleteMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}",produces = MediaType.APPLICATION_JSON_VALUE)
+        @GetMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
     void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
                              @PathVariable(name = "exemplaryid")Integer exemplaryid );
+
 }

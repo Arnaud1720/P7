@@ -21,10 +21,8 @@ public class Borrowingfront {
     @Override
     public String toString() {
         return "Borrowingfront{" +
-                "id=" + id +
                 "startdate"+startDate+
                 ", endDate=" + endDate +
-                ", extension=" + extension +
                 ", account=" + account +
                 '}';
     }

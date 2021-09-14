@@ -38,9 +38,7 @@
                     <td th:text="${search.bookRef}"></td>
                     <td th:text="${search.bookSynopsis}"></td>
                     <td th:text="${search.available}"></td>
-                    <!--                    <td><a th:href="@{/borrowing/accountid/exemplaryId/save(accountid=${session.utilisateurid},exemplaryId=${b.exemplaryId.id})}">reserver ce livre</a></td>-->
-                    <!--                    <td><a th:href="@{/borrowing/utilisateurid/exemplaryid/save(utilisateurid =${session.utilisateurid},exemplaryid =${borrowingfront.exemplaryId.id} )}">test</a></td>-->
-
+                    <td><a th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${search.exemplaryId.id})}">reserver ce livre</a></td>
 
                 </tr>
             </table>

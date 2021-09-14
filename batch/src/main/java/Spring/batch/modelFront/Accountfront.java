@@ -24,8 +24,6 @@ public class Accountfront {
     @Override
     public String toString() {
         return "Accountfront{" +
-                "id=" + id +
-                ", pseudo='" + pseudo + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", mail='" + mail + '\'' +

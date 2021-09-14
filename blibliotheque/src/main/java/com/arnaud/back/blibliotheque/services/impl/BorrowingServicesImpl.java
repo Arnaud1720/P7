@@ -53,6 +53,7 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Override
     public Borrowing save(Borrowing borrowing, Integer utilisateurid, Integer exemplaryid) {
         List<String> erros = BorrowingValidator.chemaValidator(borrowing);
+
         Account account = accountRepository.findById(utilisateurid).orElse(null);
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
         borrowing.setAccount(account);
@@ -65,6 +66,7 @@ public class BorrowingServicesImpl implements BorrowingService {
             decremente(exemplary);
             if (exemplary.getExemplaryNumbers() <= 0) {
                 throw new EntityNotFoundException("ce livre n'est plus disponible");
+
             }
         }
         return borrowingRepository.save(borrowing);
@@ -79,9 +81,10 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Override
     public void deleteBorrowingByid(Integer id,Integer exemplaryid) {
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
-        borrowingRepository.deleteById(id);
         assert exemplary != null;
         incremente(exemplary);
+        borrowingRepository.deleteById(id);
+
     }
 
     @Override
