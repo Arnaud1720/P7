@@ -30,3 +30,12 @@ une fois vôtre base de données crée cliqué sur![image](https://user-images.g
 puis copier-collé le contenu du fichier  scriptSQL puis cliquez sur![image](https://user-images.githubusercontent.com/53368804/133218140-4449a131-62af-4ab0-b3fa-ccbdfb2a7149.png)
      
      
+  une fois le script sql lancer ouvrir le dossier du projet puis faite un clique droit sur le fichier «  pom.xml » puis « ouvrir avec intelliJ » 
+
+
+une fois intelliJ lancer depuis le fichier pom.xml aller d'ans  l'onglet maven a droit de l'écran et cliquer sur « add maven projet » 
+	
+
+après l'ajout de tout les fichiers pom.xml aller dans le dossier ressource du projet bibliothèque, puis changer les information spring.datasource.username= spring.datasource.password= afin quelle corresponde au information de vôtre bdd dans postgreSQL . 
+Puis aller dans l'onglet DATABASE de spring et ajoute la data source postgreSQL 
+   
