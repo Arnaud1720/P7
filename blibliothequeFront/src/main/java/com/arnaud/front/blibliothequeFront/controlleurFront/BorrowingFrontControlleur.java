@@ -35,7 +35,6 @@ public class BorrowingFrontControlleur {
         return "/borrowing/addNewBorrowing";
 
     }
-
     @PostMapping(value ="/borrowing/{utilisateurid}/{exemplaryid}/save")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     public String create(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront,
