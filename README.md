@@ -38,4 +38,5 @@ une fois intelliJ lancer depuis le fichier pom.xml aller d'ans  l'onglet maven a
 
 après l'ajout de tout les fichiers pom.xml aller dans le dossier ressource du projet bibliothèque, puis changer les information spring.datasource.username= spring.datasource.password= afin quelle corresponde au information de vôtre bdd dans postgreSQL . 
 Puis aller dans l'onglet DATABASE de spring et ajoute la data source postgreSQL 
-   
+
+test modif
