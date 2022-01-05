@@ -6,6 +6,11 @@
 </header>
 <body>
 <div class="container">
+    <div class="card justify-content-md-center">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>se connecter</h3>
+            </div>
     <form method="POST" th:object="${AuthenticationRequest}" >
 
         <div class="form-group">
@@ -21,8 +26,14 @@
                 <input type="password" th:field="*{password}" class="form-control"  placeholder="mdp" name="password">
             </div>
         </div>
-        <button type="submit" class="btn btn-default">valider</button>
+        <div  class="mb-3  d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+            <a th:href="@{/utilisateur/save}" class="btn btn-link">S'inscrire</a>
+        </div>
     </form>
+
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

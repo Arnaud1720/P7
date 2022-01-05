@@ -16,18 +16,19 @@ import java.time.LocalDate;
 @EnableBatchProcessing
 public class 	BlibliothequeApplication {
 
-	@Autowired
-	EmailSenderServiceImpl emailSenderService;
+//	@Autowired
+//	EmailSenderServiceImpl emailSenderService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BlibliothequeApplication.class, args);
 
 
+
 	}
-	@EventListener(value = ApplicationReadyEvent.class)
-	public void triggerMail(){
-		emailSenderService.sendEmailMessage("derisbourgarnaud@gmail.com",
-				"le corps du message","un test sujet ");
-	}
+//	@EventListener(value = ApplicationReadyEvent.class)
+//	public void triggerMail(){
+//		emailSenderService.sendEmailMessage("derisbourgarnaud@gmail.com",
+//				"le corps du message","un test sujet ");
+//	}
 }
 
