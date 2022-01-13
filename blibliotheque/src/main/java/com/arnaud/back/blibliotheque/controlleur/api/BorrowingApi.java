@@ -10,6 +10,8 @@ import io.swagger.models.auth.In;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
@@ -66,13 +68,19 @@ public interface BorrowingApi {
     @ApiResponses(value = {
 
     })
-     List<Borrowing> findAllLateBorrowing();
+    List<Borrowing> findAllLateBorrowing();
 
-    @GetMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping( value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "supprime une réservation", notes = "supprime une réservation", response = Borrowing.class)
     @ApiResponses(value = {
     })
     void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
                              @PathVariable(name = "exemplaryid")Integer exemplaryid );
 
+
+
+    @GetMapping(value = APP_ROOT+"/OrderByDate",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @ApiOperation(value = "test de la méthode OrderByDate",responseContainer = "List<Object[]>")
+    List<Object[]> findByStartDate();
 }

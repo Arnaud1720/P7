@@ -9,24 +9,16 @@ import com.arnaud.back.blibliotheque.model.Exemplary;
 import com.arnaud.back.blibliotheque.repository.AccountRepository;
 import com.arnaud.back.blibliotheque.repository.BorrowingRepository;
 import com.arnaud.back.blibliotheque.repository.ExemplaryRepository;
-import com.arnaud.back.blibliotheque.services.AccountService;
 import com.arnaud.back.blibliotheque.services.BorrowingService;
 import com.arnaud.back.blibliotheque.validator.BorrowingValidator;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 @Service
 @Slf4j
@@ -41,13 +33,15 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Autowired
     ExemplaryRepository exemplaryRepository;
 
+
+
     @Override
     public Borrowing findById(Integer id) {
         if (id == null) {
             log.error("le numéro de la reservation n'exite pas");
             throw new EntityNotFoundException("le numéro de la reservation n'exite pas", ErrorCode.BORROWING_NOT_FOUND);
         }
-        return borrowingRepository.findById(id).orElseThrow();
+        return borrowingRepository.findById(id).orElseThrow(null);
     }
 
     @Override
@@ -64,10 +58,11 @@ public class BorrowingServicesImpl implements BorrowingService {
         } else {
             assert exemplary != null;
             decremente(exemplary);
-            if (exemplary.getExemplaryNumbers() <= 0) {
-                throw new EntityNotFoundException("ce livre n'est plus disponible");
+            if (exemplary.getRemainingexemplary() == 0) {
+                BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
 
             }
+
         }
         return borrowingRepository.save(borrowing);
     }
@@ -88,9 +83,16 @@ public class BorrowingServicesImpl implements BorrowingService {
     }
 
     @Override
+    public List<Object[]> findByStartDate() {
+        return borrowingRepository.findByStartDate();
+    }
+
+
+    @Override
     public List<Borrowing> findAll() {
         return borrowingRepository.findAll();
     }
+
 
 
     @Override
@@ -116,6 +118,8 @@ public class BorrowingServicesImpl implements BorrowingService {
         }
         return borrowingRepository.findAllByAccountId(id);
     }
+
+
 
     @Override
     public List<Borrowing> findAllByAccountMail(String mail) {

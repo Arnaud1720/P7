@@ -21,6 +21,6 @@ public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
     List<Borrowing> findAllByAccountMail(String mail);
 
     List<Borrowing> findAllByEndDateLessThan(LocalDate localDate);
-
-
+    @Query("SELECT d.startDate FROM borrowing d ORDER BY d.startDate DESC")
+    List<Object[]> findByStartDate();
 }

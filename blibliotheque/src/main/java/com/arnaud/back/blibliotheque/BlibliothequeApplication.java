@@ -25,6 +25,9 @@ public class 	BlibliothequeApplication {
 
 
 	}
+	/**
+	 * enlever l'anti virus avant de lancer le main
+	 */
 //	@EventListener(value = ApplicationReadyEvent.class)
 //	public void triggerMail(){
 //		emailSenderService.sendEmailMessage("derisbourgarnaud@gmail.com",

@@ -1,8 +1,8 @@
 package com.arnaud.front.blibliothequeFront.proxies;
 
 
-
 import com.arnaud.front.blibliothequeFront.exception.BorrowingNotValidException;
+import com.arnaud.front.blibliothequeFront.modelFront.Pretfront;
 import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationResponse;
 import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
 import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationRequest;
@@ -23,46 +23,46 @@ import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROO
 public interface MicroServiceProxy {
 
 
-    @GetMapping(value = APP_ROOT+"/display/books/available",produces = MediaType.APPLICATION_JSON_VALUE )
+    @GetMapping(value = APP_ROOT + "/display/books/available", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @RequestLine("GET/{available}")
-    List<Bookfront> findBookByAvailableTrue(@RequestParam(value = "available",defaultValue = "true")boolean available);
+    List<Bookfront> findBookByAvailableTrue(@RequestParam(value = "available", defaultValue = "true") boolean available);
 
-    @PostMapping(value = APP_ROOT+"/utilisateur/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT + "/utilisateur/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-type:application/json")
     Accountfront save(@RequestBody Accountfront accountfront);
 
 
-
     @PostMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/{exemplaryid}/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-type:application/json")
-    Borrowingfront save(@RequestBody Borrowingfront borrowing,@PathVariable(name = "utilisateurid")Integer utilisateurid,
-                   @PathVariable(name = "exemplaryid")Integer exemplaryid);
+    Borrowingfront save(@RequestBody Borrowingfront borrowing, @PathVariable(name = "utilisateurid") Integer utilisateurid,
+                        @PathVariable(name = "exemplaryid") Integer exemplaryid);
 
-    @GetMapping(value = APP_ROOT+"/display/books/bookList",produces = MediaType.APPLICATION_JSON_VALUE )
+    @GetMapping(value = APP_ROOT + "/display/books/bookList", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     List<Bookfront> findAll();
 
     @PostMapping("/authenticate")
-     ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request);
+    ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request);
 
     @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Borrowingfront> findByAccountId(@PathVariable(name = "utilisateurid") Integer id);
 
 
-
     @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    String addExtension (@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available") boolean available) throws BorrowingNotValidException;
+    String addExtension(@PathVariable(name = "utilisateurid") int userid,
+                        @PathVariable(name = "borrowingid") int borrowingid, @RequestParam(value = "available") boolean available) throws BorrowingNotValidException;
 
-        @GetMapping(value = APP_ROOT + "/findbook/by/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/findbook/by/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<Bookfront> findAllByBookTitleContains(@RequestParam(value = "title", defaultValue = "") String titre,
+                                               @RequestParam(value = "author", defaultValue = "") String auteur,
+                                               @RequestParam(value = "kind", defaultValue = "") String genre);
 
-    List<Bookfront> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
-                                          @RequestParam(value = "author",defaultValue = "")String auteur,
-                                          @RequestParam(value = "kind",defaultValue = "")String genre);
-
-        @GetMapping(value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = APP_ROOT + "/delete/{borrowingid}/{exemplaryid}/", produces = MediaType.APPLICATION_JSON_VALUE)
     void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
-                             @PathVariable(name = "exemplaryid")Integer exemplaryid );
+                             @PathVariable(name = "exemplaryid") Integer exemplaryid);
 
+    @PostMapping(value = APP_ROOT + "/pret/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Headers("Content-type:application/json")
+    Pretfront save(@RequestBody Pretfront pretfront) throws Exception;
 }

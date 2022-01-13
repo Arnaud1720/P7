@@ -10,8 +10,6 @@
 <body>
 <div class="container">
     <div class="panel panel-primary">
-
-
         <div class="panel-body">
             <table class="table">
                 <tr>
@@ -20,6 +18,7 @@
                     <th>date fin</th>
                     <th>extension</th>
                     <th>ajouter une extension(1 mois)</th>
+                    <th>rendre la réservation</th>
 
 
 
@@ -30,8 +29,14 @@
                     <td th:text="${reservation.endDate}" ></td>
                     <td th:text="${reservation.extension}"></td>
                     <td>
-                        <a th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter
-                            une extension</a> </td>
+
+                        <a  th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter
+                            une extension</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/delete/{borrowingid}/{exemplaryid}/(borrowingid= ${reservation.id},exemplaryid=${reservation.exemplaryId.id})}">valider</a>
+                    </td>
+
                 </tr>
 
             </table>

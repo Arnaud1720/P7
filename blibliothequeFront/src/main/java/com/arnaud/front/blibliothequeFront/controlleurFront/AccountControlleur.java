@@ -36,13 +36,13 @@ public class AccountControlleur {
     @GetMapping("/connexion")
     public String connexion(@ModelAttribute("AuthenticationRequest") AuthenticationRequest accountfront, Model model){
         model.addAttribute("AuthenticationRequest",accountfront);
-        return "account/connexion";
+        return "/account/connexion";
     }
 
     @GetMapping("/deconexion")
-    public String deconexin(HttpSession session){
+    public String deconexion(HttpSession session){
         session.removeAttribute("utilisateurid");
-        return "account/deconexion";
+        return "/account/deconexion";
     }
 
     @PostMapping("/connexion")

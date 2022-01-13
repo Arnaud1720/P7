@@ -17,8 +17,6 @@ import java.util.List;
                 @UniqueConstraint(columnNames = "last_name"),
 
         })
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

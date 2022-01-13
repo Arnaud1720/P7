@@ -36,6 +36,7 @@
                 <tr th:each="b:${booklist}">
                     <td th:text="${b.bookId}"></td>
                     <td th:text="${b.exemplaryId.exemplaryNumbers}"></td>
+
                     <td th:text="${b.exemplaryId.remainingexemplary}"></td>
                     <td th:text="${b.bookAuthor}"></td>
                     <td th:text="${b.bookEditor}"></td>
@@ -44,9 +45,11 @@
                     <td th:text="${b.bookRef}"></td>
                     <td th:text="${b.bookSynopsis}"></td>
                     <td th:text="${b.available}"></td>
-
-
-                    <td><a th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">reserver ce livre</a></td>
+                    <td><a th:if="${b.exemplaryId.remainingexemplary>0}" class="btn btn-secondary btn-sm" tabindex="-1"
+                           role="link" aria-disabled="false"
+                           th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">reserver ce livre</a>
+                        <a   th:if="${b.exemplaryId.remainingexemplary==0}"  class="btn btn-primary btn-sm" href="/pret/save">demande de prêt</a>
+                    </td>
 
                 </tr>
             </table>
