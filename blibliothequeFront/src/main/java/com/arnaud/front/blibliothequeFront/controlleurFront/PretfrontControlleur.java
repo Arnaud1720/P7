@@ -19,7 +19,9 @@ public class PretfrontControlleur {
     {
         return "/pret/save";
     }
-
+/*
+------
+ */
     @PostMapping("/pret/save/")
     public String SubmitPret(@ModelAttribute("pretfront")Pretfront pretfront, Model model) throws Exception {
         model.addAttribute("pret",microServiceProxy.save(pretfront));
