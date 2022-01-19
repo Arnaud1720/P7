@@ -16,7 +16,7 @@ import java.util.List;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 
-@Api(APP_ROOT + "/borrowing")
+@Api(APP_ROOT)
 public interface BorrowingApi {
 
     @GetMapping(value = APP_ROOT + "/borrowing/{idborrowing}", produces = MediaType.APPLICATION_JSON_VALUE)

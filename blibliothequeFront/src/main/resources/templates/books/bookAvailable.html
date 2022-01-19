@@ -49,6 +49,7 @@
                            role="link" aria-disabled="false"
                            th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">reserver ce livre</a>
                         <a   th:if="${b.exemplaryId.remainingexemplary==0}"  class="btn btn-primary btn-sm" href="/pret/save">demande de prêt</a>
+
                     </td>
 
                 </tr>

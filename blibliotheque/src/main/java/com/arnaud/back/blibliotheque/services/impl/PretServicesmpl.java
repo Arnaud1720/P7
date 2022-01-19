@@ -6,22 +6,25 @@ import com.arnaud.back.blibliotheque.services.PretService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
+import java.util.List;
 
 
 @Service
-public class PretIServicesmpl implements PretService {
+public class PretServicesmpl implements PretService {
 
     @Autowired
     PretRepository pretRepository;
 
     @Override
     public Pret save(Pret pret) throws Exception {
-        String regExp = "^(.+)@(.+)$";
-        if (pret.getEpret().isEmpty()){
-            throw new Exception("Email Vide");
-        }else
+
         return pretRepository.save(pret);
     }
+
+    @Override
+    public List<Pret> findByDebutDatePret() {
+        return pretRepository.listByDateDebut();
+    }
+
 
 }
