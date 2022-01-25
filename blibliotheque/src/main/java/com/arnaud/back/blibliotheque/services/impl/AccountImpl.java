@@ -92,7 +92,7 @@ public class AccountImpl implements AccountService {
     @Override
     public void validationMotsDePasse(String password) throws Exception {
         if (password != null && password.length() != 0) {
-;           if (password.length() <5) {
+            if (password.length() <5) {
                 throw new Exception("Les mots de passe doivent contenir au moins 5 caractères.");
             }
         }

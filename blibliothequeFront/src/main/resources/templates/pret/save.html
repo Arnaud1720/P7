@@ -1,54 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<header th:include="header/header.html">
-    <title>demande de pret</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-</header>
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>$Title$</title>
+</head>
 <body>
-
-<div class="container" style="margin-top: 200px; max-width: 500px;">
-    <div class="card justify-content-md-center">
-        <form method="POST" th:object="${Pretfront}">
-
-            <div class="card">
-                <div class="card-header text-center">
-                    <h3>Demander un prêt </h3>
-                <div class="mb-3">
-                    <input type="email" th:placeholder="${session.email}" class="form-control" th:field="*{emailPret}"  name="emailPret"
-                           required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                </div>
-                <div class="mb-3">
-                    <input type="datetime-local"  class="form-control" th:field="*{debutDatePret}">
-                </div>
-                <div class="mb-3">
-                    <input type="datetime-local" class="form-control"
-                           th:field="*{finDatePret}" >
-                </div>
-
-
-                </div>
-                <button type="submit" class="btn btn-primary">valider</button>
-                <br>
-                <button th:href="@{/}" class="btn btn-primary">retour</button>
-
-            </div>
-
-        </form>
-
-    </div>
-</div>
-
-<h1>Format ISO</h1>
-<p th:text="${#dates.formatISO(standardDate)}">Date Format</p>
-<p th:text="${#temporals.formatISO(localDateTime)}">LocalDateTime Format</p>
-<p th:text="${#temporals.formatISO(localDate)}">LocalDate Format</p>
-<p th:text="${#temporals.formatISO(timestamp)}">TimesTamp Format </p>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+$END$
 </body>
 </html>

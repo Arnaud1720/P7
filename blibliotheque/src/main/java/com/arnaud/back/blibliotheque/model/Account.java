@@ -48,6 +48,8 @@ public class Account  {
     private List<Roles> roles;
     @Transient
     private Boolean exceeded;
-
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private List<Pret> pret;
 
 }

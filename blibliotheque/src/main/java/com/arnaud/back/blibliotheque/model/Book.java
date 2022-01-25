@@ -1,8 +1,11 @@
 package com.arnaud.back.blibliotheque.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,6 +35,9 @@ public class Book  {
     private Exemplary exemplaryId;
     @Column(name = "book_available")
     private boolean available;
+    @OneToMany(mappedBy = "bookpret")
+    @JsonIgnore
+    private List<Pret> pretList;
 
 
 }

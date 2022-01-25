@@ -43,6 +43,18 @@
 sytaxe TH 
 
 
+[//]: # (@Column&#40;name = "book_Title_Pret"&#41;)
+
+[//]: # (@OneToMany)
+
+[//]: # (@JoinColumn&#40;referencedColumnName = "title"&#41;)
+
+[//]: # (private Book bookTitle;)
+
+[//]: # ()
+[//]: # (    @ManyToOne)
+
+[//]: # (    private Account accountId;)
 
 [comment]: <> (<!--        <div class="panel-heading">vos reservation</div>-->)
 
@@ -59,3 +71,6 @@ sytaxe TH
 [comment]: <> (            <th:block th:text="${session.isEmpty&#40;&#41;} ? 'Yes' : 'No'">Yes</th:block>)
 
 [comment]: <> (        </p>)
+   
+ @JsonIgnore
+ignoré les attribut d'un objet sauf celle ciblé . 
