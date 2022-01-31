@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -21,14 +19,18 @@ public class ScheduledTasks {
     @Autowired
     Microservice microservice;
 
-
-
     @Scheduled(fixedRate =5000 )
     public void  findAllLateBorrowing() {
-    List<Borrowingfront> listLate =  microservice.findAllLateBorrowing();
-    log.info("test {}" , listLate.toString());
+        List<Borrowingfront> listLate =  microservice.findAllLateBorrowing();
+        log.info("test {}" , listLate.toString());
 
 
+    }
+    @Scheduled(fixedRate = 3000)
+   public void findByDateTimeJOrderByDateTimeJ()
+    {
+        List<Object> listTest=microservice.findByDateTimeJOrderByDateTimeJ();
+        log.info("test1{}",listTest.toString());
     }
 
 

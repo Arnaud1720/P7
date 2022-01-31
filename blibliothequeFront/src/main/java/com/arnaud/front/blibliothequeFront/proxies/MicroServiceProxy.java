@@ -62,7 +62,9 @@ public interface MicroServiceProxy {
     void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
                              @PathVariable(name = "exemplaryid") Integer exemplaryid);
 
-    @PostMapping(value = APP_ROOT+"/pret/save",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT+"/pret/save/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-type:application/json")
-    Pretfront save(@RequestBody Pretfront pretfront) throws Exception;
+    Pretfront save(Pretfront pret,
+                   @PathVariable(name = "accountid")Integer accountid,
+                   @PathVariable(name = "bookid")Integer bookid);
 }

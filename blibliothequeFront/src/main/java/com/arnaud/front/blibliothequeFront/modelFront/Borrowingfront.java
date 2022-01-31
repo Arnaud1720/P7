@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Setter
 public class Borrowingfront {
     private int id;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     private boolean extension;
     private Accountfront account;
     private Exemplaryfront exemplaryId;

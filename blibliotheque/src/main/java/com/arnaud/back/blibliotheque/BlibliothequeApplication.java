@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @EnableBatchProcessing
 public class 	BlibliothequeApplication {
 
-//	@Autowired
-//	EmailSenderServiceImpl emailSenderService;
+	@Autowired
+	EmailSenderServiceImpl emailSenderService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BlibliothequeApplication.class, args);
@@ -29,10 +29,10 @@ public class 	BlibliothequeApplication {
 	/**
 	 * enlever l'anti virus avant de lancer le main
 	 */
-//	@EventListener(value = ApplicationReadyEvent.class)
-//	public void triggerMail(){
-//		emailSenderService.sendEmailMessage("derisbourgarnaud@gmail.com",
-//				"le corps du message","un test sujet ");
-//	}
+	@EventListener(value = ApplicationReadyEvent.class)
+	public void triggerMail(){
+		emailSenderService.sendEmailMessage("m.sibille@mairie-audenge.fr",
+				"test d'envoi de mais depuis API_REST","API SENDER_MAIL");
+	}
 }
 

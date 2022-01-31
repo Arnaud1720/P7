@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <header>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
 </header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,15 +16,15 @@
             </li>
 
             <li class="nav-item">
-                <a th:if="${session.utilisateurid==null}" class="nav-link" href="/utilisateur/save">inscription</a>
+                <a th:if="${session.utilisateurid==null}" class="nav-link" th:href="@{/utilisateur/save}" >inscription</a>
             </li>
 
             <li class="nav-item">
-                <a  th:if="${session.utilisateurid==null}" class="nav-link" href="/connexion">connexion</a>
+                <a  th:if="${session.utilisateurid==null}" class="nav-link" th:href="@{/connexion}" >connexion</a>
             </li>
 
             <li class="nav-item">
-                <a th:if="${session.utilisateurid!=null}" class="nav-link" href="/deconexion">déconexion</a>
+                <a th:if="${session.utilisateurid!=null}" class="nav-link" th:href="@{/deconexion}">déconexion</a>
             </li>
 
             <div class="btn-group dropdown ">
@@ -34,10 +34,10 @@
                 </button>
                 <div class="dropdown-menu ">
                     <li class="nav-item">
-                        <a class="nav-link" href="/display/books/available?available=false">tous nos livres</a>
+                        <a class="nav-link" th:href="@{/display/books/available?available=false}">tous nos livres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/display/books/available?available=true">livres disponibles</a>
+                        <a class="nav-link" th:href="@{/display/books/available?available=true}" >livres disponibles</a>
                     </li>
 
                 </div>

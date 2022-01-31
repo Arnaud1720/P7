@@ -12,16 +12,11 @@ import java.time.LocalDateTime;
 public class Pretfront {
 
     private Long id;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime debutDatePret;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime finDatePret;
-    private String emailPret;
+    private LocalDateTime dateTimeJ;
+    private Accountfront accountP;
+    private Bookfront bookpret;
 
 
-    public LocalDateTime getDebutDatePret() {
-        return debutDatePret;
-    }
 
 
 

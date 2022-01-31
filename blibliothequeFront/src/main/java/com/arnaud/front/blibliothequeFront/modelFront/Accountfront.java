@@ -4,6 +4,7 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class Accountfront {
     private String password;
     private String postalAdress;
     private String city;
-
+    private List<Pretfront> pret;
 
 
 }

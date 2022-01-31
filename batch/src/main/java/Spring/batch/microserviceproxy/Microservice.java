@@ -1,6 +1,8 @@
 package Spring.batch.microserviceproxy;
 
 import Spring.batch.modelFront.Borrowingfront;
+import Spring.batch.modelFront.Pretfront;
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,5 +16,7 @@ public interface Microservice {
      @GetMapping(value = APP_ROOT+"/test",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
      List<Borrowingfront> findAllLateBorrowing();
 
+     @GetMapping(value = APP_ROOT+"/pret/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
+     List<Object> findByDateTimeJOrderByDateTimeJ();
 
 }

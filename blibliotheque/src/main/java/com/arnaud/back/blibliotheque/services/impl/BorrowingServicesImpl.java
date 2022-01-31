@@ -33,7 +33,8 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Autowired
     ExemplaryRepository exemplaryRepository;
 
-
+    @Autowired
+    EmailSenderServiceImpl emailSenderService;
 
     @Override
     public Borrowing findById(Integer id) {
@@ -59,7 +60,7 @@ public class BorrowingServicesImpl implements BorrowingService {
             assert exemplary != null;
             decremente(exemplary);
             if (exemplary.getRemainingexemplary() == 0) {
-                BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
+                    //
 
             }
 

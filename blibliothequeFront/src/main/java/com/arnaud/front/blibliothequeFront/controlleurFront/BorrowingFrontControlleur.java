@@ -50,7 +50,6 @@ public class BorrowingFrontControlleur {
     public String findAllByAccountId( Model model, HttpSession session){
         model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
 
-        session.getAttribute("pseudo");
         return "/account/monCompte";
     }
 

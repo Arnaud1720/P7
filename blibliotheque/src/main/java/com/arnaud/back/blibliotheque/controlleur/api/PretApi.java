@@ -1,6 +1,5 @@
 package com.arnaud.back.blibliotheque.controlleur.api;
 
-import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Pret;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,5 +17,14 @@ public interface PretApi {
     @ApiOperation(value = "enregister un pret",response = Pret.class)
     Pret save(@RequestBody Pret pret, @PathVariable(name = "accountid") Integer accountid,
               @PathVariable(name = "bookid") Integer bookid);
+
+    @GetMapping(value = APP_ROOT+"/pret/list/orderby",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Listé les pret",responseContainer = " List<Object[]>")
+    List<Object[]> listPretOrderByDateJ();
+
+    @GetMapping(value = APP_ROOT+"/pret/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "list des pret par date",responseContainer = "List<Object>")
+    List<Object> findByDateTimeJOrderByDateTimeJ();
+
 
 }

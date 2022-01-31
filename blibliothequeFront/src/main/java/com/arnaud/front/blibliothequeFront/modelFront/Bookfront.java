@@ -2,6 +2,8 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 
 import lombok.*;
 
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +21,5 @@ public class Bookfront {
     private Exemplaryfront exemplaryId;
     private boolean available;
     private Accountfront account;
-
+    private List<Pretfront> pretList;
 }

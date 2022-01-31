@@ -19,4 +19,14 @@ public class PretController implements PretApi {
     public Pret save(Pret pret, Integer accountid, Integer bookid) {
         return pretServicesmpl.save(pret,accountid,bookid);
     }
+
+    @Override
+    public List<Object[]> listPretOrderByDateJ() {
+        return pretServicesmpl.listPretOrderByDateJ();
+    }
+
+    @Override
+    public List<Object> findByDateTimeJOrderByDateTimeJ() {
+        return pretServicesmpl.findByDateTimeJOrderByDateTimeJ();
+    }
 }

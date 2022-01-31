@@ -48,8 +48,9 @@
                     <td><a th:if="${b.exemplaryId.remainingexemplary>0}" class="btn btn-secondary btn-sm" tabindex="-1"
                            role="link" aria-disabled="false"
                            th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">reserver ce livre</a>
-                        <a   th:if="${b.exemplaryId.remainingexemplary==0}"  class="btn btn-primary btn-sm" href="/pret/save">demande de prêt</a>
-
+                        <form method="post" th:action="@{/pret/save/{accountid}/{bookid}(accountid=${session.utilisateurid},bookid=${b.bookId})}">
+                            <button   th:if="${b.exemplaryId.remainingexemplary==0}"  type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">demande de prêt</button>
+                        </form>
                     </td>
 
                 </tr>
