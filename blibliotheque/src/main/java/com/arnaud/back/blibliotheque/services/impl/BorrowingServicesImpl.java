@@ -33,9 +33,6 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Autowired
     ExemplaryRepository exemplaryRepository;
 
-    @Autowired
-    EmailSenderServiceImpl emailSenderService;
-
     @Override
     public Borrowing findById(Integer id) {
         if (id == null) {

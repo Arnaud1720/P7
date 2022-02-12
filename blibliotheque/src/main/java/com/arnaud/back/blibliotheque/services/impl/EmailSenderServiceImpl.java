@@ -1,6 +1,5 @@
 package com.arnaud.back.blibliotheque.services.impl;
 
-import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.services.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -25,7 +24,4 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         System.out.println("message envoyer...");
     }
-
-
-
 }

@@ -13,10 +13,5 @@ public class Pretfront implements Serializable {
     private Accountfront accountP;
     private Bookfront bookpret;
 
-    @Override
-    public String toString() {
-        return "Pretfront{" +
-                "dateTimeJ='" + dateTimeJ + '\'' +
-                '}';
-    }
+
 }

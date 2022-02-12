@@ -2,10 +2,11 @@ package Spring.batch.microserviceproxy;
 
 import Spring.batch.modelFront.Borrowingfront;
 import Spring.batch.modelFront.Pretfront;
-import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ public interface Microservice {
      @GetMapping(value = APP_ROOT+"/pret/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
      List<Object> findByDateTimeJOrderByDateTimeJ();
 
+     @DeleteMapping(value = APP_ROOT+"/delete/pret/",produces = MediaType.APPLICATION_JSON_VALUE)
+     void deletePretById(Pretfront pret, @RequestParam(name = "idpret") Integer id,
+                         @RequestParam(name = "accountid") Integer accountid,
+                         @RequestParam(name = "bookid") Integer bookid);
 }
+
+

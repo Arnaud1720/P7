@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity(name = "pret")
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pret  {
+public class Pret implements Serializable {
     @Id
     @Column(name = "id",unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +31,8 @@ public class Pret  {
     @JoinColumn(referencedColumnName = "book_id")
     @JsonIgnore
     private Book bookpret;
-
+    @Column(name = "date_Fin")
+    private LocalDateTime dateTimeFin;
 
 
 }
