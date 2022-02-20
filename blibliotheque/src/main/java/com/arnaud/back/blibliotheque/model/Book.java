@@ -37,7 +37,7 @@ public class Book  {
     private boolean available;
     @OneToMany(mappedBy = "bookpret")
     @JsonIgnore
-    private List<Pret> pretList;
+    private List<Borrowing> borrowingList;
 
 
 }

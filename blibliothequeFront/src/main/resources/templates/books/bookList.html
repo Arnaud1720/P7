@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="Fr">
 <header th:include="header/header.html">
   <meta charset="UTF-8">
@@ -34,7 +34,7 @@
           <td th:text="${bt.bookSynopsis}"></td>
           <td th:text="${bt.available}"></td>
 
-          <td><a th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${bt.exemplaryId.id})}">reserver ce livre</a></td>
+          <td><a th:href="@{/templates/loan/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${bt.exemplaryId.id})}">reserver ce livre</a></td>
         </tr>
       </table>
     </div>

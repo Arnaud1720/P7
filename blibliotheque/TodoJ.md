@@ -3,7 +3,7 @@
 
 - [x] création RQT SQL
     
-  - [x] création méthode pour lister les pret ordonée par date
+  - [x] création méthode pour lister les reservation ordonée par date
     dans la couche repo "prêt" (Objet type List<Object[]>)
 
 
@@ -25,9 +25,10 @@ test implémentation méthode envoi de mail
 
 ---
   ```
-                      A FAIRE 
-faire en sorte que le retour du batch ne retourne pas 
-l'objet BOOK et ACCOUNT au complet mais simplement 
-le ACCOUNT_ID && BOOK_ID
+                      A voir avec Mathieu 
+                      les pathVariable sont inversé 
+                      au niveau de la méthode save d'une réservation 
+                      
 
 ``` 
+

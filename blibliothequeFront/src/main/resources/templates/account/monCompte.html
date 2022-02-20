@@ -31,11 +31,11 @@
                     <td th:text="${reservation.extension}"></td>
                     <td>
 
-                        <a  th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter
+                        <a  th:href="@{/loan/{utilisateurid}/{loanid}(utilisateurid = ${reservation.account.id}, loanid = ${reservation.id})}">ajouter
                             une extension</a>
                     </td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/delete/{borrowingid}/{exemplaryid}/(borrowingid= ${reservation.id},exemplaryid=${reservation.exemplaryId.id})}">valider</a>
+                        <a class="btn btn-primary" th:href="@{/delete/{loanid}/{exemplaryid}/(loanid= ${reservation.id},exemplaryid=${reservation.exemplaryId.id})}">valider</a>
                     </td>
 
                 </tr>

@@ -21,5 +21,5 @@ public class Bookfront {
     private Exemplaryfront exemplaryId;
     private boolean available;
     private Accountfront account;
-    private List<Pretfront> pretList;
+    private List<Borrowingfront> pretList;
 }

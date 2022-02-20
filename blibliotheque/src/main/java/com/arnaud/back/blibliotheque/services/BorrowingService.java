@@ -1,30 +1,23 @@
 package com.arnaud.back.blibliotheque.services;
 
+import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Borrowing;
-import com.arnaud.back.blibliotheque.model.Exemplary;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface BorrowingService {
 
-    Borrowing findById(Integer id);
+    Borrowing save(Borrowing borrowing, Integer bookId, Integer accountId);
+    List<Object> findByDateTimeJOrderByDateTimeJ();
+    void deleteBorrowingById(Borrowing borrowing,Integer id,Integer accountid,Integer bookid);
+    Optional<Account> displayMailEndDateOutofTime(Borrowing borrowing, Integer accountid, Integer bookid);
+    List<Borrowing> showLateLoan();
+    List<Borrowing> findall();
 
-    Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid);
 
-    List<Borrowing> findAll();
 
-    String addExtension(int userid, int borrowingid,boolean available);
 
-    List<Borrowing> findAllByAccountId(Integer id);
 
-    List<Borrowing> findAllByAccountMail(String mail);
-
-    List<Borrowing>findAllLateBorrowing();
-
-    void deleteBorrowingByid(Integer id,Integer exemplaryid);
-
-    List<Object[]> findByStartDate();
 
 }

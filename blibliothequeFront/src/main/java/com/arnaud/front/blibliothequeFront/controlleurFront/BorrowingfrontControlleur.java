@@ -1,11 +1,11 @@
 package com.arnaud.front.blibliothequeFront.controlleurFront;
 
-import com.arnaud.front.blibliothequeFront.modelFront.Pretfront;
+import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
+import com.arnaud.front.blibliothequeFront.proxies.MicroServiceBorrowing;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class PretfrontControlleur {
+public class BorrowingfrontControlleur {
     @Autowired
-    MicroServiceProxy microServiceProxy;
+    MicroServiceBorrowing msBorrowing;
 
 
 
-    @PostMapping("/pret/save/{accountid}/{bookid}")
-    public String vlidate(@ModelAttribute("Pretfront")Pretfront pretfront,
+    @PostMapping("/borrowing/save/{bookid}/{accountid}")
+    public String validate(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront,
                           Model model,
                           @PathVariable(name = "accountid")Integer accountid,
                           @PathVariable(name = "bookid")Integer bookid, HttpSession httpSession){
-        httpSession.getAttribute("utilisateurid");
-        model.addAttribute("Pretfront",microServiceProxy.save(pretfront,accountid,bookid));
+        httpSession.getAttribute("accountid");
+        model.addAttribute("borrowingfront",msBorrowing.save(borrowingfront,accountid,bookid));
 
-        return "redirect:/borrowing/listborrowing";
+        return "redirect:/loan/listloan";
 
     }
 }

@@ -1,6 +1,7 @@
 package com.arnaud.front.blibliothequeFront.controlleurFront;
 
 import com.arnaud.front.blibliothequeFront.modelFront.Bookfront;
+import com.arnaud.front.blibliothequeFront.proxies.MicroServiceBook;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import java.util.List;
 public class BookFrontControlleur {
 
     @Autowired
-    MicroServiceProxy microServiceProxy;
+    MicroServiceBook msBook;
 
 
     @GetMapping("/display/books/available")
@@ -24,11 +25,11 @@ public class BookFrontControlleur {
                                           Model model, @ModelAttribute("borrowingfront") Bookfront bookfront) {
 
         if (available) {
-            model.addAttribute("bookTrue", microServiceProxy.findBookByAvailableTrue(true));
+            model.addAttribute("bookTrue", msBook.findBookByAvailableTrue(true));
             return "/books/bookList";
         } else {
 
-            model.addAttribute("booklist", microServiceProxy.findAll());
+            model.addAttribute("booklist", msBook.findAll());
 
             return "/books/bookAvailable";
         }
@@ -43,7 +44,7 @@ public class BookFrontControlleur {
                                  @RequestParam(value = "kind",defaultValue = "")String genre,
                                  Model model){
 
-        model.addAttribute("booklist",   microServiceProxy.findAllByBookTitleContains(titre,auteur,genre));
+        model.addAttribute("booklist",   msBook.findAllByBookTitleContains(titre,auteur,genre));
 
         return "books/search";
     }

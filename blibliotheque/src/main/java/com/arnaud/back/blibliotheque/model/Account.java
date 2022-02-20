@@ -50,6 +50,6 @@ public class Account  {
     private Boolean exceeded;
     @OneToMany(mappedBy = "account")
     @JsonIgnore
-    private List<Pret> pret;
+    private List<Borrowing> borrowings;
 
 }

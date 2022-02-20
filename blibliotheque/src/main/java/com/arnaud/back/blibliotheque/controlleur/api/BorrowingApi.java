@@ -1,86 +1,52 @@
 package com.arnaud.back.blibliotheque.controlleur.api;
 
+import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Borrowing;
-import com.arnaud.back.blibliotheque.model.Exemplary;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.models.auth.In;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 
 @Api(APP_ROOT)
 public interface BorrowingApi {
 
-    @GetMapping(value = APP_ROOT + "/borrowing/{idborrowing}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "rechercher une reservation", notes = " cette méthode permet de recherche une reservation avec son numéro", response = Borrowing.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = " la réservation à été toruver dans la base de donnée "),
-            @ApiResponse(code = 404, message = "aucune réservation n'existe dans la BDD"),
-            @ApiResponse(code = 500, message = "erreur serveur")
-    })
-    Borrowing findById(@PathVariable(name = "idborrowing") Integer id);
-
-
-    @PostMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/{exemplaryid}/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "sauvegarder une réservation", notes = " cette méthode permet de sauvegarder une reservation ", response = Borrowing.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "la réservation à été crée avec succès"),
-            @ApiResponse(code = 500, message = "aucun compte utilisateur n'est lié a cettr reservation  ")
-    })
-    Borrowing save(@RequestBody Borrowing borrowing,@PathVariable(name = "utilisateurid")Integer utilisateurid,
-                   @PathVariable(name = "exemplaryid")Integer exemplaryid);
-
-    @GetMapping(value = APP_ROOT + "/borrowing/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "rechercher afficher la liste des reservation", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Borrowing>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 404, message = "aucun utilisateur n'existe dans la BDD"),
-            @ApiResponse(code = 500, message = "erreur serveur")
-    })
-    List<Borrowing> findAll();
-
-    @GetMapping(value = APP_ROOT + "/{utilisateurid}/{borrowingid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "ajoute un prêt d'une longue d'un mois")
-    String addExtension(@PathVariable(name = "utilisateurid") int userid,
-                        @PathVariable(name = "borrowingid") int borrowingid,@RequestParam(value = "available",defaultValue = "true")
-                                boolean available);
-
-    @GetMapping(value = APP_ROOT + "/borrowing/{utilisateurid}/listborrowing", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "rechercher afficher la liste des reservation selon l'id de l'utilisateur", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Borrowing>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "affichage de la liste correspondante"),
-            @ApiResponse(code = 404, message = "aucun utilisateur n'existe dans la BDD"),
-            @ApiResponse(code = 500, message = "erreur serveur")
-    })
-    List<Borrowing> findByAccountId(@PathVariable("utilisateurid") Integer Uid);
-
-    @GetMapping(value = APP_ROOT+"/test",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @ApiOperation(value = "test logique", notes = "vérife date", responseContainer = "List<Borrowing>")
-    @ApiResponses(value = {
-
-    })
-    List<Borrowing> findAllLateBorrowing();
-
-    @DeleteMapping( value = APP_ROOT+"/delete/{borrowingid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "supprime une réservation", notes = "supprime une réservation", response = Borrowing.class)
-    @ApiResponses(value = {
-    })
-    void deleteBorrowingByid(@PathVariable(name = "borrowingid") Integer id,
-                             @PathVariable(name = "exemplaryid")Integer exemplaryid );
+    @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "faire une réservation ",response = Borrowing.class)
+    Borrowing save(@RequestBody Borrowing borrowing, @PathVariable(name = "bookid") Integer bookid,
+                   @PathVariable(name = "accountid") Integer accountid
+                   );
 
 
 
-    @GetMapping(value = APP_ROOT+"/OrderByDate",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @ApiOperation(value = "test de la méthode OrderByDate",responseContainer = "List<Object[]>")
-    List<Object[]> findByStartDate();
+    @GetMapping(value = APP_ROOT+"/borrowing/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "list des borrowing par date",responseContainer = "List<Object>")
+    List<Object> findByDateTimeJOrderByDateTimeJ();
+
+    @DeleteMapping(value = APP_ROOT+"/delete/borrowing/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "",response = Borrowing.class)
+
+     void deletePretById(@RequestBody Borrowing borrowing, @RequestParam(name = "idpret") Integer id,
+                         @RequestParam(name = "accountid") Integer accountid,
+                         @RequestParam(name = "bookid") Integer bookid);
+
+    @PostMapping(value = APP_ROOT+"/list/endOutOfTime/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "",response = Borrowing.class)
+    Optional<Account> displayMailEndDateOutofTime(@RequestBody Borrowing borrowing,
+                                           @PathVariable(name = "accountid") Integer accountid,
+                                           @PathVariable(name = "bookid") Integer bookid);
+
+    @GetMapping(value = APP_ROOT + "/Borrowing/list/display/endOfLimite",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "",responseContainer = "List<Borrowing>")
+    List<Borrowing> showLateLoan();
+
+    @GetMapping(value = APP_ROOT+"/borrowing/find/all/",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "",responseContainer ="List<Borrowing>")
+    List<Borrowing> findall();
 }
+

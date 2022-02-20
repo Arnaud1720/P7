@@ -1,7 +1,9 @@
 package com.arnaud.front.blibliothequeFront.controlleurFront;
 
 import com.arnaud.front.blibliothequeFront.exception.BorrowingNotValidException;
-import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
+import com.arnaud.front.blibliothequeFront.modelFront.Loanfront;
+import com.arnaud.front.blibliothequeFront.proxies.MicroServiceBorrowing;
+import com.arnaud.front.blibliothequeFront.proxies.MicroServiceLoan;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,58 +18,62 @@ import java.net.ConnectException;
 
 @Controller
 @Slf4j
-public class BorrowingFrontControlleur {
+public class LoanFrontControlleur {
 
     @Autowired
     MicroServiceProxy microServiceProxy ;
+    @Autowired
+    MicroServiceBorrowing msBorrowing;
+    @Autowired
+    MicroServiceLoan msLoan;
 
-    @GetMapping("/borrowing/{utilisateurid}/{exemplaryid}/save")
-    public String displayForm(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront,
+    @GetMapping("/loan/{utilisateurid}/{exemplaryid}/save")
+    public String displayForm(@ModelAttribute("loanfront") Loanfront loanfront,
                               Model model,
                               HttpSession session)throws ConnectException
     {
-        model.addAttribute("borrowingfront",borrowingfront);
+        model.addAttribute("loanfront",loanfront);
         if(session.getAttribute("utilisateurid")==null){
 
               throw new ConnectException("vous devez être connecter pour faire une réservation");
         }else
 
-        return "/borrowing/addNewBorrowing";
+        return "loan/addNewloan";
 
     }
-    @PostMapping(value ="/borrowing/{utilisateurid}/{exemplaryid}/save")
+    @PostMapping(value ="/loan/{utilisateurid}/{exemplaryid}/save")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    public String create(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront,
+    public String create(@ModelAttribute("loanfront") Loanfront loanfront,
                          @PathVariable(name = "utilisateurid")Integer utilisateurid,
                          @PathVariable(name = "exemplaryid")Integer exemplaryid,Model model){
-        microServiceProxy.save(borrowingfront,utilisateurid,exemplaryid);
+        microServiceProxy.save(loanfront,utilisateurid,exemplaryid);
 
-        return "/borrowing/addNewBorrowing";
+        return "loan/addNewloan";
 
     }
 
-    @GetMapping("/borrowing/listborrowing")
+    @GetMapping("/loan/listloan")
     public String findAllByAccountId( Model model, HttpSession session){
         model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
 
         return "/account/monCompte";
     }
 
-    @GetMapping("/borrowing/{utilisateurid}/{borrowingid}")
+    @GetMapping("/loan/{utilisateurid}/{loanid}")
     public String addExtension(@PathVariable(name = "utilisateurid")int userid,
-                               @PathVariable(name = "borrowingid") int borrowingid,
+                               @PathVariable(name = "loanid") int loanid,
                                @RequestParam(value = "available",defaultValue = "true") boolean available,
                                HttpSession session, Model model) throws BorrowingNotValidException {
         model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
-         model.addAttribute("extension", microServiceProxy.addExtension(userid,borrowingid,available));
+         model.addAttribute("extension", msBorrowing.addExtension(userid,loanid,available));
         return "/account/monCompte";
 
     }
 
-    @DeleteMapping("/delete/{borrowingid}/{exemplaryid}/")
-    void  deleteBorrowingByid (@PathVariable(name = "borrowingid") Integer id,
+    @DeleteMapping("/delete/{loanid}/{exemplaryid}/")
+    void  deleteBorrowingByid (@PathVariable(name = "loanid") Integer id,
                              @PathVariable(name = "exemplaryid")Integer exemplaryid ){
-        microServiceProxy.deleteBorrowingByid(id,exemplaryid);
+        msLoan.deleteLoanByid(id,exemplaryid);
     }
 
 }

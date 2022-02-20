@@ -1,61 +1,51 @@
 package com.arnaud.back.blibliotheque.controlleur;
 
 import com.arnaud.back.blibliotheque.controlleur.api.BorrowingApi;
+import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Borrowing;
-import com.arnaud.back.blibliotheque.services.BorrowingService;
+import com.arnaud.back.blibliotheque.services.impl.BorrowingServicesmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 public class BorrowingController implements BorrowingApi {
     @Autowired
-    private BorrowingService borrowingService;
+    BorrowingServicesmpl borrowingServicesmpl;
+
 
     @Override
-    public Borrowing findById(Integer id) {
-        return borrowingService.findById(id);
-    }
-
-    @Override
-    public Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid) {
-        Borrowing valueReturn = borrowingService.save(borrowing,utilisateurid,exemplaryid);
-        return valueReturn;
-    }
-
-    @Override
-    public List<Borrowing> findAll() {
-        return borrowingService.findAll();
-    }
-
-    @Override
-    public String addExtension(int userid, int borrowingid,boolean avaible) {
-        return borrowingService.addExtension(userid,borrowingid,avaible);
-    }
-
-    @Override
-    public List<Borrowing> findByAccountId(Integer Uid) {
-        List<Borrowing> resultList = borrowingService.findAllByAccountId(Uid);
-        return resultList;
+    public Borrowing save(Borrowing borrowing, Integer bookid, Integer accountid) {
+        return borrowingServicesmpl.save(borrowing, accountid, bookid);
     }
 
 
     @Override
-    public List<Borrowing> findAllLateBorrowing() {
-        return borrowingService.findAllLateBorrowing();
+    public List<Object> findByDateTimeJOrderByDateTimeJ() {
+        return borrowingServicesmpl.findByDateTimeJOrderByDateTimeJ();
     }
 
     @Override
-    public void deleteBorrowingByid(Integer id, Integer exemplaryid) {
-        borrowingService.deleteBorrowingByid(id,exemplaryid);
-
+    public void deletePretById(Borrowing borrowing,Integer id, Integer accountid, Integer bookid) {
+        borrowingServicesmpl.deleteBorrowingById(borrowing,id,accountid,bookid);
     }
 
     @Override
-    public List<Object[]> findByStartDate() {
-        List<Object[]> resulDateList = borrowingService.findByStartDate();
-        return resulDateList;
+    public Optional<Account> displayMailEndDateOutofTime(Borrowing borrowing, Integer accountid, Integer bookid) {
+        Optional<Account> borrowingList = borrowingServicesmpl.displayMailEndDateOutofTime(borrowing,accountid,bookid);
+        return borrowingList;
+    }
+
+    @Override
+    public List<Borrowing> showLateLoan() {
+        return borrowingServicesmpl.showLateLoan();
+    }
+
+    @Override
+    public List<Borrowing> findall() {
+        return borrowingServicesmpl.findall();
     }
 
 

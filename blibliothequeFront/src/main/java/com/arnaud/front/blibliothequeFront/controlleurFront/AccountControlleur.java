@@ -53,6 +53,6 @@ public class AccountControlleur {
         session.setAttribute("email",accountfront.getMail());
         session.setAttribute("pseudo",accountfront.getPseudo());
         session.setAttribute("utilisateurid",authenticationResponse.getId());
-        return "redirect:/borrowing/listborrowing";
+        return "redirect:/loan/listloan";
     }
 }

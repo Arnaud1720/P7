@@ -4,28 +4,26 @@ import com.arnaud.back.blibliotheque.exception.BorrowingNotValidException;
 import com.arnaud.back.blibliotheque.exception.EntityNotFoundException;
 import com.arnaud.back.blibliotheque.exception.ErrorCode;
 import com.arnaud.back.blibliotheque.model.Account;
-import com.arnaud.back.blibliotheque.model.Borrowing;
 import com.arnaud.back.blibliotheque.model.Exemplary;
+import com.arnaud.back.blibliotheque.model.Loan;
 import com.arnaud.back.blibliotheque.repository.AccountRepository;
-import com.arnaud.back.blibliotheque.repository.BorrowingRepository;
 import com.arnaud.back.blibliotheque.repository.ExemplaryRepository;
-import com.arnaud.back.blibliotheque.services.BorrowingService;
+import com.arnaud.back.blibliotheque.repository.LoanRepository;
+import com.arnaud.back.blibliotheque.services.LoanService;
 import com.arnaud.back.blibliotheque.validator.BorrowingValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.List;
 
 @Service
 @Slf4j
-public class BorrowingServicesImpl implements BorrowingService {
+public class LoanServicesImpl implements LoanService {
 
     @Autowired
-    private BorrowingRepository borrowingRepository;
+    private LoanRepository loanRepository;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -34,22 +32,22 @@ public class BorrowingServicesImpl implements BorrowingService {
     ExemplaryRepository exemplaryRepository;
 
     @Override
-    public Borrowing findById(Integer id) {
+    public Loan findById(Integer id) {
         if (id == null) {
             log.error("le numéro de la reservation n'exite pas");
             throw new EntityNotFoundException("le numéro de la reservation n'exite pas", ErrorCode.BORROWING_NOT_FOUND);
         }
-        return borrowingRepository.findById(id).orElseThrow(null);
+        return loanRepository.findById(id).orElseThrow(null);
     }
 
     @Override
-    public Borrowing save(Borrowing borrowing, Integer utilisateurid, Integer exemplaryid) {
-        List<String> erros = BorrowingValidator.chemaValidator(borrowing);
+    public Loan save(Loan loan, Integer utilisateurid, Integer exemplaryid) {
+        List<String> erros = BorrowingValidator.chemaValidator(loan);
 
         Account account = accountRepository.findById(utilisateurid).orElse(null);
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
-        borrowing.setAccount(account);
-        borrowing.setExemplaryId(exemplary);
+        loan.setAccount(account);
+        loan.setExemplaryId(exemplary);
         if (!erros.isEmpty()) {
 
             throw new EntityNotFoundException("erreur pendant la création de la réservation", ErrorCode.BORROWING_NOT_FOUND, erros);
@@ -62,7 +60,7 @@ public class BorrowingServicesImpl implements BorrowingService {
             }
 
         }
-        return borrowingRepository.save(borrowing);
+        return loanRepository.save(loan);
     }
 
     /**
@@ -72,23 +70,23 @@ public class BorrowingServicesImpl implements BorrowingService {
      * a terminer
      */
     @Override
-    public void deleteBorrowingByid(Integer id,Integer exemplaryid) {
+    public void deleteLoanByid(Integer id, Integer exemplaryid) {
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
         assert exemplary != null;
         incremente(exemplary);
-        borrowingRepository.deleteById(id);
+        loanRepository.deleteById(id);
 
     }
 
     @Override
     public List<Object[]> findByStartDate() {
-        return borrowingRepository.findByStartDate();
+        return loanRepository.findByStartDate();
     }
 
 
     @Override
-    public List<Borrowing> findAll() {
-        return borrowingRepository.findAll();
+    public List<Loan> findAll() {
+        return loanRepository.findAll();
     }
 
 
@@ -96,13 +94,13 @@ public class BorrowingServicesImpl implements BorrowingService {
     @Override
     public String addExtension(int userid, int borrowingid, boolean available) throws BorrowingNotValidException {
         Account user = accountRepository.findById(userid).orElseThrow(() -> new EntityNotFoundException(" l'utilisateur n'existe pas "));
-        Borrowing borrowing = borrowingRepository.findById(borrowingid).orElseThrow(() -> new EntityNotFoundException("la réservation n'exite pas"));
-        borrowing.setAccount(user);
+        Loan loan = loanRepository.findById(borrowingid).orElseThrow(() -> new EntityNotFoundException("la réservation n'exite pas"));
+        loan.setAccount(user);
         if (available) {
-            this.addExtension(borrowing);
-            borrowing.setExtension(true);
+            this.addExtension(loan);
+            loan.setExtension(true);
 
-            borrowingRepository.save(borrowing);
+            loanRepository.save(loan);
 
             return "vôtre prêt est prolongé de 1 mois";
         } else
@@ -110,24 +108,24 @@ public class BorrowingServicesImpl implements BorrowingService {
     }
 
     @Override
-    public List<Borrowing> findAllByAccountId(Integer id) {
+    public List<Loan> findAllByAccountId(Integer id) {
         if (id == null) {
             log.error("--------");
         }
-        return borrowingRepository.findAllByAccountId(id);
+        return loanRepository.findAllByAccountId(id);
     }
 
 
 
     @Override
-    public List<Borrowing> findAllByAccountMail(String mail) {
-        return borrowingRepository.findAllByAccountMail(mail);
+    public List<Loan> findAllByAccountMail(String mail) {
+        return loanRepository.findAllByAccountMail(mail);
     }
 
     @Override
-    public List <Borrowing> findAllLateBorrowing() {
+    public List<Loan> findAllLateLoan() {
         LocalDate dt = LocalDate.now();
-        return borrowingRepository.findAllByEndDateLessThan(dt);
+        return loanRepository.findAllByEndDateLessThan(dt);
 
     }
 
@@ -136,14 +134,14 @@ public class BorrowingServicesImpl implements BorrowingService {
     /**
      * ne pas mettre de corrp de méthode dans une interface  la déclaré en privé
      *
-     * @param borrowing
+     * @param loan
      */
 
-    private void addExtension(Borrowing borrowing) {
-        LocalDate d1 = borrowing.getEndDate();
+    private void addExtension(Loan loan) {
+        LocalDate d1 = loan.getEndDate();
         LocalDate d2 = d1.plusMonths(1);
-        borrowing.setEndDate(d2);
-        if (borrowing.isExtension()) {
+        loan.setEndDate(d2);
+        if (loan.isExtension()) {
             throw new BorrowingNotValidException("le prêt ne peut être prolongé que de 1 mois", ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
         }
 
