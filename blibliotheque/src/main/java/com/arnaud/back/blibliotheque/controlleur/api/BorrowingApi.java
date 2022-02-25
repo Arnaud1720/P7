@@ -1,6 +1,5 @@
 package com.arnaud.back.blibliotheque.controlleur.api;
 
-import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Borrowing;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 
@@ -34,19 +32,14 @@ public interface BorrowingApi {
                          @RequestParam(name = "accountid") Integer accountid,
                          @RequestParam(name = "bookid") Integer bookid);
 
-    @PostMapping(value = APP_ROOT+"/list/endOutOfTime/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "",response = Borrowing.class)
-    Optional<Account> displayMailEndDateOutofTime(@RequestBody Borrowing borrowing,
-                                           @PathVariable(name = "accountid") Integer accountid,
-                                           @PathVariable(name = "bookid") Integer bookid);
 
-    @GetMapping(value = APP_ROOT + "/Borrowing/list/display/endOfLimite",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "",responseContainer = "List<Borrowing>")
-    List<Borrowing> showLateLoan();
 
-    @GetMapping(value = APP_ROOT+"/borrowing/find/all/",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "",responseContainer ="List<Borrowing>")
-    List<Borrowing> findall();
+    @PostMapping(value = APP_ROOT+"/borrowing/find/all/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "affiche la liste des réservation ",responseContainer ="List<Borrowing>")
+    List<Borrowing> findAllByBookingDate();
+
+    /**
+     * //TODO a modifier !
+     */
 }
 

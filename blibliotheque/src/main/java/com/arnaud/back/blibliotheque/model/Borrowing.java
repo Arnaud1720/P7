@@ -25,18 +25,16 @@ public class Borrowing implements Serializable {
     @JsonIgnore
     private Integer id;
     @Column(name = "date_Reservation")
-    private LocalDateTime dateTimeJ;
+    private LocalDateTime bookingDate;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
-    @JsonIgnore
     private Account account;
     @ManyToOne
-    @JoinColumn(referencedColumnName = "book_id")
     @JsonIgnore
+    @JoinColumn(referencedColumnName = "book_id")
     private Book bookpret;
-    @Column(name = "date_Fin")
-    private LocalDateTime dateTimeFin;
-
+    @Column(name = "date_limite_retour")
+    private LocalDateTime bookingDateEnd;
 
 
 }

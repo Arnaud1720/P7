@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 public class Borrowingfront {
 
     private Integer id;
-    private LocalDateTime dateTimeJ;
-    private Accountfront accountP;
+    private LocalDateTime bookingDate;
+    private Accountfront account;
     private Bookfront bookpret;
+    private LocalDateTime bookingDateEnd;
 
 
 

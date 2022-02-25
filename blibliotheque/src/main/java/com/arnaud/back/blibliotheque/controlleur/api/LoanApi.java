@@ -61,7 +61,7 @@ public interface LoanApi {
     List<Loan> findAllLateLoan();
 
     @DeleteMapping( value = APP_ROOT+"/delete/{loanid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "supprime une réservation", notes = "supprime une réservation", response = Loan.class)
+    @ApiOperation(value = "supprime un emprunt", notes = "supprime une réservation", response = Loan.class)
     @ApiResponses(value = {
     })
     void deleteLoanByid(@PathVariable(name = "loanid") Integer id,

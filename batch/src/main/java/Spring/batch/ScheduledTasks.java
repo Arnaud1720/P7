@@ -6,6 +6,7 @@ import Spring.batch.modelFront.Loanfront;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,30 +18,27 @@ import java.util.List;
 
 public class ScheduledTasks {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     @Autowired
     Microservice microservice;
 
-    @Scheduled(fixedRate =5000 )
+    @Scheduled(fixedRate =3000 )
     public void  findAllLateBorrowing() throws InterruptedException {
-        List<Borrowingfront> listLate =  microservice.findAllLateBorrowing();
-        Thread.sleep(10000);
-        System.out.println("---- Task completed ----");
-        log.info("test {}" , listLate.toString());
-        List<Object> listTest=microservice.findByDateTimeJOrderByDateTimeJ();
+        List<Borrowingfront> listLate =  microservice.findAllLateLoan();
         // sleep for 10 seconds
-        Thread.sleep(15000);
+        Thread.sleep(10000);
+        System.out.println("---- Task completed 1 ----");
+        log.info("lateList {}" , listLate.toString());
+
         System.out.println("---- Task 2 completed ----");
+        List<Object> listTest=microservice.findByDateTimeJOrderByDateTimeJ();
         log.info("test1{}",listTest);
 
-
+        System.out.println("Affiche les réservation");
+        System.out.println("---- Task 3 completed ----");
+        List<Borrowingfront>  listBorrowing = microservice.findall();
+        log.info("ListBorrowing{}",listBorrowing);
     }
 
-
-
-    public void deletePretById(Loanfront loanfront, Integer id, Integer accountid, Integer bookid){
-        microservice.deletePretById(loanfront,id,accountid,bookid);
-    }
 
 }
 //86400000

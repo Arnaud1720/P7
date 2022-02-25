@@ -13,9 +13,13 @@ import java.util.List;
 public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
 
 
-    @Query("select p.dateTimeJ,p.account.id,p.bookpret.bookId from borrowing p order by p.dateTimeJ")
+    @Query("select p.bookingDate,p.account.id,p.bookpret.bookId from borrowing p order by p.bookingDate")
     List<Object> findByDateTimeJOrderByDateTimeJ();
-    List<Borrowing> findAllByDateTimeFin(LocalDateTime localDateTime);
+
+    List<Borrowing> findAllByBookingDate(LocalDateTime ld);
+
+    @Query("select b from borrowing b where b.bookingDateEnd < ?1")
+    List<Borrowing> findAllByBookingDateEndLessThan(LocalDateTime dateDuJour);
 
 
 }
