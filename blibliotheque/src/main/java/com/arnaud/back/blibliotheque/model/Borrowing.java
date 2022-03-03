@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,6 +36,9 @@ public class Borrowing implements Serializable {
     private Book bookpret;
     @Column(name = "date_limite_retour")
     private LocalDateTime bookingDateEnd;
+    @Column(columnDefinition = "boolean default false")
+    private boolean outOfTime;
+
 
 
 }

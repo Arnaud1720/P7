@@ -31,7 +31,7 @@ public class BorrowingController implements BorrowingApi {
     }
 
     @Override
-    public List<Borrowing> findAllByBookingDate() {
+    public List<Borrowing> findBorrrowingOutOfTime() {
         return borrowingServicesmpl.findBorrrowingOutOfTime();
     }
 

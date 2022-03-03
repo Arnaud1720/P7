@@ -8,6 +8,8 @@ import com.arnaud.back.blibliotheque.repository.BookRepository;
 import com.arnaud.back.blibliotheque.repository.BorrowingRepository;
 import com.arnaud.back.blibliotheque.services.BorrowingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +25,8 @@ public class BorrowingServicesmpl implements BorrowingService {
     AccountRepository accountRepository;
     @Autowired
     BookRepository bookRepository;
-
+    @Autowired
+    private JavaMailSenderImpl javaMailSenderImpl;
 
 
     @Override
@@ -34,9 +37,12 @@ public class BorrowingServicesmpl implements BorrowingService {
         //Book_id
         Book book = bookRepository.findById(bookid).orElse(null);
         borrowing.setBookpret(book);
-       borrowing.setBookingDate(LocalDateTime.now());
+     borrowing.setBookingDate(LocalDateTime.now());
        borrowing.setBookingDateEnd(LocalDateTime.now().plusDays(2));
-
+        assert account != null;
+        javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
+                        +" a été crée avec succès"
+                ,"vous avez jusque au"+ borrowing.getBookingDateEnd()+" pour venir chercher vôtre réservation,sinon elle sera automatiquement supprimée");
         return borrowingRepository.save(borrowing);
 
     }
@@ -64,8 +70,11 @@ public class BorrowingServicesmpl implements BorrowingService {
     public List<Borrowing> findBorrrowingOutOfTime() {
         LocalDateTime dateDuJour = LocalDateTime.now();
         List<Borrowing> borrowings = borrowingRepository.findAllByBookingDateEndLessThan(dateDuJour);
+
+        borrowingRepository.deleteByBookingDateEndLessThan(dateDuJour);
        return borrowings;
     }
+
 
 
 }
