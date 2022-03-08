@@ -4,10 +4,7 @@ import Spring.batch.modelFront.Borrowingfront;
 import Spring.batch.modelFront.Loanfront;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public interface Microservice {
 
 
      @GetMapping(value = APP_ROOT+"/borrowing/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
-     List<Object> findByDateTimeJOrderByDateTimeJ();
+     List<Borrowingfront> findByDateTimeJOrderByDateTimeJ();
 
      @PostMapping(value = APP_ROOT+"/borrowing/find/all/",
              produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,6 +28,8 @@ public interface Microservice {
                          @RequestParam(name = "accountid") Integer accountid,
                          @RequestParam(name = "bookid") Integer bookid);
 
+     @PutMapping(value = APP_ROOT+"/borrowing/modify/state",produces = MediaType.APPLICATION_JSON_VALUE)
+     void isOutOfTime();
 
 }
 

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
@@ -22,8 +23,8 @@ public interface BorrowingApi {
 
 
     @GetMapping(value = APP_ROOT+"/borrowing/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "list des borrowing par date",responseContainer = "List<Object>")
-    List<Object> findByDateTimeJOrderByDateTimeJ();
+    @ApiOperation(value = "list des borrowing par date",responseContainer = "List<Borrowing>")
+    List<Borrowing> findByDateTimeJOrderByDateTimeJ();
 
     @DeleteMapping(value = APP_ROOT+"/delete/borrowing/",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "",response = Borrowing.class)
@@ -38,6 +39,13 @@ public interface BorrowingApi {
     @ApiOperation(value = "affiche la liste des réservation en retard ",responseContainer ="List<Borrowing>")
     List<Borrowing> findBorrrowingOutOfTime();
 
+    @PutMapping(value = APP_ROOT+"/borrowing/modify/state",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "check si la reservation est hors délai",response = Borrowing.class)
+    void isOutOfTime();
+
+    @GetMapping(value = APP_ROOT+"/borrowing/check",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "vérifie les doublon",response = Borrowing.class)
+    BigInteger checkDoublon();
 
 }
 

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-
+@ToString
 public class Borrowingfront {
 
     private Integer id;
@@ -16,13 +16,6 @@ public class Borrowingfront {
     private Accountfront account;
     private Bookfront bookpret;
     private LocalDateTime bookingDateEnd;
-
-    @Override
-    public String toString() {
-        return "Borrowingfront{" +
-                "id=" + id +
-                ", date de réservation=" + bookingDate +
-                ", date limite =" + bookingDateEnd +
-                '}';
-    }
+    private boolean outOfTime;
+    
 }

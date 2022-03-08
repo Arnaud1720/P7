@@ -8,10 +8,9 @@ import com.arnaud.back.blibliotheque.repository.BookRepository;
 import com.arnaud.back.blibliotheque.repository.BorrowingRepository;
 import com.arnaud.back.blibliotheque.services.BorrowingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class BorrowingServicesmpl implements BorrowingService {
 
     @Override
     public Borrowing save(Borrowing borrowing, Integer bookid, Integer accountid) {
+       BigInteger doublon = borrowingRepository.checkDoublon();
         //account_id
        Account account = accountRepository.findById(accountid).orElse(null);
         borrowing.setAccount(account);
@@ -39,6 +39,7 @@ public class BorrowingServicesmpl implements BorrowingService {
         borrowing.setBookpret(book);
      borrowing.setBookingDate(LocalDateTime.now());
        borrowing.setBookingDateEnd(LocalDateTime.now().plusDays(2));
+
         assert account != null;
         javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
                         +" a été crée avec succès"
@@ -49,7 +50,7 @@ public class BorrowingServicesmpl implements BorrowingService {
 
 
     @Override
-    public List<Object> findByDateTimeJOrderByDateTimeJ() {
+    public List<Borrowing> findByDateTimeJOrderByDateTimeJ() {
 
         return borrowingRepository.findByDateTimeJOrderByDateTimeJ();
 
@@ -63,19 +64,30 @@ public class BorrowingServicesmpl implements BorrowingService {
         Book book = bookRepository.findById(bookid).orElse(null);
         borrowing.setAccount(account);
         borrowing.setBookpret(book);
-            borrowingRepository.deleteById(id);
-        }
+        borrowingRepository.deleteById(id);
+    }
 
     @Override
     public List<Borrowing> findBorrrowingOutOfTime() {
+
         LocalDateTime dateDuJour = LocalDateTime.now();
         List<Borrowing> borrowings = borrowingRepository.findAllByBookingDateEndLessThan(dateDuJour);
 
-        borrowingRepository.deleteByBookingDateEndLessThan(dateDuJour);
        return borrowings;
     }
 
+    @Override
+    public void  isOutOfTime() {
+        borrowingRepository.isOutOfTime();
+    }
 
-
+    /**
+     *
+     * @return BIGINT test Agréga retourne les doublon par rapport au bookid dans la table borrowing
+     */
+    @Override
+    public BigInteger checkDoublon() {
+      return   borrowingRepository.checkDoublon();
+    }
 }
 

@@ -2,10 +2,12 @@ package Spring.batch;
 
 import Spring.batch.microserviceproxy.Microservice;
 import Spring.batch.modelFront.Borrowingfront;
+import Spring.batch.modelFront.Loanfront;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,23 +19,30 @@ public class ScheduledTasks {
     Microservice microservice;
 
     @Scheduled(fixedRate =3000 )
+    /**
+     * affiche les prêt et les réservations en retard
+     */
     public void  findAllLateBorrowing() throws InterruptedException {
-        List<Borrowingfront> listLate =  microservice.findAllLateLoan();
-        // sleep for 10 seconds
-        Thread.sleep(10000);
-        System.out.println("---- Task completed 1 ----");
-        log.info("lateList {}" , listLate.toString());
-
-        System.out.println("---- Task 2 completed ----");
-        List<Object> listTest=microservice.findByDateTimeJOrderByDateTimeJ();
-        log.info("test1{}",listTest);
+        System.out.println("---- Task 1 completed ----");
+        List<Borrowingfront> listTest=microservice.findByDateTimeJOrderByDateTimeJ();
+        log.info("liste d'attente reservation {}",listTest);
 
         System.out.println("Affiche les réservation");
-        System.out.println("---- Task 3 completed ----");
+        System.out.println("---- Task 2 completed ----");
         List<Borrowingfront>  listBorrowing = microservice.findall();
         log.info("ListBorrowing{}",listBorrowing);
+
     }
 
 
+//    @Scheduled(cron =" 0 0 * * *")
+    /**
+     * vérifie que la reservation n'est pas dépasé la date limite
+     */
+    public void checkOutofTime() throws InterruptedException {
+        microservice.isOutOfTime();
+        log.info("la liste des réservation en retard on étaient mise a jour");
+    }
+
 }
-//86400000
+

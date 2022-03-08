@@ -6,6 +6,7 @@ import com.arnaud.back.blibliotheque.services.impl.BorrowingServicesmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class BorrowingController implements BorrowingApi {
 
 
     @Override
-    public List<Object> findByDateTimeJOrderByDateTimeJ() {
+    public List<Borrowing> findByDateTimeJOrderByDateTimeJ() {
         return borrowingServicesmpl.findByDateTimeJOrderByDateTimeJ();
     }
 
@@ -33,6 +34,16 @@ public class BorrowingController implements BorrowingApi {
     @Override
     public List<Borrowing> findBorrrowingOutOfTime() {
         return borrowingServicesmpl.findBorrrowingOutOfTime();
+    }
+
+    @Override
+    public void isOutOfTime() {
+        borrowingServicesmpl.isOutOfTime();
+    }
+
+    @Override
+    public BigInteger checkDoublon() {
+       return borrowingServicesmpl.checkDoublon();
     }
 
 

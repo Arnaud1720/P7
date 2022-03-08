@@ -70,6 +70,7 @@ public class LoanFrontControlleur {
 
     }
 
+
     @DeleteMapping("/delete/{loanid}/{exemplaryid}/")
     void  deleteBorrowingByid (@PathVariable(name = "loanid") Integer id,
                              @PathVariable(name = "exemplaryid")Integer exemplaryid ){
