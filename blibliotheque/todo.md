@@ -1,6 +1,6 @@
 
 -------------------------------------------------------------------------------------------------
-*
+* 
     - [x] **implémenté la méthode de décrémentation du nombre d'exemplaire**
 
     *
@@ -8,13 +8,13 @@
     *
         - [x] mise en forme inscription
             * restriction sur le mot de passe
-*
+* 
     - [x] **Créé un nouveau projet spring boot, un troisième.**  
     
-*
+* 
     - [x] **Afficher si un Livre est disponible ou non (tous les exemplaires ont un emprunt en cours;**
     
-*
+* test 
 
     - [x] **Afficher le nombre d'exemplaire disponible pour un livre.**
 
