@@ -1,22 +1,24 @@
 package com.arnaud.back.blibliotheque.services;
 
 import com.arnaud.back.blibliotheque.model.Account;
+import com.arnaud.back.blibliotheque.model.dto.AccountDto;
 
 public interface AccountService {
 
-    Account save(Account account);
+    AccountDto save(AccountDto accountDto);
 
-    Account findById(Integer id);
+    AccountDto findById(Integer id);
 
 
     void deleteById(Integer id);
 
-    Account findByIdAccount(Integer Uid);
+    AccountDto findByIdAccount(Integer Uid);
 
 
+//    AccountDto findAccountByMail(String mail);
     Account findAccountByMail(String mail);
 
-     void validationEmail( String email ) throws Exception;
+    void validationEmail( String email ) throws Exception;
 
      void validationMotsDePasse( String motDePasse) throws Exception;
 }

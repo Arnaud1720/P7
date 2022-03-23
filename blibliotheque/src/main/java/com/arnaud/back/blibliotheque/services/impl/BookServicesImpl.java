@@ -2,6 +2,7 @@ package com.arnaud.back.blibliotheque.services.impl;
 
 
 import com.arnaud.back.blibliotheque.model.Book;
+import com.arnaud.back.blibliotheque.model.dto.BookDto;
 import com.arnaud.back.blibliotheque.repository.BookRepository;
 import com.arnaud.back.blibliotheque.services.BookService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,13 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class BookServicesImpl implements BookService {
 
+    private final BookRepository bookRepository;
     @Autowired
-    private BookRepository bookRepository;
+    public BookServicesImpl(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
 
     @Override
@@ -25,6 +30,7 @@ public class BookServicesImpl implements BookService {
 
     @Override
     public List<Book> findBookByAvailableTrue() {
+
        return bookRepository.findBookByAvailableTrue();
     }
 
@@ -35,8 +41,10 @@ public class BookServicesImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDto> findAll() {
+        return bookRepository.findAll()
+                .stream().map(BookDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
 

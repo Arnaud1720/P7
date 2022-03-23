@@ -3,9 +3,8 @@ package com.arnaud.back.blibliotheque.services.impl;
 import com.arnaud.back.blibliotheque.exception.EntityNotFoundException;
 import com.arnaud.back.blibliotheque.exception.ErrorCode;
 import com.arnaud.back.blibliotheque.model.Account;
-import com.arnaud.back.blibliotheque.model.Roles;
+import com.arnaud.back.blibliotheque.model.dto.AccountDto;
 import com.arnaud.back.blibliotheque.repository.AccountRepository;
-import com.arnaud.back.blibliotheque.repository.RolesRepository;
 import com.arnaud.back.blibliotheque.services.AccountService;
 import com.arnaud.back.blibliotheque.validator.AccountValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -14,60 +13,88 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
-@Transactional(rollbackOn = Exception.class)
 public class AccountImpl implements AccountService {
+    private final AccountRepository accountRepository;
+    final PasswordEncoder passwordEncoder;
+
+
     @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public AccountImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+        this.accountRepository = accountRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+// GOOD
     @Override
-    public Account save(Account account) {
-        List<String> erros = AccountValidator.chemaValidator(account);
+    public AccountDto save(AccountDto accountDto) {
+        List<String> erros = AccountValidator.chemaValidator(accountDto);
         if(!erros.isEmpty()){
-            log.error("erreur de création de l'utilisateur {}",account);
+            log.error("erreur de création de l'utilisateur {}",accountDto);
             throw new EntityNotFoundException("erreur pendant la création du compte", ErrorCode.USER_NOT_VALID,erros);
         }
         else
-           account.setPassword(passwordEncoder.encode(account.getPassword()));
-            return accountRepository.save(account);
+           accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+            Account saveAccount= accountRepository.save(AccountDto.toEntity(accountDto));
+            return AccountDto.fromEntity(saveAccount);
     }
 
+
+//GOOD
     @Override
-    public Account findById(Integer id) {
+    public AccountDto findById(Integer id) {
 
         if(id == null){
-            log.error("l'utilisateur correspondant a l'id"+id+"pas présent en BDD");
+            log.error("Id utilisateur Null");
+            return null;
         }
-        assert id != null;
-        return accountRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("utilisateur introuvable "+ErrorCode.USER_NOT_FOUND));
+            Optional<Account> account = accountRepository.findById(id);
+            //parse
+            AccountDto dto = AccountDto.fromEntity(account.get());
+
+        return Optional.of(dto).orElseThrow(()->
+                new EntityNotFoundException(
+                        "aucun utilisateur trouver correspondant a cette id"+id));
 
     }
-
+//GOOD
     @Override
     public void deleteById(Integer id) {
         accountRepository.deleteById(id);
     }
-
+//GOOD
     @Override
-    public Account findByIdAccount(Integer Uid) {
-        /**
-         *  TODO a changer orElseThriw
-         */
-        return accountRepository.findById(Uid).orElse(null);
+    public AccountDto findByIdAccount(Integer Uid) {
+       if(Uid==null){
+           return null;
+       }
+       Optional<Account> account  = accountRepository.findById(Uid);
+       //parse
+        AccountDto dto = AccountDto.fromEntity(account.get());
+        return Optional.of(dto).orElseThrow(()->
+                new EntityNotFoundException("aucun utilisateur trouver correspondant a cette id"+Uid));
     }
 
     @Override
     public Account findAccountByMail(String mail) {
-        if(!StringUtils.hasLength(mail)){
-            log.error("le pseudo n'est pas présent en base");
-        }
-            return accountRepository.findAccountByMail(mail).orElseThrow(() ->
-         new EntityNotFoundException("le pseudo de l'utilisateur n'exisite pas",ErrorCode.USER_NOT_VALID));
+
+        return accountRepository.findAccountByMail(mail);
     }
+
+//    @Override
+//    public AccountDto findAccountByMail(String mail) {
+//        if(!StringUtils.hasLength(mail)){
+//            log.error("aucun email trouvé");
+//        }
+//        Optional<Account> account = accountRepository.findAccountByMail(mail);
+//        //parse
+//        AccountDto dto = AccountDto.fromEntity(account.get());
+//        return Optional.of(dto).orElseThrow(()->new EntityNotFoundException("aucun id est lié a cette email"+" "+mail));
+//    }
 
     public static boolean isValidEmail( String email ) {
         String regExp = "^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$";

@@ -1,9 +1,6 @@
 package com.arnaud.back.blibliotheque.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
@@ -14,6 +11,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "roles")
+@Builder
 public class Roles  extends AbstractEntity {
     @Id
     private Integer id;

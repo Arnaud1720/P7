@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-public class Account  {
+public class Account implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,14 +42,13 @@ public class Account  {
     private String postalAdress;
     @Column(name = "city")
     private String city;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+    @OneToMany( mappedBy = "account")
     @JsonIgnore
     private List<Roles> roles;
     @Transient
     private Boolean exceeded;
-    @OneToMany(mappedBy = "account")
     @JsonIgnore
+    @OneToMany(mappedBy = "account")
     private List<Borrowing> borrowings;
 
 }

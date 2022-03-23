@@ -2,6 +2,7 @@ package com.arnaud.back.blibliotheque.config;
 
 import com.arnaud.back.blibliotheque.auth.JwtUtils;
 import com.arnaud.back.blibliotheque.services.auth.ApplicationUserDetailsService;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +25,6 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {
     @Autowired
     ApplicationUserDetailsService applicationUserDetailsService;
     @Override
-
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         /**
@@ -42,7 +42,7 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {
             mail = jwtUtils.extractUsername(jwt);
         }
         if(StringUtils.hasLength(mail)&& SecurityContextHolder.getContext().getAuthentication()==null){
-            UserDetails userDetails = applicationUserDetailsService.loadUserByUsername(mail);
+            UserDetails userDetails = this.applicationUserDetailsService.loadUserByUsername(mail);
             if(jwtUtils.validateToken(jwt,userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities()

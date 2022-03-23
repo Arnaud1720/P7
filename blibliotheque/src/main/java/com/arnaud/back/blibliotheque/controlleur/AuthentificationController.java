@@ -5,6 +5,7 @@ import com.arnaud.back.blibliotheque.auth.AuthenticationResponse;
 import com.arnaud.back.blibliotheque.auth.JwtUtils;
 import com.arnaud.back.blibliotheque.config.utils.ExtendedAccount;
 import com.arnaud.back.blibliotheque.model.Account;
+import com.arnaud.back.blibliotheque.model.dto.AccountDto;
 import com.arnaud.back.blibliotheque.services.AccountService;
 import com.arnaud.back.blibliotheque.services.auth.ApplicationUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +20,23 @@ import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 import static com.arnaud.back.blibliotheque.constant.Constants.AUTHENTIFICATION_END_POINT;
 
 @RestController
+@RequestMapping(AUTHENTIFICATION_END_POINT)
 public class AuthentificationController {
 
-    @Autowired
-   private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private ApplicationUserDetailsService userDetailsService;
+    private final ApplicationUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
+    private final AccountService accountService;
     @Autowired
-    private AccountService accountService;
+    public AuthentificationController(AuthenticationManager authenticationManager, ApplicationUserDetailsService userDetailsService, JwtUtils jwtUtils, AccountService accountService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.jwtUtils = jwtUtils;
+        this.accountService = accountService;
+    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){

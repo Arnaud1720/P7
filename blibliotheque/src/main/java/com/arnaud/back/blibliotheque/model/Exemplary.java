@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Exemplary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +24,9 @@ public class Exemplary {
     private int exemplaryNumbers;
     @Column(name = "remainingexemplary")
     private int remainingexemplary;
-
+//    Créé un lien ManyToOne d'Exemplary vers Book
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "book_id")
+    private Book book;
 
 }

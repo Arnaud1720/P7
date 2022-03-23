@@ -30,7 +30,16 @@ public class BorrowingServicesmpl implements BorrowingService {
 
     @Override
     public Borrowing save(Borrowing borrowing, Integer bookid, Integer accountid) {
-       BigInteger doublon = borrowingRepository.checkDoublon();
+        /**
+         * 1/ tu récupères l'exemplaire du livre qui souhaite être réservé (modifié)
+         * [17:49]
+         * 2/Tu récupères le nombre d'exemplaire restant (la variable) (modifié)
+         * [17:50]
+         * 3/ Tu récupères ta liste de réservation pour ce book
+         * 4/ Tu vérifies que la taille de cette liste de réservation n'est pas supérieure à 2x le nombre d'exemplaire que tu as relevé au dessus
+         * [17:50]
+         * ---> au moment d'enregistrer une nouvelle réservation par un utilisateur
+         */
         //account_id
        Account account = accountRepository.findById(accountid).orElse(null);
         borrowing.setAccount(account);

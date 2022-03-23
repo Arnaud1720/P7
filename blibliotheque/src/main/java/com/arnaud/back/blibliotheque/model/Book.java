@@ -36,8 +36,9 @@ public class Book  {
     @Column(name = "book_available")
     private boolean available;
     @OneToMany(mappedBy = "bookpret")
-    @JsonIgnore
     private List<Borrowing> borrowingList;
-
+//   Créé un Lien OneToMany de Book vers exemplary
+    @OneToMany(mappedBy = "book")
+    List<Exemplary> exemplaries;
 
 }

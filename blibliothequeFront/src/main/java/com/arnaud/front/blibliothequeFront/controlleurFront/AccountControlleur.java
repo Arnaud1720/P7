@@ -17,8 +17,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AccountControlleur {
 
+    final MicroServiceProxy microServiceProxy;
     @Autowired
-    MicroServiceProxy microServiceProxy;
+    public AccountControlleur(MicroServiceProxy microServiceProxy) {
+        this.microServiceProxy = microServiceProxy;
+    }
 
     @GetMapping("/utilisateur/save")
     public String inscription( @ModelAttribute("accountfront") Accountfront accountfront, Model model){

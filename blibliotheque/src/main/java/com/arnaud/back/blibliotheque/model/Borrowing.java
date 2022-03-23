@@ -1,10 +1,7 @@
 package com.arnaud.back.blibliotheque.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity(name = "borrowing")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Borrowing implements Serializable {
@@ -28,11 +26,11 @@ public class Borrowing implements Serializable {
     @Column(name = "date_Reservation")
     private LocalDateTime bookingDate;
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name = "account_id")
     private Account account;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(referencedColumnName = "book_id")
+    @JoinColumn(name = "bookpret_book_id")
     private Book bookpret;
     @Column(name = "date_limite_retour")
     private LocalDateTime bookingDateEnd;

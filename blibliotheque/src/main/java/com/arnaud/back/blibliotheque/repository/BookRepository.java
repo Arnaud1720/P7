@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.repository;
 
 import com.arnaud.back.blibliotheque.model.Book;
+import com.arnaud.back.blibliotheque.model.dto.BookDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;

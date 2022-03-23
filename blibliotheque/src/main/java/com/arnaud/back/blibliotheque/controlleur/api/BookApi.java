@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.controlleur.api;
 
 import com.arnaud.back.blibliotheque.model.Book;
+import com.arnaud.back.blibliotheque.model.dto.BookDto;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public interface BookApi {
             @ApiResponse(code = 200, message = "la liste a été trouver"),
             @ApiResponse(code = 500, message = "une erreur serveur c'est produite")
     })
-    List<Book> findAll();
+    List<BookDto> findAll();
 
     @GetMapping(value = APP_ROOT + "/findbook/by/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

@@ -6,16 +6,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.Column;
+
 @Data
 @Builder
 public class RolesDto {
 
-
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "role_name")
     private String roleName;
-
-    @JsonIgnore
     private Account account;
 
     public static RolesDto fromEntity(Roles roles) {
@@ -29,13 +29,13 @@ public class RolesDto {
     }
 
     public static Roles toEntity(RolesDto dto) {
-        if (dto == null) {
+        if(dto==null){
             return null;
         }
         Roles roles = new Roles();
-        roles.setId(dto.getId());
-        roles.setRoleName(dto.getRoleName());
-//        roles.setAccount(account.toEntity(dto.getAccount()));
+        roles.setId(roles.getId());
+        roles.setRoleName(roles.getRoleName());
+        roles.setAccount(roles.getAccount());
         return roles;
     }
 }

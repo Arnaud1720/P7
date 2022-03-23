@@ -1,6 +1,6 @@
 package com.arnaud.back.blibliotheque.validator;
 
-import com.arnaud.back.blibliotheque.model.Account;
+import com.arnaud.back.blibliotheque.model.dto.AccountDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AccountValidator {
 
-    public static List<String> chemaValidator(Account account){
+    public static List<String> chemaValidator(AccountDto account){
         List<String> chemaErros = new ArrayList<>();
 
         if(account  == null || !StringUtils.hasLength(account.getLastName())){

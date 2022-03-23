@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -38,12 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/authenticate",
+            "/blibliotheque/v1/auth/authenticate",
             "/blibliotheque/v1/utilisateur/save",
             "/blibliotheque/v1/**/**",
-            "http://localhost:8001/test",
-            "**/config/**/**"
-
+            "**/config/**/**",
 
     };
 
