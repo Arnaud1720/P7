@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @Data
 public class BookDto {
-    private  int bookId;
+    private  Integer bookId;
     private String bookTitle;
     private String bookKide;
     private String bookAuthor;

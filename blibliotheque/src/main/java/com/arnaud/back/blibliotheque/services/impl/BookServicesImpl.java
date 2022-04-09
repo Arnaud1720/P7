@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class BookServicesImpl implements BookService {
 
     private final BookRepository bookRepository;
+
     @Autowired
     public BookServicesImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -24,8 +25,21 @@ public class BookServicesImpl implements BookService {
 
 
     @Override
-    public List<Book> findAllByBookTitleAndBookAuthorAndAndBookKide(String titre,String auteur,String genre) {
-        return bookRepository.findAllByBookTitleOrBookAuthorOrBookKide(titre,auteur,genre);
+    public List<BookDto> findAllByBookTitleAndBookAuthorAndAndBookKide(String titre, String auteur, String genre) {
+        if(titre.equals("")){
+            log.warn("le titre est vide");
+        }else if (auteur.equals("")){
+            log.warn("l'auteur est vide");
+        }else if(genre.equals(""))
+        {
+            log.warn("le genre est vide ");
+        }
+
+        return bookRepository.findAllByBookTitleOrBookAuthorOrBookKide(titre,auteur,genre)
+                .stream()
+                .map(BookDto::fromEntity)
+                .collect(Collectors.toList());
+
     }
 
     @Override

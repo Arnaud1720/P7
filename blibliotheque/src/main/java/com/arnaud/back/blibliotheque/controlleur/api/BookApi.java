@@ -39,7 +39,7 @@ public interface BookApi {
             @ApiResponse(code = 200, message = "la liste a été trouver"),
             @ApiResponse(code = 500, message = "une erreur serveur c'est produite")
     })
-    List<Book> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
+    List<BookDto> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
                                           @RequestParam(value = "author",defaultValue = "")String auteur,
                                           @RequestParam(value = "kind",defaultValue = "")String genre);
 

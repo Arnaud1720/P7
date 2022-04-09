@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.services;
 
 import com.arnaud.back.blibliotheque.model.Loan;
+import com.arnaud.back.blibliotheque.model.dto.LoanDto;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ public interface LoanService {
     Loan findById(Integer id);
 
     Loan save(Loan loan, Integer utilisateurid, Integer exemplaryid);
+
+    Loan saveDto(LoanDto dto, Integer utilisateurid, Integer exemplaryid);
 
     List<Loan> findAll();
 

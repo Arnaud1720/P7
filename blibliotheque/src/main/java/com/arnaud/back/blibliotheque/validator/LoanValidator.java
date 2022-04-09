@@ -1,23 +1,33 @@
 package com.arnaud.back.blibliotheque.validator;
 
-import com.arnaud.back.blibliotheque.model.Loan;
+import com.arnaud.back.blibliotheque.model.dto.LoanDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BorrowingValidator {
+public class LoanValidator {
 
-    public static List<String> chemaValidator(Loan loan){
-        List<String> chemaErros = new ArrayList<>();
+    public static List<String> chemaValidator(LoanDto dto){
+        List<String> erros = new ArrayList<>();
 
-        if(loan.getStartDate() == null){
-            chemaErros.add("vous devez remplir le champ concernant la date de départ");
+
+        if(dto == null || dto.getId() == null){
+            erros.add("");
         }
-        if(loan.getEndDate() == null){
-            chemaErros.add("vous devez remplir le champ concernant la date de fin");
+        if(dto==null || dto.getStartDate()==null){
+            erros.add("");
         }
-
-        return chemaErros;
+        if(dto==null || dto.getEndDate()==null){
+            erros.add("");
+        }
+        if(dto==null || dto.getExemplaryId()==null){
+            erros.add("");
+        }
+        if(dto==null || dto.getExceeded()==null){
+            erros.add("");
+        }
+        return erros;
 
     }
+
 }

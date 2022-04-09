@@ -6,11 +6,12 @@ import com.arnaud.back.blibliotheque.exception.ErrorCode;
 import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Exemplary;
 import com.arnaud.back.blibliotheque.model.Loan;
+import com.arnaud.back.blibliotheque.model.dto.LoanDto;
 import com.arnaud.back.blibliotheque.repository.AccountRepository;
 import com.arnaud.back.blibliotheque.repository.ExemplaryRepository;
 import com.arnaud.back.blibliotheque.repository.LoanRepository;
 import com.arnaud.back.blibliotheque.services.LoanService;
-import com.arnaud.back.blibliotheque.validator.BorrowingValidator;
+import com.arnaud.back.blibliotheque.validator.LoanValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,17 @@ import java.util.List;
 @Slf4j
 public class LoanServicesImpl implements LoanService {
 
-    @Autowired
-    private LoanRepository loanRepository;
+    private final LoanRepository loanRepository;
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    @Autowired
-    ExemplaryRepository exemplaryRepository;
+    final ExemplaryRepository exemplaryRepository;
+        @Autowired
+    public LoanServicesImpl(LoanRepository loanRepository, AccountRepository accountRepository, ExemplaryRepository exemplaryRepository) {
+        this.loanRepository = loanRepository;
+        this.accountRepository = accountRepository;
+        this.exemplaryRepository = exemplaryRepository;
+    }
 
     @Override
     public Loan findById(Integer id) {
@@ -42,32 +46,44 @@ public class LoanServicesImpl implements LoanService {
 
     @Override
     public Loan save(Loan loan, Integer utilisateurid, Integer exemplaryid) {
-        List<String> erros = BorrowingValidator.chemaValidator(loan);
-
-        Account account = accountRepository.findById(utilisateurid).orElse(null);
-        Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
-        loan.setAccount(account);
-        loan.setExemplaryId(exemplary);
-        if (!erros.isEmpty()) {
-
-            throw new EntityNotFoundException("erreur pendant la création de la réservation", ErrorCode.BORROWING_NOT_FOUND, erros);
-        } else {
-            assert exemplary != null;
-            decremente(exemplary);
-            if (exemplary.getRemainingexemplary() == 0) {
-                    //
-
-            }
-
-        }
-        return loanRepository.save(loan);
+        return null;
     }
+
+//    @Override
+//    public Loan save(LoanDto dto, Integer utilisateurid, Integer exemplaryid) {
+//        List<String> erros = LoanValidator.chemaValidator(dto);
+//
+//        Account account = accountRepository.findById(utilisateurid).orElse(null);
+//        Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
+//        dto.setAccount(account);
+//        dto.setExemplaryId(exemplary);
+//        if (!erros.isEmpty()) {
+//
+//            throw new EntityNotFoundException("erreur pendant la création de la réservation", ErrorCode.BORROWING_NOT_FOUND, erros);
+//        } else {
+//            assert exemplary != null;
+//            decremente(exemplary);
+//
+//        }
+//        return loanRepository.save(dto);
+//    }
+
+    @Override
+    public Loan saveDto(LoanDto dto, Integer utilisateurid, Integer exemplaryid) {
+        List<String> erros = LoanValidator.chemaValidator(dto);
+        if(!erros.isEmpty()){
+            log.error("");
+        }
+
+        return null;
+    }
+
 
     /**
      *
      * @param id
      * @param exemplaryid
-     * a terminer
+     *  a terminer
      */
     @Override
     public void deleteLoanByid(Integer id, Integer exemplaryid) {

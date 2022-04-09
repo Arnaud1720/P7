@@ -4,7 +4,6 @@ package com.arnaud.back.blibliotheque.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data
 public class LoanDto {
 
-    private int id;
+    private Integer id;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean extension;

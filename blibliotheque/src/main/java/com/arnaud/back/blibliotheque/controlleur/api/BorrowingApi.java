@@ -1,6 +1,7 @@
 package com.arnaud.back.blibliotheque.controlleur.api;
 
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.arnaud.back.blibliotheque.model.dto.BorrowingDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -14,12 +15,12 @@ import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 @Api(APP_ROOT)
 public interface BorrowingApi {
 
-    @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "faire une réservation ",response = Borrowing.class)
-    Borrowing save(@RequestBody Borrowing borrowing, @PathVariable(name = "bookid") Integer bookid,
-                   @PathVariable(name = "accountid") Integer accountid
-                   );
 
+    @PostMapping(value = APP_ROOT+"/borrowing/save/dto/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "faire une réservation ",response = Borrowing.class)
+    BorrowingDto saveDto(@RequestBody BorrowingDto dto, @PathVariable(name = "bookid") Integer bookid,
+                   @PathVariable(name = "accountid") Integer accountid
+    );
 
 
     @GetMapping(value = APP_ROOT+"/borrowing/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)

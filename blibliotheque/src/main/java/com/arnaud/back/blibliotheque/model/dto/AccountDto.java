@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Builder
@@ -22,7 +21,6 @@ public class AccountDto {
     private String city;
     private List<RolesDto> roles;
     private Boolean exceeded;
-    @JsonIgnore
     private List<BorrowingDto> borrowings;
     // mapping Account -> AccountDto
     public static AccountDto fromEntity(Account account){

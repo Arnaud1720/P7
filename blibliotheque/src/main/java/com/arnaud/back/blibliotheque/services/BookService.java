@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book>  findAllByBookTitleAndBookAuthorAndAndBookKide(String titre,String auteur,String genre);
+    List<BookDto>  findAllByBookTitleAndBookAuthorAndAndBookKide(String titre,String auteur,String genre);
     List<Book> findBookByAvailableTrue();
     List<Book> findBookByAvailableFalse();
     List<BookDto> findAll();

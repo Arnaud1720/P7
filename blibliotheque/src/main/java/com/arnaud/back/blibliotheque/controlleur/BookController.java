@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class BookController implements BookApi {
@@ -36,9 +35,9 @@ public class BookController implements BookApi {
     }
 
     @Override
-    public List<Book> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
-                                                 @RequestParam(value = "author",defaultValue = "")String auteur,
-                                                 @RequestParam(value = "kind",defaultValue = "")String genre) {
+    public List<BookDto> findAllByBookTitleContains(@RequestParam(value ="title",defaultValue = "")String titre,
+                                                    @RequestParam(value = "author",defaultValue = "")String auteur,
+                                                    @RequestParam(value = "kind",defaultValue = "")String genre) {
         return bookServicesImpl.findAllByBookTitleAndBookAuthorAndAndBookKide(titre,auteur,genre);
     }
 

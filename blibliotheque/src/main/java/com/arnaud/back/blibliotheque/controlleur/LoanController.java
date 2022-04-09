@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @RestController
 public class LoanController implements LoanApi {
+    private final LoanService loanService;
     @Autowired
-    private LoanService loanService;
+    public LoanController(LoanService loanService) {
+        this.loanService = loanService;
+    }
 
     @Override
     public Loan findById(Integer id) {

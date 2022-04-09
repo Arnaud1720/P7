@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book,Integer> {
-    List<Book> findAllByBookTitleOrBookAuthorOrBookKide(String titre, String auteur, String genre);
+    Optional<Book> findAllByBookTitleOrBookAuthorOrBookKide(String titre, String auteur, String genre);
 
     List<Book> findBookByAvailableTrue();
 
@@ -19,7 +19,7 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
 
     List<Book> findAll();
 
-    Book findByBookTitle(String bookTitle);
+    List<Book> findByBookTitle(String bookTitle);
 
 }
 

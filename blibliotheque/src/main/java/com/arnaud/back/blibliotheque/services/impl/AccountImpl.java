@@ -52,18 +52,17 @@ public class AccountImpl implements AccountService {
             log.error("Id utilisateur Null");
             return null;
         }
-            Optional<Account> account = accountRepository.findById(id);
-            //parse
-            AccountDto dto = AccountDto.fromEntity(account.get());
-
-        return Optional.of(dto).orElseThrow(()->
-                new EntityNotFoundException(
-                        "aucun utilisateur trouver correspondant a cette id"+id));
-
+        return  accountRepository.findById(id)
+                .map(AccountDto::fromEntity).orElseThrow(()->
+                new EntityNotFoundException("aucun utilisateur trouver a l'id"+id+" dans la base de données"));
     }
 //GOOD
     @Override
     public void deleteById(Integer id) {
+        if(id==null){
+            log.error("Id utilisateur null ");
+            return;
+        }
         accountRepository.deleteById(id);
     }
 //GOOD
@@ -81,6 +80,7 @@ public class AccountImpl implements AccountService {
 
     @Override
     public Account findAccountByMail(String mail) {
+
 
         return accountRepository.findAccountByMail(mail);
     }

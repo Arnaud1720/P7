@@ -3,6 +3,7 @@ package com.arnaud.back.blibliotheque.model.dto;
 import com.arnaud.back.blibliotheque.model.Account;
 import com.arnaud.back.blibliotheque.model.Book;
 import com.arnaud.back.blibliotheque.model.Borrowing;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class BorrowingDto {
     private boolean outOfTime;
 
     // mapping Borrowing -> BorrowingDto fromEntity
-    public BorrowingDto fromEntity(Borrowing borrowing){
+    public static BorrowingDto fromEntity(Borrowing borrowing){
         if(borrowing==null){
             return null;
         }
@@ -32,7 +33,7 @@ public class BorrowingDto {
                 .outOfTime(borrowing.isOutOfTime()).build();
     }
     //Mapping BorrowingDto -> Borrowing toEntity
-        public Borrowing toEntity(BorrowingDto borrowingDto){
+        public static Borrowing toEntity(BorrowingDto borrowingDto){
         Borrowing borrowing = new Borrowing();
         borrowing.setId(borrowingDto.getId());
         borrowing.setBookingDate(borrowingDto.getBookingDate());

@@ -22,10 +22,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private ApplicationUserDetailsService applicationUserDetailService;
-
+    private  ApplicationUserDetailsService applicationUserDetailService;
     @Autowired
-    private ApplicationRequestFilter applicationRequestFilter;
+    private  ApplicationRequestFilter applicationRequestFilter;
 
     private static final String[] URL_PUBLIC ={
             "/v2/api-docs",
@@ -43,6 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "**/config/**/**",
 
     };
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

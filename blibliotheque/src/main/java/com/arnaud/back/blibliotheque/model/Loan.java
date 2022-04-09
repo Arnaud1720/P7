@@ -19,7 +19,7 @@ public class Loan implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "loan_id")
-    private int id;
+    private Integer id;
     @Column(name = "start_date")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
