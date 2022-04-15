@@ -1,47 +1,31 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" lang="Fr">
 
-<header th:include="header/header.html" >
+<head th:include="header/header.html">
     <meta charset="UTF-8">
+    <title>Toute les reservation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-    <title>Livre</title>
-</header>
+</head>
 <body>
 <div class="container">
     <div class="panel panel-primary">
+        <div class="panel-heading"> liste des livre</div>
         <div class="panel-body">
             <table class="table">
-
                 <tr>
                     <th>N°</th>
-                    <th>date debut</th>
-                    <th>date fin</th>
-                    <th>extension</th>
-                    <th>ajouter une extension(1 mois)</th>
-                    <th>rendre la réservation</th>
-
-
+                    <th>nom du livre</th>
+                    <th>date de retour</th>
+                    <th>pseudo utilisateur</th>
+                </tr>
+                <tr th:each="listeReza : ${borrowingList}">
+                    <td th:text="${listeReza.id}"></td>
+                    <td th:text="${listeReza.book.bookTitle}"></td>
+                    <td th:text="${listeReza.bookingDateEnd}"></td>
+                    <td th:text="${listeReza.account.pseudo}"></td>
 
                 </tr>
-                <tr th:each="pret : ${listePret}">
-                    <td th:text="${pret.id}"></td>
-                    <td th:text="${pret.startDate}"></td>
-                    <td th:text="${pret.endDate}" ></td>
-                    <td th:text="${pret.extension}"></td>
-                    <td>
-
-                        <a  th:href="@{/loan/{utilisateurid}/{loanid}(utilisateurid = ${reservation.account.id}, loanid = ${reservation.id})}">ajouter
-                            une extension</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary" th:href="@{/delete/{loanid}/{exemplaryid}/(loanid= ${reservation.id},exemplaryid=${reservation.exemplaryId.id})}">valider</a>
-                    </td>
-
-                </tr>
-
             </table>
-
         </div>
     </div>
 </div>
@@ -55,4 +39,5 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

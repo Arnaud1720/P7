@@ -6,7 +6,6 @@ import com.arnaud.back.blibliotheque.services.impl.BorrowingServicesmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -16,19 +15,13 @@ public class BorrowingController implements BorrowingApi {
 
 
     @Override
-    public Borrowing save(Borrowing borrowing, Integer bookid, Integer accountid) {
-        return borrowingServicesmpl.save(borrowing, accountid, bookid);
-    }
-
-
-    @Override
-    public List<Borrowing> findByDateTimeJOrderByDateTimeJ() {
-        return borrowingServicesmpl.findByDateTimeJOrderByDateTimeJ();
+    public Borrowing save(Borrowing borrowing, Long exemplaryid, Integer accountid) {
+        return borrowingServicesmpl.save(borrowing, exemplaryid, accountid);
     }
 
     @Override
-    public void deletePretById(Borrowing borrowing,Integer id, Integer accountid, Integer bookid) {
-        borrowingServicesmpl.deleteBorrowingById(borrowing,id,accountid,bookid);
+    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, Long exemplaryId) {
+        borrowingServicesmpl.deleteBorrowingById(borrowing,id,accountid,exemplaryId);
     }
 
     @Override
@@ -42,8 +35,18 @@ public class BorrowingController implements BorrowingApi {
     }
 
     @Override
-    public BigInteger checkDoublon() {
-       return borrowingServicesmpl.checkDoublon();
+    public List<Borrowing> findBorrowingByAccountId(Integer accountId) {
+        return borrowingServicesmpl.findAllByAccountId(accountId);
+    }
+
+    @Override
+    public List<Borrowing> findall() {
+        return borrowingServicesmpl.findall();
+    }
+
+    @Override
+    public List<Borrowing> findByAvailable(boolean available) {
+        return borrowingServicesmpl.findAllByBookAvailable(available);
     }
 
 

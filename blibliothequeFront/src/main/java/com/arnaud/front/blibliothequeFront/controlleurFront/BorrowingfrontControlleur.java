@@ -2,13 +2,10 @@ package com.arnaud.front.blibliothequeFront.controlleurFront;
 
 import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceBorrowing;
-import com.arnaud.front.blibliothequeFront.proxies.MicroServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,6 +25,35 @@ public class BorrowingfrontControlleur {
         model.addAttribute("borrowingfront",msBorrowing.save(borrowingfront,accountid,bookid));
 
         return "redirect:/loan/listloan";
+    }
 
+    @GetMapping("/borrowing/myborrowing/")
+    public String displayMyBorrowing(@ModelAttribute("borrowingfront")Borrowingfront borrowingfront,
+                                     Model model, HttpSession session){
+        model.addAttribute("borrowingList",msBorrowing.findBorrowingByAccountId((Integer) session.getAttribute("utilisateurid")));
+        return "borrowing/myBorrowing";
+    }
+
+    /**
+     *
+     * @param session
+     * @param exemplaryId
+     * @param id
+     * a terminer récupéré l'exemplaireID && le borrowingId
+     */
+    @GetMapping("/delete/borrowing/")
+    public void deleteBorrowing(Integer id,HttpSession session,Integer exemplaryId){
+        msBorrowing.deleteBorrowingById(id,(Integer) session.getAttribute("utilisateurid"),exemplaryId);
+    }
+
+    @GetMapping("/display/borrowing/available")
+    public String displayAllBorrowingNotAvailable(boolean available,@ModelAttribute("borrowingfront")Borrowingfront borrowingfront,Model model){
+       if(!available) {
+           model.addAttribute("borrowingList", msBorrowing.findByAvailable(false));
+
+           return "/borrowing/all";
+       }else {
+           return "/index";
+       }
     }
 }

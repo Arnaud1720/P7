@@ -15,9 +15,7 @@ public class Borrowingfront {
     private Accountfront account;
     private Bookfront bookpret;
     private LocalDateTime bookingDateEnd;
-
-
-
-
+    private Exemplaryfront exemplaryId;
+    private Bookfront book;
 
 }

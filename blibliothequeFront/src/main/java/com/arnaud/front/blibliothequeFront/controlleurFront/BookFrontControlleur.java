@@ -22,7 +22,7 @@ public class BookFrontControlleur {
 
     @GetMapping("/display/books/available")
     public String findBookByAvailableTrue(@RequestParam(value = "available") boolean available,
-                                          Model model, @ModelAttribute("borrowingfront") Bookfront bookfront) {
+                                          Model model, @ModelAttribute("bookfront") Bookfront bookfront) {
 
         if (available) {
             model.addAttribute("bookTrue", msBook.findBookByAvailableTrue(true));

@@ -41,7 +41,7 @@ public class LoanServicesImpl implements LoanService {
     }
 
     @Override
-    public Loan save(Loan loan, Integer utilisateurid, Integer exemplaryid) {
+    public Loan save(Loan loan, Integer utilisateurid, Long exemplaryid) {
         List<String> erros = BorrowingValidator.chemaValidator(loan);
 
         Account account = accountRepository.findById(utilisateurid).orElse(null);
@@ -54,10 +54,7 @@ public class LoanServicesImpl implements LoanService {
         } else {
             assert exemplary != null;
             decremente(exemplary);
-            if (exemplary.getRemainingexemplary() == 0) {
-                    //
 
-            }
 
         }
         return loanRepository.save(loan);
@@ -70,7 +67,7 @@ public class LoanServicesImpl implements LoanService {
      * a terminer
      */
     @Override
-    public void deleteLoanByid(Integer id, Integer exemplaryid) {
+    public void deleteLoanByid(Integer id, Long exemplaryid) {
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
         assert exemplary != null;
         incremente(exemplary);

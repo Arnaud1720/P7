@@ -4,17 +4,15 @@ package com.arnaud.back.blibliotheque.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(	name = "account",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "pseudo"),
-                @UniqueConstraint(columnNames = "mail"),
-                @UniqueConstraint(columnNames = "last_name"),
+            uniqueConstraints = {
+                    @UniqueConstraint(columnNames = "pseudo"),
+                    @UniqueConstraint(columnNames = "mail"),
+                    @UniqueConstraint(columnNames = "last_name"),
 
         })
 @NoArgsConstructor
@@ -22,10 +20,9 @@ import java.util.List;
 @Data
 @Builder
 public class Account  {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     @Column(name = "pseudo")
     private String pseudo;
     @Column(name = "last_name")
@@ -50,6 +47,6 @@ public class Account  {
     private Boolean exceeded;
     @OneToMany(mappedBy = "account")
     @JsonIgnore
-    private List<Borrowing> borrowings;
+    private List<Borrowing> borrowings = new java.util.ArrayList<>();
 
 }

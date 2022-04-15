@@ -3,6 +3,8 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 
 import lombok.*;
 
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,5 +16,7 @@ public class Exemplaryfront {
     private Blibliothequefront idBlibliothequefront;
     private int exemplaryNumbers;
     private int remainingexemplary;
-
+    private Bookfront book;
+    private int maxExemplaryNumber;
+    private List<Borrowingfront> borrowingList;
 }

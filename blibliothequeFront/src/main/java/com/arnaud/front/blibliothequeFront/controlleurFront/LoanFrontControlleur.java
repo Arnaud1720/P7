@@ -64,8 +64,8 @@ public class LoanFrontControlleur {
                                @PathVariable(name = "loanid") int loanid,
                                @RequestParam(value = "available",defaultValue = "true") boolean available,
                                HttpSession session, Model model) throws BorrowingNotValidException {
-        model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
-         model.addAttribute("extension", msBorrowing.addExtension(userid,loanid,available));
+        model.addAttribute(  "listePret",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
+        model.addAttribute("extension", msBorrowing.addExtension(userid,loanid,available));
         return "/account/monCompte";
 
     }

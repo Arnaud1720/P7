@@ -1,25 +1,24 @@
 package com.arnaud.front.blibliothequeFront.proxies;
 
 
-import com.arnaud.front.blibliothequeFront.exception.BorrowingNotValidException;
 import com.arnaud.front.blibliothequeFront.modelFront.Accountfront;
-import com.arnaud.front.blibliothequeFront.modelFront.Bookfront;
-import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
 import com.arnaud.front.blibliothequeFront.modelFront.Loanfront;
 import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationRequest;
 import com.arnaud.front.blibliothequeFront.modelFront.auth.AuthenticationResponse;
 import feign.Headers;
-import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROOT;
 
-@FeignClient(name = "microservice", url = "localhost:8001")
+@FeignClient(name = "microservice", url = "localhost:8002")
 public interface MicroServiceProxy {
 
 

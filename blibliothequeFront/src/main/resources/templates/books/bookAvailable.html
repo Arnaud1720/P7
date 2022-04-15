@@ -36,7 +36,6 @@
                 <tr th:each="b:${booklist}">
                     <td th:text="${b.bookId}"></td>
                     <td th:text="${b.exemplaryId.exemplaryNumbers}"></td>
-
                     <td th:text="${b.exemplaryId.remainingexemplary}"></td>
                     <td th:text="${b.bookAuthor}"></td>
                     <td th:text="${b.bookEditor}"></td>
@@ -48,9 +47,11 @@
                     <td><a th:if="${b.exemplaryId.remainingexemplary>0}" class="btn btn-secondary btn-sm" tabindex="-1"
                            role="link" aria-disabled="false"
                            th:href="@{/loan/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">emprunter ce livre</a>
+
                         <form method="POST" th:action="@{/borrowing/save/{accountid}/{bookid}(accountid=${session.utilisateurid},bookid=${b.bookId})}">
                             <button   th:if="${b.exemplaryId.remainingexemplary==0}"  type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">demande de reservation</button>
                         </form>
+
                     </td>
 
                 </tr>

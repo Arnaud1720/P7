@@ -20,7 +20,6 @@ public class Accountfront {
     private String password;
     private String postalAdress;
     private String city;
-    private List<Borrowingfront> pret;
-
+    private List<Borrowingfront> borrowings = new java.util.ArrayList<>();
 
 }

@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
@@ -14,24 +13,19 @@ import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 @Api(APP_ROOT)
 public interface BorrowingApi {
 
-    @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "faire une réservation ",response = Borrowing.class)
-    Borrowing save(@RequestBody Borrowing borrowing, @PathVariable(name = "bookid") Integer bookid,
-                   @PathVariable(name = "accountid") Integer accountid
-                   );
+    Borrowing save(@RequestBody Borrowing borrowing, @RequestParam(name = "exemplaryid") Long exemplaryid,
+                   @PathVariable(name = "accountid") Integer accountid);
 
 
-
-    @GetMapping(value = APP_ROOT+"/borrowing/list/datej",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "list des borrowing par date",responseContainer = "List<Borrowing>")
-    List<Borrowing> findByDateTimeJOrderByDateTimeJ();
 
     @DeleteMapping(value = APP_ROOT+"/delete/borrowing/",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "",response = Borrowing.class)
 
-     void deletePretById(@RequestBody Borrowing borrowing, @RequestParam(name = "idpret") Integer id,
-                         @RequestParam(name = "accountid") Integer accountid,
-                         @RequestParam(name = "bookid") Integer bookid);
+     void deleteBorrowingById(@RequestBody Borrowing borrowing, @RequestParam(name = "idpret") Integer id,
+                              @RequestParam(name = "accountid") Integer accountid,
+                              @RequestParam(name = "exemplaryId") Long exemplaryId);
 
 
 
@@ -43,9 +37,19 @@ public interface BorrowingApi {
     @ApiOperation(value = "check si la reservation est hors délai",response = Borrowing.class)
     void isOutOfTime();
 
-    @GetMapping(value = APP_ROOT+"/borrowing/check",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "vérifie les doublon",response = Borrowing.class)
-    BigInteger checkDoublon();
+
+
+    @GetMapping(value = APP_ROOT+"/borrowing/{accountid}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "affiche les reservation de l'utilisateur",responseContainer = "List<Borrowing>")
+    List<Borrowing> findBorrowingByAccountId(@PathVariable(name = "accountid")Integer accountId);
+
+    @GetMapping(value = APP_ROOT+"/borrowing/findall",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "affiche toute les rerservation",responseContainer = "List<Borrowing>")
+    List<Borrowing> findall();
+
+    @GetMapping(value = APP_ROOT+"/borrowing/available")
+    @ApiOperation(value = "affiche toute les livre indisponible",responseContainer = "List<Borrowing>")
+    List<Borrowing> findByAvailable(@RequestParam("available")boolean available);
 
 }
 

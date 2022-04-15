@@ -18,4 +18,5 @@ public interface LoanRepository extends JpaRepository<Loan,Integer> {
     List<Loan> findAllByEndDateLessThan(LocalDate localDate);
     @Query("SELECT d.startDate FROM loan d ORDER BY d.startDate")
     List<Object[]> findByStartDate();
+
 }

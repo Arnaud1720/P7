@@ -30,14 +30,13 @@ public class Book  {
     private String bookRef;
     @Column(name = "synopsis")
     private String bookSynopsis;
+    @Column(name = "book_available")
+    private boolean available;
+    @OneToMany(mappedBy = "id")
+    @JsonIgnore
+    private List<Borrowing> borrowingList;
     @ManyToOne
     @JoinColumn(name = "id_examplary")
     private Exemplary exemplaryId;
-    @Column(name = "book_available")
-    private boolean available;
-    @OneToMany(mappedBy = "bookpret")
-    @JsonIgnore
-    private List<Borrowing> borrowingList;
-
 
 }
