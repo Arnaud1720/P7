@@ -34,7 +34,7 @@
           <td th:text="${bt.bookSynopsis}"></td>
           <td th:text="${bt.available}"></td>
 
-          <td><a th:href="@{/templates/loan/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${bt.exemplaryId.id})}">reserver ce livre</a></td>
+          <td><a th:href="@{/loan/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${bt.exemplaryId.id})}">reserver ce livre</a></td>
         </tr>
       </table>
     </div>

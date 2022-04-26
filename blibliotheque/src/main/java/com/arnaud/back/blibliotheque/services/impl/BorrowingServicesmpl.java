@@ -24,8 +24,8 @@ public class BorrowingServicesmpl implements BorrowingService {
     private final JavaMailSenderImpl javaMailSenderImpl;
     private final ExemplaryRepository exemplaryRepository;
     final LoanRepository loanRepository;
-    @Autowired
 
+    @Autowired
     public BorrowingServicesmpl(BorrowingRepository borrowingRepository, AccountRepository accountRepository, BookRepository bookRepository, JavaMailSenderImpl javaMailSenderImpl, ExemplaryRepository exemplaryRepository, LoanRepository loanRepository) {
         this.borrowingRepository = borrowingRepository;
         this.accountRepository = accountRepository;
@@ -37,17 +37,7 @@ public class BorrowingServicesmpl implements BorrowingService {
 
     @Override
     //TODO méhode a tester
-    public Borrowing save(Borrowing borrowing, Long exemplaryId, Integer accountid) {
-        /**
-         * 1/ tu récupères l'exemplaire du livre qui souhaite être réservé (modifié)
-         * [17:49]
-         * 2/Tu récupères le nombre d'exemplaire restant (la variable) (modifié)
-         * [17:50]
-         * 3/ Tu récupères ta liste de réservation pour ce book
-         * 4/ Tu vérifies que la taille de cette liste de réservation  que tu as relevé au dessus
-         * [17:50]
-         * ---> au moment d'enregistrer une nouvelle réservation par un utilisateur
-         **/
+    public Borrowing save(Borrowing borrowing, long exemplaryId, Integer accountid, Integer bookid) {
 
         // recupére l'utilisateur courrant
        Account account = accountRepository.findById(accountid).orElse(null);
@@ -55,21 +45,24 @@ public class BorrowingServicesmpl implements BorrowingService {
         // récupére l'exemplaire courrant
         Exemplary exemplary = exemplaryRepository.findById(exemplaryId).orElse(null);
         borrowing.setExemplaryId(exemplary);
-        //crée une list de réservation et je compte le nombre de fois ou pop exemplary
-        List<Borrowing> list = borrowingRepository.countBorrowingByExemplaryId(exemplaryId);
-//        list.size();
-
+        Book book = bookRepository.findById(bookid).orElse(null);
+        borrowing.setBook(book);
+        borrowing.setBookingDate(LocalDateTime.now());
+        borrowing.setBookingDateEnd(LocalDateTime.now().plusDays(2));
+        int totalnbr = borrowingRepository.countBorrowingByBookBookId(bookid);
+        borrowing.setTotal(totalnbr+1);
+        int queue  =  borrowing.setCmpt(borrowingRepository.countBorrowingByBookBookId(bookid)+1);
 
         //vérifie que la liste ne soit pas égale au nombre max d'exemplaire (n'est pas supérieure à 2x le nombre d'exemplaire)
         //sinon lévé exception
         assert exemplary != null;
-        if(list.size()==exemplary.getMaxExemplaryNumber()){
+        if(queue>exemplary.getMaxExemplaryNumber()){
             log.error("max atteint");
             throw new EntityNotFoundException("le nombre maximum de réservation pour ce livre est atteint",ErrorCode.EXEMPLARY_LIMIT_REACHED);
-       }
-        borrowing.setBookingDate(LocalDateTime.now());
-       borrowing.setBookingDateEnd(LocalDateTime.now().plusDays(2));
-       Optional<Loan> loans = loanRepository.findById(accountid);
+        }
+
+
+       Optional<Loan> loans = loanRepository.findById(Math.toIntExact(exemplaryId));
         /**
          * Il n’est pas possible pour un usager de réserver un ouvrage qu’il a déjà en cours d’emprunt
          */
@@ -90,14 +83,21 @@ public class BorrowingServicesmpl implements BorrowingService {
 
 
     @Override
-    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, Long exemplaryId) {
+    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, long exemplaryId,int bookid) {
+
         // recupération de l'id du compte
         Account account = accountRepository.findById(accountid).orElseThrow(()->new EntityNotFoundException("aucun utilisateur trouvé",ErrorCode.USER_NOT_FOUND));
         borrowing.setAccount(account);
         //recupération de l'id de l exemplaire
         Exemplary exemplary = exemplaryRepository.findById(exemplaryId).orElseThrow(()->new EntityNotFoundException("aucun exemplaire trouvé", ErrorCode.EXEMPLARY_NOT_FOUND));
         borrowing.setExemplaryId(exemplary);
-        borrowingRepository.deleteById(id);
+        borrowingRepository.updateCmptBorrowing(bookid );
+            javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
+                            +" a été crée avec succès"
+                    ,"vôtre reservation a été supprimé ");
+            borrowingRepository.deleteById(id);
+
+
     }
 
     @Override

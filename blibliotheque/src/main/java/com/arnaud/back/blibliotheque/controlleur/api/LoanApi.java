@@ -32,7 +32,7 @@ public interface LoanApi {
             @ApiResponse(code = 500, message = "aucun compte utilisateur n'est lié a cettr reservation  ")
     })
     Loan save(@RequestBody Loan loan,@PathVariable(name = "utilisateurid")Integer utilisateurid,
-                   @PathVariable(name = "exemplaryid")Long exemplaryid);
+                   @PathVariable(name = "exemplaryid")long exemplaryid);
 
     @GetMapping(value = APP_ROOT + "/loan/findall", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "rechercher afficher la liste des reservation", notes = " cette méthode permet de recherche une reservation avec son numéro", responseContainer = "List<Loan>")
@@ -65,7 +65,7 @@ public interface LoanApi {
     @ApiResponses(value = {
     })
     void deleteLoanByid(@PathVariable(name = "loanid") Integer id,
-                        @PathVariable(name = "exemplaryid")Long exemplaryid );
+                        @PathVariable(name = "exemplaryid")long exemplaryid );
 
 
 

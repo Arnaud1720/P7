@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,8 +37,27 @@ public class Borrowing implements Serializable {
     @JsonIgnore
     private Exemplary exemplaryId;
     @OneToOne
-    @JoinColumn(name = "book_Id",referencedColumnName = "book_id",nullable = true)
-    private Book book;
+    @JoinColumn(name = "book_Id",referencedColumnName = "book_id")
+    private Book book =null;
+    @Column(name = "cmpt")
+    private int cmpt =0;
+    @Column(name = "total")
+    private int total;
 
+    public int setCmpt(int cmpt) {
+        this.cmpt = cmpt;
+        return cmpt;
+    }
 
+    public int getCmpt(Integer accountid) {
+        return accountid;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

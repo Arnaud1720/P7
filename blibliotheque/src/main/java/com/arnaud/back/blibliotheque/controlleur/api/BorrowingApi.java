@@ -15,8 +15,8 @@ public interface BorrowingApi {
 
     @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "faire une réservation ",response = Borrowing.class)
-    Borrowing save(@RequestBody Borrowing borrowing, @RequestParam(name = "exemplaryid") Long exemplaryid,
-                   @PathVariable(name = "accountid") Integer accountid);
+    Borrowing save(@RequestBody Borrowing borrowing, @RequestParam(name = "exemplaryid") long exemplaryid,
+                   @PathVariable(name = "accountid") Integer accountid,@RequestParam( name = "bookid")Integer bookid);
 
 
 
@@ -25,7 +25,8 @@ public interface BorrowingApi {
 
      void deleteBorrowingById(@RequestBody Borrowing borrowing, @RequestParam(name = "idpret") Integer id,
                               @RequestParam(name = "accountid") Integer accountid,
-                              @RequestParam(name = "exemplaryId") Long exemplaryId);
+                              @RequestParam(name = "exemplaryId") long exemplaryId,
+                              @RequestParam(name = "bookid")int bookid);
 
 
 

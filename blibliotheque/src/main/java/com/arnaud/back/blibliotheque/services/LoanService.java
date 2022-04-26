@@ -8,7 +8,7 @@ public interface LoanService {
 
     Loan findById(Integer id);
 
-    Loan save(Loan loan, Integer utilisateurid, Long exemplaryid);
+    Loan save(Loan loan, Integer utilisateurid, long exemplaryid);
 
     List<Loan> findAll();
 
@@ -20,7 +20,7 @@ public interface LoanService {
 
     List<Loan> findAllLateLoan();
 
-    void deleteLoanByid(Integer id, Long exemplaryid);
+    void deleteLoanByid(Integer id, long exemplaryid);
 
     List<Object[]> findByStartDate();
 

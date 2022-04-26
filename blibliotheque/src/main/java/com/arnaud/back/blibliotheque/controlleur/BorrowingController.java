@@ -15,13 +15,13 @@ public class BorrowingController implements BorrowingApi {
 
 
     @Override
-    public Borrowing save(Borrowing borrowing, Long exemplaryid, Integer accountid) {
-        return borrowingServicesmpl.save(borrowing, exemplaryid, accountid);
+    public Borrowing save(Borrowing borrowing, long exemplaryid, Integer accountid, Integer bookid) {
+        return borrowingServicesmpl.save(borrowing, exemplaryid, accountid,bookid );
     }
 
     @Override
-    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, Long exemplaryId) {
-        borrowingServicesmpl.deleteBorrowingById(borrowing,id,accountid,exemplaryId);
+    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, long exemplaryId,int bookid) {
+        borrowingServicesmpl.deleteBorrowingById(borrowing,id,accountid,exemplaryId,bookid );
     }
 
     @Override

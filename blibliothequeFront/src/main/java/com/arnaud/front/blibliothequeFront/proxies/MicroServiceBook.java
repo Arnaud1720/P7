@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROOT;
-@FeignClient(name = "microserviceBook", url = "localhost:8002")
+@FeignClient(name = "microserviceBook", url = "localhost:8001")
 public interface MicroServiceBook {
 
     @GetMapping(value = APP_ROOT + "/display/books/bookList", produces = MediaType.APPLICATION_JSON_VALUE)

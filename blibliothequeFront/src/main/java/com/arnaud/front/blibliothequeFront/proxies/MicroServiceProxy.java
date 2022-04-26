@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROOT;
 
-@FeignClient(name = "microservice", url = "localhost:8002")
+@FeignClient(name = "microservice", url = "localhost:8001")
 public interface MicroServiceProxy {
 
 

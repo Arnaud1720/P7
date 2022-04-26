@@ -2,6 +2,7 @@ package com.arnaud.front.blibliothequeFront.modelFront;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -17,5 +18,6 @@ public class Borrowingfront {
     private LocalDateTime bookingDateEnd;
     private Exemplaryfront exemplaryId;
     private Bookfront book;
-
+    private int cmpt =0;
+    private int total;
 }

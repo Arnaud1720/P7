@@ -37,16 +37,19 @@ public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
      */
     List<Borrowing> findAllByAccountId(int id);
 
-    /**
-     *
-     * @param exemplaryId
-     * @Method : compte toute les réservation dont le numéro de l'exemplaire est passé en paramètre
-     */
-    @Query(nativeQuery = true,value = "SELECT count(*) as id from borrowing where exemplary_id_id = ?1")
-    List<Borrowing> countBorrowingByExemplaryId(long exemplaryId);
-
     @Query("select b from borrowing b where b.book.available = ?1")
     List<Borrowing> findAllByBookAvailable(boolean available);
+
+    int countBorrowingByBookBookId(int bookid);
+
+    @Modifying
+    @Query(nativeQuery = true,value = "update borrowing set cmpt= cmpt-1 where book_id = ?1")
+    @Transactional
+    void updateCmptBorrowing(int bookid);
+
+    int countByBook_BookId(int bookid);
+
+
 
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROOT;
 
-@FeignClient(name = "microserviceBorrowing", url = "localhost:8002")
+@FeignClient(name = "microserviceBorrowing", url = "localhost:8001")
 public interface MicroServiceBorrowing {
 
     @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)

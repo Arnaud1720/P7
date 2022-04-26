@@ -18,7 +18,7 @@ public class LoanController implements LoanApi {
     }
 
     @Override
-    public Loan save(Loan loan,Integer utilisateurid,Long exemplaryid) {
+    public Loan save(Loan loan, Integer utilisateurid, long exemplaryid) {
         Loan valueReturn = loanService.save(loan,utilisateurid,exemplaryid);
         return valueReturn;
     }
@@ -46,7 +46,7 @@ public class LoanController implements LoanApi {
     }
 
     @Override
-    public void deleteLoanByid(Integer id, Long exemplaryid) {
+    public void deleteLoanByid(Integer id, long exemplaryid) {
         loanService.deleteLoanByid(id,exemplaryid);
 
     }

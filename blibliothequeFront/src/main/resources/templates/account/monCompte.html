@@ -30,12 +30,18 @@
                     <td th:text="${pret.endDate}" ></td>
                     <td th:text="${pret.extension}"></td>
                     <td>
+                        <a th:if="${pret.extension==false}" class="btn btn-secondary btn-sm" tabindex="-1" role="link" aria-disabled="false"
+                           th:href="@{/loan/{utilisateurid}/{loanid}(utilisateurid = ${pret.account.id}, loanid = ${pret.id})}">ajouter une extension
+                        </a>
 
-                        <a  th:href="@{/loan/{utilisateurid}/{loanid}(utilisateurid = ${reservation.account.id}, loanid = ${reservation.id})}">ajouter
-                            une extension</a>
+                        <form method="GET" th:action="@{/index}">
+                            <button   th:if="${pret.extension==true}" disabled type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">date de reservation dépassé</button>
+                        </form>
+
                     </td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/delete/{loanid}/{exemplaryid}/(loanid= ${reservation.id},exemplaryid=${reservation.exemplaryId.id})}">valider</a>
+                        <a class="btn btn-primary" th:href="@{/delete/{loanid}/{exemplaryid}/(loanid= ${pret.id},exemplaryid=${pret.exemplaryId.id})}">valider</a>
+
                     </td>
 
                 </tr>

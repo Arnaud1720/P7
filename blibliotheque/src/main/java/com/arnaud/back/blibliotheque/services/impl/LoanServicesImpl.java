@@ -41,7 +41,7 @@ public class LoanServicesImpl implements LoanService {
     }
 
     @Override
-    public Loan save(Loan loan, Integer utilisateurid, Long exemplaryid) {
+    public Loan save(Loan loan, Integer utilisateurid, long exemplaryid) {
         List<String> erros = BorrowingValidator.chemaValidator(loan);
 
         Account account = accountRepository.findById(utilisateurid).orElse(null);
@@ -61,13 +61,11 @@ public class LoanServicesImpl implements LoanService {
     }
 
     /**
-     *
-     * @param id
+     *  @param id
      * @param exemplaryid
-     * a terminer
      */
     @Override
-    public void deleteLoanByid(Integer id, Long exemplaryid) {
+    public void deleteLoanByid(Integer id, long exemplaryid) {
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
         assert exemplary != null;
         incremente(exemplary);
@@ -98,9 +96,10 @@ public class LoanServicesImpl implements LoanService {
             loan.setExtension(true);
 
             loanRepository.save(loan);
-
             return "vôtre prêt est prolongé de 1 mois";
-        } else
+        } else{
+            
+        }
             return "do nothing";
     }
 

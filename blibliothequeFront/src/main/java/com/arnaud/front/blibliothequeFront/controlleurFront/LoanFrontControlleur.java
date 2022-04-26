@@ -54,7 +54,7 @@ public class LoanFrontControlleur {
 
     @GetMapping("/loan/listloan")
     public String findAllByAccountId( Model model, HttpSession session){
-        model.addAttribute(  "listReservation",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
+        model.addAttribute(  "listePret",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
 
         return "/account/monCompte";
     }
@@ -66,6 +66,7 @@ public class LoanFrontControlleur {
                                HttpSession session, Model model) throws BorrowingNotValidException {
         model.addAttribute(  "listePret",microServiceProxy.findByAccountId((Integer) session.getAttribute("utilisateurid")));
         model.addAttribute("extension", msBorrowing.addExtension(userid,loanid,available));
+
         return "/account/monCompte";
 
     }
