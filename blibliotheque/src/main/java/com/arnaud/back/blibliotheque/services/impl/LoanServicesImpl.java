@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -87,19 +89,21 @@ public class LoanServicesImpl implements LoanService {
 
 
     @Override
-    public String addExtension(int userid, int borrowingid, boolean available) throws BorrowingNotValidException {
+    public String addExtension(int userid, int loanid, boolean available) throws BorrowingNotValidException {
+
         Account user = accountRepository.findById(userid).orElseThrow(() -> new EntityNotFoundException(" l'utilisateur n'existe pas "));
-        Loan loan = loanRepository.findById(borrowingid).orElseThrow(() -> new EntityNotFoundException("la réservation n'exite pas"));
+        Loan loan = loanRepository.findById(loanid).orElseThrow(() -> new EntityNotFoundException("le pret n'exite pas"));
         loan.setAccount(user);
-        if (available) {
+        LocalDate d1 = loan.getEndDate();
+        LocalDate d2 = LocalDate.now();
+        if (d2.isAfter(d1)){
+            throw new EntityNotFoundException("la date de fin est dépassé vous ne pouvez pas prolonger",ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
+        }else if (available) {
             this.addExtension(loan);
             loan.setExtension(true);
-
-            loanRepository.save(loan);
             return "vôtre prêt est prolongé de 1 mois";
-        } else{
-            
         }
+            loanRepository.save(loan);
             return "do nothing";
     }
 

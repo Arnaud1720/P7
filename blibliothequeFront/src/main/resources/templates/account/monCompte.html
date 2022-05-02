@@ -30,12 +30,12 @@
                     <td th:text="${pret.endDate}" ></td>
                     <td th:text="${pret.extension}"></td>
                     <td>
-                        <a th:if="${pret.extension==false}" class="btn btn-secondary btn-sm" tabindex="-1" role="link" aria-disabled="false"
+                        <a th:if="${pret.getEndDate()>pret.getD2()}" class="btn btn-secondary btn-sm" tabindex="-1" role="link" aria-disabled="false"
                            th:href="@{/loan/{utilisateurid}/{loanid}(utilisateurid = ${pret.account.id}, loanid = ${pret.id})}">ajouter une extension
                         </a>
 
                         <form method="GET" th:action="@{/index}">
-                            <button   th:if="${pret.extension==true}" disabled type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">date de reservation dépassé</button>
+                            <button   th:if="${pret.getEndDate()<pret.getD2()}" disabled type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">date de reservation dépassé</button>
                         </form>
 
                     </td>
