@@ -14,10 +14,10 @@ import static com.arnaud.front.blibliothequeFront.configuration.constant.APP_ROO
 @FeignClient(name = "microserviceBorrowing", url = "localhost:8001")
 public interface MicroServiceBorrowing {
 
-    @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/{bookid}",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT+"/borrowing/save/{accountid}/",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-type:application/json")
-    Borrowingfront save(@RequestBody Borrowingfront borrowingfront, @PathVariable(name = "accountid") Integer accountid,
-                        @PathVariable(name = "bookid") Integer bookid);
+    Borrowingfront save(Borrowingfront borrowingfront, @RequestParam(name = "exemplaryid") long exemplaryid,
+                        @PathVariable(name = "accountid") Integer accountid,@RequestParam( name = "bookid")Integer bookid);
 
 
     @GetMapping(value = APP_ROOT + "/{utilisateurid}/{loanid}", produces = MediaType.APPLICATION_JSON_VALUE)

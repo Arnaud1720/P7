@@ -12,26 +12,31 @@ import com.arnaud.back.blibliotheque.repository.LoanRepository;
 import com.arnaud.back.blibliotheque.services.LoanService;
 import com.arnaud.back.blibliotheque.validator.BorrowingValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
 @Slf4j
 public class LoanServicesImpl implements LoanService {
 
-    @Autowired
-    private LoanRepository loanRepository;
+    private final LoanRepository loanRepository;
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    @Autowired
+    final
     ExemplaryRepository exemplaryRepository;
+
+    private final JavaMailSenderImpl javaMailSenderImpl;
+
+    public LoanServicesImpl(LoanRepository loanRepository, AccountRepository accountRepository, ExemplaryRepository exemplaryRepository, JavaMailSenderImpl javaMailSenderImpl) {
+        this.loanRepository = loanRepository;
+        this.accountRepository = accountRepository;
+        this.exemplaryRepository = exemplaryRepository;
+        this.javaMailSenderImpl = javaMailSenderImpl;
+    }
+
 
     @Override
     public Loan findById(Integer id) {
@@ -89,11 +94,11 @@ public class LoanServicesImpl implements LoanService {
 
 
     @Override
-    public String addExtension(int userid, int loanid, boolean available) throws BorrowingNotValidException {
+    public Loan addExtension(int userid, int loanid, boolean available) throws BorrowingNotValidException {
 
-        Account user = accountRepository.findById(userid).orElseThrow(() -> new EntityNotFoundException(" l'utilisateur n'existe pas "));
+        Account account = accountRepository.findById(userid).orElseThrow(() -> new EntityNotFoundException(" l'utilisateur n'existe pas "));
         Loan loan = loanRepository.findById(loanid).orElseThrow(() -> new EntityNotFoundException("le pret n'exite pas"));
-        loan.setAccount(user);
+        loan.setAccount(account);
         LocalDate d1 = loan.getEndDate();
         LocalDate d2 = LocalDate.now();
         if (d2.isAfter(d1)){
@@ -101,10 +106,11 @@ public class LoanServicesImpl implements LoanService {
         }else if (available) {
             this.addExtension(loan);
             loan.setExtension(true);
-            return "vôtre prêt est prolongé de 1 mois";
         }
-            loanRepository.save(loan);
-            return "do nothing";
+        javaMailSenderImpl.sendEmail(account.getMail()," prêt au nom de"+ " " +account.getFristName()+" "+account.getLastName()
+                ,"vôtre prêt a été prolongé de 1 mois votre nouvelle date de retour : "+" "+loan.getEndDate());
+           return loanRepository.save(loan);
+
     }
 
     @Override

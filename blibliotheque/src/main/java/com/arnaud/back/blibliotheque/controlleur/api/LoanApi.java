@@ -43,7 +43,7 @@ public interface LoanApi {
 
     @GetMapping(value = APP_ROOT + "/{utilisateurid}/{loanid}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "ajoute un prêt d'une longue d'un mois")
-    String addExtension(@PathVariable(name = "utilisateurid") int userid,
+    Loan addExtension(@PathVariable(name = "utilisateurid") int userid,
                         @PathVariable(name = "loanid") int loanid, @RequestParam(value = "available",defaultValue = "true")
                                 boolean available);
 

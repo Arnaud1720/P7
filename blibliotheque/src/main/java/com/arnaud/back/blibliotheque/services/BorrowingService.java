@@ -13,5 +13,6 @@ public interface BorrowingService {
     List<Borrowing> findAllByAccountId(Integer id);
     List<Borrowing> findall();
     List<Borrowing> findAllByBookAvailable(boolean available);
+    void deleteBorrowingByOutOfTimeTrue();
 
 }

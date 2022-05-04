@@ -12,7 +12,7 @@ public interface LoanService {
 
     List<Loan> findAll();
 
-    String addExtension(int userid, int loanid,boolean available);
+    Loan addExtension(int userid, int loanid, boolean available);
 
     List<Loan> findAllByAccountId(Integer id);
 

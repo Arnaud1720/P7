@@ -52,5 +52,8 @@ public interface BorrowingApi {
     @ApiOperation(value = "affiche toute les livre indisponible",responseContainer = "List<Borrowing>")
     List<Borrowing> findByAvailable(@RequestParam("available")boolean available);
 
+    @DeleteMapping(APP_ROOT+"/borrowing/delete/outoftime")
+    @ApiOperation(value = "supprime les réservation hors delai",response = Borrowing.class)
+    void deleteBorrowingByOutOfTimeTrue();
 }
 

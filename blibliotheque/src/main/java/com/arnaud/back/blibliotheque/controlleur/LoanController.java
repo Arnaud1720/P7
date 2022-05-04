@@ -29,7 +29,7 @@ public class LoanController implements LoanApi {
     }
 
     @Override
-    public String addExtension(int userid, int loanid,boolean avaible) {
+    public Loan addExtension(int userid, int loanid, boolean avaible) {
         return loanService.addExtension(userid,loanid,avaible);
     }
 

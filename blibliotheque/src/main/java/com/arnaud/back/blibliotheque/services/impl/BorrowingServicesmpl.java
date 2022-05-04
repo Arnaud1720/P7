@@ -91,12 +91,12 @@ public class BorrowingServicesmpl implements BorrowingService {
         //recupération de l'id de l exemplaire
         Exemplary exemplary = exemplaryRepository.findById(exemplaryId).orElseThrow(()->new EntityNotFoundException("aucun exemplaire trouvé", ErrorCode.EXEMPLARY_NOT_FOUND));
         borrowing.setExemplaryId(exemplary);
+
         borrowingRepository.updateCmptBorrowing(bookid );
             javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
                             +" a été crée avec succès"
                     ,"vôtre reservation a été supprimé ");
             borrowingRepository.deleteById(id);
-
 
     }
 
@@ -128,6 +128,11 @@ public class BorrowingServicesmpl implements BorrowingService {
     @Override
     public List<Borrowing> findAllByBookAvailable(boolean available) {
         return borrowingRepository.findAllByBookAvailable(available);
+    }
+
+    @Override
+    public void deleteBorrowingByOutOfTimeTrue() {
+        borrowingRepository.deleteBorrowingByOutOfTimeTrue();
     }
 
 

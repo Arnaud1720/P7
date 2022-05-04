@@ -19,10 +19,10 @@ public class BorrowingfrontControlleur {
     @PostMapping("/borrowing/save/{bookid}/{accountid}")
     public String validate(@ModelAttribute("borrowingfront") Borrowingfront borrowingfront,
                           Model model,
-                          @PathVariable(name = "accountid")Integer accountid,
-                          @PathVariable(name = "bookid")Integer bookid, HttpSession httpSession){
-        httpSession.getAttribute("accountid");
-        model.addAttribute("borrowingfront",msBorrowing.save(borrowingfront,accountid,bookid));
+                          @RequestParam(name = "exemplaryid")long exemplaryid,
+                          @PathVariable(name = "bookid")Integer bookid, HttpSession session){
+        session.getAttribute("accountid");
+        model.addAttribute("borrowingfront",msBorrowing.save(borrowingfront, exemplaryid, (Integer) session.getAttribute("utilisateurid"),bookid));
 
         return "redirect:/loan/listloan";
     }

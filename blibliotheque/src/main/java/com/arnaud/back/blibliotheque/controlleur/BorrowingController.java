@@ -49,5 +49,10 @@ public class BorrowingController implements BorrowingApi {
         return borrowingServicesmpl.findAllByBookAvailable(available);
     }
 
+    @Override
+    public void deleteBorrowingByOutOfTimeTrue() {
+        borrowingServicesmpl.deleteBorrowingByOutOfTimeTrue();
+    }
+
 
 }

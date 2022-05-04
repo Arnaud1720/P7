@@ -49,7 +49,9 @@ public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
 
     int countByBook_BookId(int bookid);
 
-
+    @Modifying
+    @Transactional
+    void deleteBorrowingByOutOfTimeTrue();
 
 
 }

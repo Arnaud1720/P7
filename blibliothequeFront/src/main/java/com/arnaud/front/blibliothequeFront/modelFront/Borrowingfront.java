@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class Borrowingfront {
 
-    private Integer id;
+    private long id;
     private LocalDateTime bookingDate;
     private Accountfront account;
     private Bookfront bookpret;
