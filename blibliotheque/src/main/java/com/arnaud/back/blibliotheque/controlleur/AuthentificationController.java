@@ -45,7 +45,7 @@ public class AuthentificationController {
          final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMail());
          final String jwt = jwtUtils.generateToken((ExtendedAccount)userDetails);
          Account account =  accountService.findAccountByMail(request.getMail());
-         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).email(request.getMail()).id(account.getId()).build());
+         return ResponseEntity.ok(AuthenticationResponse.builder().accesToken(jwt).build());
 
     }
 

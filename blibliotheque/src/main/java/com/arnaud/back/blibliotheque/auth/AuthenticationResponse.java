@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationResponse {
     private String accesToken;
-    private String email;
-    private Integer id;
 }
