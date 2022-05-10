@@ -1,5 +1,7 @@
 package com.arnaud.back.blibliotheque;
 
+import com.arnaud.back.blibliotheque.model.Loan;
+import com.arnaud.back.blibliotheque.repository.LoanRepository;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,9 +24,6 @@ public class 	BlibliothequeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BlibliothequeApplication.class, args);
 
-		LocalDateTime localDateTime = LocalDateTime.now();
-		DateTimeFormatter dTf = DateTimeFormatter.ofPattern("dd MMMM, YYYY");
-		System.out.println(dTf.format(localDateTime));
 	}
 
 

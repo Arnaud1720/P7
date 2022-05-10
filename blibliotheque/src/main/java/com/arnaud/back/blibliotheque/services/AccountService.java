@@ -11,9 +11,6 @@ public interface AccountService {
 
     void deleteById(Integer id);
 
-    Account findByIdAccount(Integer Uid);
-
-
     Account findAccountByMail(String mail);
 
      void validationEmail( String email ) throws Exception;

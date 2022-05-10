@@ -52,13 +52,7 @@ public class AccountImpl implements AccountService {
         accountRepository.deleteById(id);
     }
 
-    @Override
-    public Account findByIdAccount(Integer Uid) {
-        /**
-         *  TODO a changer orElseThriw
-         */
-        return accountRepository.findById(Uid).orElse(null);
-    }
+
 
     @Override
     public Account findAccountByMail(String mail) {

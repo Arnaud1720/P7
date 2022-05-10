@@ -31,10 +31,5 @@ public class AccountController implements UtilisateurApi {
          accountService.deleteById(id);
     }
 
-    @Override
-    public Account findByIdAccount(Integer Uid) {
-        return accountService.findByIdAccount(Uid);
-    }
-
 
 }

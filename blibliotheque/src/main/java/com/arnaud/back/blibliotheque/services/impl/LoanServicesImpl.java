@@ -15,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -99,9 +102,9 @@ public class LoanServicesImpl implements LoanService {
         Account account = accountRepository.findById(userid).orElseThrow(() -> new EntityNotFoundException(" l'utilisateur n'existe pas "));
         Loan loan = loanRepository.findById(loanid).orElseThrow(() -> new EntityNotFoundException("le pret n'exite pas"));
         loan.setAccount(account);
-        LocalDate d1 = loan.getEndDate();
-        LocalDate d2 = LocalDate.now();
-        if (d2.isAfter(d1)){
+        LocalDateTime d1 = loan.getEndDate();
+        LocalDateTime d2 = LocalDateTime.now();
+        if (d1.isAfter(d2)){
             throw new EntityNotFoundException("la date de fin est dépassé vous ne pouvez pas prolonger",ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
         }else if (available) {
             this.addExtension(loan);
@@ -144,9 +147,9 @@ public class LoanServicesImpl implements LoanService {
      */
 
     private void addExtension(Loan loan) {
-        LocalDate d1 = loan.getEndDate();
-        LocalDate d2 = d1.plusMonths(1);
-        loan.setEndDate(d2);
+        LocalDateTime d1 = loan.getEndDate();
+        LocalDateTime d2 = d1.plusMonths(1);
+        loan.setEndDate(LocalDateTime.from(d2));
         if (loan.isExtension()) {
             throw new BorrowingNotValidException("le prêt ne peut être prolongé que de 1 mois", ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
         }

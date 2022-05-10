@@ -16,5 +16,5 @@ public class Loanfront {
     private boolean extension;
     private Accountfront account;
     private Exemplaryfront exemplaryId;
-        private String d2 = String.valueOf(LocalDate.now());
+    private String d2 = String.valueOf(LocalDate.now());
 }
