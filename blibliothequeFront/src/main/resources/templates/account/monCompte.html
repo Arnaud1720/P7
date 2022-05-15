@@ -40,8 +40,7 @@
 
                     </td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/delete/{loanid}/{exemplaryid}/(loanid= ${pret.id},exemplaryid=${pret.exemplaryId.id})}">valider</a>
-
+                        <a th:href="@{/delete/loan/{loanid}/{exemplaryid}/(loanid=${pret.id},exemplaryid=${pret.exemplaryId.id})}" class="btn btn-danger">supprimé</a>
                     </td>
 
                 </tr>

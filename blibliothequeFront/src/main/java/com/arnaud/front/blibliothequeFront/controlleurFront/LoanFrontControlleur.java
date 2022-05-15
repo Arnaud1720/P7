@@ -73,10 +73,11 @@ public class LoanFrontControlleur {
     }
 
 
-    @DeleteMapping("/delete/{loanid}/{exemplaryid}/")
-    void  deleteBorrowingByid (@PathVariable(name = "loanid") Integer id,
+    @GetMapping("/delete/loan/{loanid}/{exemplaryid}/")
+    String  deleteBorrowingByid (@PathVariable(name = "loanid") Integer id,
                              @PathVariable(name = "exemplaryid")Integer exemplaryid ){
         msLoan.deleteLoanByid(id,exemplaryid);
+        return "/account/monCompte";
     }
 
 }

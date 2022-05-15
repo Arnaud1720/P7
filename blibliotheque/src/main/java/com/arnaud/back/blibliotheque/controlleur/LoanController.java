@@ -51,11 +51,4 @@ public class LoanController implements LoanApi {
 
     }
 
-    @Override
-    public List<Object[]> findByStartDate() {
-        List<Object[]> resulDateList = loanService.findByStartDate();
-        return resulDateList;
-    }
-
-
 }

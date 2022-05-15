@@ -18,5 +18,4 @@ public class Loanfront {
     private Accountfront account;
     private Exemplaryfront exemplaryId;
 
-
 }

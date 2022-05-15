@@ -3,6 +3,7 @@ package com.arnaud.front.blibliothequeFront.controlleurFront;
 import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceBorrowing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,16 +35,15 @@ public class BorrowingfrontControlleur {
         return "borrowing/myBorrowing";
     }
 
-    /**
-     *
-     * @param session
-     * @param exemplaryId
-     * @param id
-     * a terminer récupéré l'exemplaireID && le borrowingId
-     */
-    @GetMapping("/delete/borrowing/")
-    public void deleteBorrowing(Integer id,HttpSession session,Integer exemplaryId){
-        msBorrowing.deleteBorrowingById(id,(Integer) session.getAttribute("utilisateurid"),exemplaryId);
+
+    @PostMapping(value = "/delete/borrowing/{idBorrowing}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteBorrowing(Borrowingfront borrowing,
+                                  @PathVariable(name = "idBorrowing") Integer idBorrowing,
+                                  @RequestParam(name = "accountid") Integer accountid,
+                                  @RequestParam(name = "exemplaryId") long exemplaryId,
+                                  @RequestParam(name = "bookid")int bookid){
+       msBorrowing.deleteBorrowingById(borrowing,idBorrowing,accountid,exemplaryId,bookid);
+       return "/borrowing/myBorrowing";
     }
 
     @GetMapping("/display/borrowing/available")

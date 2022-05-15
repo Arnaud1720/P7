@@ -22,6 +22,4 @@ public interface LoanService {
 
     void deleteLoanByid(Integer id, long exemplaryid);
 
-    List<Object[]> findByStartDate();
-
 }

@@ -56,23 +56,12 @@ public interface LoanApi {
     })
     List<Loan> findByAccountId(@PathVariable("utilisateurid") Integer Uid);
 
-    @GetMapping(value = APP_ROOT+"/test",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT+"/loan/delay",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "liste les emprunt en retard",responseContainer = "List<Loan>")
     List<Loan> findAllLateLoan();
 
-    @DeleteMapping( value = APP_ROOT+"/delete/{loanid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping( value = APP_ROOT+"/delete/loan/{loanid}/{exemplaryid}/",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "supprime un emprunt", notes = "supprime une réservation", response = Loan.class)
-    @ApiResponses(value = {
-    })
     void deleteLoanByid(@PathVariable(name = "loanid") Integer id,
                         @PathVariable(name = "exemplaryid")long exemplaryid );
-
-
-
-    @GetMapping(value = APP_ROOT+"/OrderByDate",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @ApiOperation(value = "test de la méthode OrderByDate",responseContainer = "List<Object[]>")
-    List<Object[]> findByStartDate();
-
-
 }

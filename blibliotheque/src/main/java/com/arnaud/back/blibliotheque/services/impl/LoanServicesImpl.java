@@ -14,11 +14,9 @@ import com.arnaud.back.blibliotheque.validator.BorrowingValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,10 +26,10 @@ public class LoanServicesImpl implements LoanService {
 
     private final AccountRepository accountRepository;
 
-    final
-    ExemplaryRepository exemplaryRepository;
+    final ExemplaryRepository exemplaryRepository;
 
     private final JavaMailSenderImpl javaMailSenderImpl;
+
 
     public LoanServicesImpl(LoanRepository loanRepository, AccountRepository accountRepository, ExemplaryRepository exemplaryRepository, JavaMailSenderImpl javaMailSenderImpl) {
         this.loanRepository = loanRepository;
@@ -53,19 +51,23 @@ public class LoanServicesImpl implements LoanService {
     @Override
     public Loan save(Loan loan, Integer utilisateurid, long exemplaryid) {
         List<String> erros = BorrowingValidator.chemaValidator(loan);
-
+        LocalDateTime d2 = LocalDateTime.now();
         Account account = accountRepository.findById(utilisateurid).orElse(null);
         Exemplary exemplary = exemplaryRepository.findById(exemplaryid).orElse(null);
         loan.setAccount(account);
         loan.setExemplaryId(exemplary);
+        Optional<Loan> loans = loanRepository.findById(Math.toIntExact(exemplaryid));
         if (!erros.isEmpty()) {
 
             throw new EntityNotFoundException("erreur pendant la création de la réservation", ErrorCode.BORROWING_NOT_FOUND, erros);
         } else {
             assert exemplary != null;
             decremente(exemplary);
-
-
+        }
+        if(loan.getEndDate().getYear()>d2.getYear()){
+            throw new EntityNotFoundException("l'année ne peu pas dépassé 2022",ErrorCode.LOAN_YEAR_INVALID);
+        }else if (loan.getStartDate().getYear()>d2.getYear()){
+            throw new EntityNotFoundException("l'année ne peu pas dépassé 2022",ErrorCode.LOAN_YEAR_INVALID);
         }
         return loanRepository.save(loan);
     }
@@ -81,11 +83,6 @@ public class LoanServicesImpl implements LoanService {
         incremente(exemplary);
         loanRepository.deleteById(id);
 
-    }
-
-    @Override
-    public List<Object[]> findByStartDate() {
-        return loanRepository.findByStartDate();
     }
 
 
@@ -104,7 +101,7 @@ public class LoanServicesImpl implements LoanService {
         loan.setAccount(account);
         LocalDateTime d1 = loan.getEndDate();
         LocalDateTime d2 = LocalDateTime.now();
-        if (d1.isAfter(d2)){
+        if (d1.isBefore(d2)){
             throw new EntityNotFoundException("la date de fin est dépassé vous ne pouvez pas prolonger",ErrorCode.IMPOSSIBLE_ADD_EXTENSION);
         }else if (available) {
             this.addExtension(loan);
@@ -133,7 +130,7 @@ public class LoanServicesImpl implements LoanService {
 
     @Override
     public List<Loan> findAllLateLoan() {
-        LocalDate dt = LocalDate.now();
+        LocalDateTime dt = LocalDateTime.now();
         return loanRepository.findAllByEndDateLessThan(dt);
 
     }
@@ -158,6 +155,9 @@ public class LoanServicesImpl implements LoanService {
 
     private void decremente(Exemplary exemplary) {
         exemplary.setRemainingexemplary(exemplary.getRemainingexemplary() - 1);
+        if(exemplary.getRemainingexemplary()<0){
+            exemplary.setRemainingexemplary(0);
+        }
     }
 
     private void incremente(Exemplary exemplary) {

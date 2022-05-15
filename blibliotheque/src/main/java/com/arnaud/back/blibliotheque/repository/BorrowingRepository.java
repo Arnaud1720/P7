@@ -43,15 +43,20 @@ public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
     int countBorrowingByBookBookId(int bookid);
 
     @Modifying
-    @Query(nativeQuery = true,value = "update borrowing set cmpt= cmpt-1 where book_id = ?1")
+    @Query(nativeQuery = true,value = "update borrowing set cmpt= cmpt-1 where book_id = ?1   ")
     @Transactional
     void updateCmptBorrowing(int bookid);
 
-    int countByBook_BookId(int bookid);
+    @Modifying
+    @Query(nativeQuery = true,value = "update borrowing set total= borrowing.total-1 where book_id = ?1 ")
+    @Transactional
+    void updateTotalBorrowing(int bookid);
+
 
     @Modifying
     @Transactional
     void deleteBorrowingByOutOfTimeTrue();
-
+    @Query(nativeQuery = true,value = "select * from borrowing where date_limite_retour < now() limit 1")
+    List<Borrowing> findallBorrowingBydateLimiteRetour();
 
 }

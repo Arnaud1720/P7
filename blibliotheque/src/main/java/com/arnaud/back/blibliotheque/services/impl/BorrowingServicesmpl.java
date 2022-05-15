@@ -36,7 +36,6 @@ public class BorrowingServicesmpl implements BorrowingService {
     }
 
     @Override
-    //TODO méhode a tester
     public Borrowing save(Borrowing borrowing, long exemplaryId, Integer accountid, Integer bookid) {
 
         // recupére l'utilisateur courrant
@@ -74,7 +73,7 @@ public class BorrowingServicesmpl implements BorrowingService {
       {
           javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
                           +" a été crée avec succès"
-                  ,"vous avez jusque au"+ borrowing.getBookingDateEnd()+" pour venir chercher vôtre réservation,sinon elle sera automatiquement supprimée");
+                  ,"vous avez jusque au"+ borrowing.getBookingDateEnd()+" pour venir chercher vôtre réservation,sinon elle sera automatiquement supprimée dans les 48 heures");
           return borrowingRepository.save(borrowing);
       }
 
@@ -82,23 +81,6 @@ public class BorrowingServicesmpl implements BorrowingService {
     }
 
 
-    @Override
-    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, long exemplaryId,int bookid) {
-
-        // recupération de l'id du compte
-        Account account = accountRepository.findById(accountid).orElseThrow(()->new EntityNotFoundException("aucun utilisateur trouvé",ErrorCode.USER_NOT_FOUND));
-        borrowing.setAccount(account);
-        //recupération de l'id de l exemplaire
-        Exemplary exemplary = exemplaryRepository.findById(exemplaryId).orElseThrow(()->new EntityNotFoundException("aucun exemplaire trouvé", ErrorCode.EXEMPLARY_NOT_FOUND));
-        borrowing.setExemplaryId(exemplary);
-
-        borrowingRepository.updateCmptBorrowing(bookid );
-            javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
-                            +" a été crée avec succès"
-                    ,"vôtre reservation a été supprimé ");
-            borrowingRepository.deleteById(id);
-
-    }
 
     @Override
     public List<Borrowing> findBorrrowingOutOfTime() {
@@ -107,6 +89,23 @@ public class BorrowingServicesmpl implements BorrowingService {
         List<Borrowing> borrowings = borrowingRepository.findAllByBookingDateEndLessThan(dateDuJour);
 
        return borrowings;
+    }
+
+    @Override
+    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, int bookid) {
+
+        // recupération de l'id du compte
+        Account account = accountRepository.findById(accountid).orElseThrow(()->new EntityNotFoundException("aucun utilisateur trouvé",ErrorCode.USER_NOT_FOUND));
+        borrowing.setAccount(account);
+
+        borrowingRepository.updateCmptBorrowing(bookid);
+        borrowingRepository.updateTotalBorrowing(bookid);
+        javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
+                        +" a été supprimé avec succès"
+                ,"vôtre reservation a été supprimé w");
+
+        borrowingRepository.deleteById(id);
+
     }
 
     @Override

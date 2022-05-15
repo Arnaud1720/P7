@@ -1,6 +1,5 @@
 package com.arnaud.back.blibliotheque.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,7 +40,7 @@ public class Borrowing implements Serializable {
     @JoinColumn(name = "book_Id",referencedColumnName = "book_id")
     private Book book =null;
     @Column(name = "cmpt")
-    private int cmpt =0;
+    private int cmpt;
     @Column(name = "total")
     private int total;
 
@@ -50,9 +49,10 @@ public class Borrowing implements Serializable {
         return cmpt;
     }
 
-    public int getCmpt(Integer accountid) {
+    public int getCmpts(Integer accountid) {
         return accountid;
     }
+
 
     public int getTotal() {
         return total;

@@ -16,7 +16,7 @@ public interface Microservice {
      *
      * @return recherche les réservation hors délai
      */
-    @PostMapping(value = APP_ROOT+"/borrowing/find/all/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT+"/borrowing/find/all/", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Borrowingfront> findBorrrowingOutOfTime();
   /*
   réservation hors delai (affiche)

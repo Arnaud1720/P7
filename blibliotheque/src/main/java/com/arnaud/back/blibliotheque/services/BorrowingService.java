@@ -7,8 +7,8 @@ import java.util.List;
 public interface BorrowingService {
 
     Borrowing save(Borrowing borrowing, long exemplaryId, Integer accountid,Integer bookid);
-    void deleteBorrowingById(Borrowing borrowing,Integer id,Integer accountid,long exemplaryId,int bookid);
      List<Borrowing> findBorrrowingOutOfTime();
+    void deleteBorrowingById(Borrowing borrowing,Integer id,Integer accountid,int bookid);
     void isOutOfTime();
     List<Borrowing> findAllByAccountId(Integer id);
     List<Borrowing> findall();
