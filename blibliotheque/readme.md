@@ -17,4 +17,33 @@ Le projet :
 - RG5 : L’usager doit pouvoir avoir une liste des réservations qu’il a en cours avec pour chaque ouvrage la prochaine date de retour prévue et sa position dans la liste d’attente.
 - RG6 : L’usager doit pouvoir annuler une réservation.
 
-[shema Archi appli]
+# schéma d'application
+
+
+![img_1.png](img_1.png)
+
+
+#Déploiment 
+```
+Cette application a été développé avec les outis suivant :
+- Intellij IDEA
+- Java 8 (version 1.8u241)
+- PostgreSQL 13 (version 13.5)
+- le framework Spring 
+- Spring boot
+- LOMBOK
+- Spring DATA JPA
+- OpenFeign
+- Spring Security
+- Swagger 
+```
+Déploiement
+
+````
+1. Uploder le projet
+2. òuvrir le fichier Pom.xml (bibliotheque,bibliothequeFront,Batch)
+3. crée une base de données si besoin modifier la propriété du fichier application.properties
+4. récupéré le script de création de BDD /MPD/Dump/Dump.sql
+5. Récupère les insertion en base dans /MPD/INSERT 
+6. lancer les 3 application 
+``

@@ -3,7 +3,6 @@ package com.arnaud.front.blibliothequeFront.controlleurFront;
 import com.arnaud.front.blibliothequeFront.modelFront.Borrowingfront;
 import com.arnaud.front.blibliothequeFront.proxies.MicroServiceBorrowing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +35,12 @@ public class BorrowingfrontControlleur {
     }
 
 
-    @PostMapping(value = "/delete/borrowing/{idBorrowing}/",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String deleteBorrowing(Borrowingfront borrowing,
-                                  @PathVariable(name = "idBorrowing") Integer idBorrowing,
-                                  @RequestParam(name = "accountid") Integer accountid,
-                                  @RequestParam(name = "exemplaryId") long exemplaryId,
-                                  @RequestParam(name = "bookid")int bookid){
-       msBorrowing.deleteBorrowingById(borrowing,idBorrowing,accountid,exemplaryId,bookid);
+    @GetMapping("/delete/borrowing/{idBorrowing}/{accountid}/{bookid}/")
+    String deleteBorrowingById(@PathVariable(name = "idBorrowing") Integer idBorrowing,
+                             @PathVariable(name = "accountid") Integer accountid,
+                             @PathVariable(name = "bookid")int bookid){
+
+       msBorrowing.deleteBorrowingById(idBorrowing,accountid, bookid);
        return "/borrowing/myBorrowing";
     }
 

@@ -28,12 +28,10 @@ public interface MicroServiceBorrowing {
     @GetMapping(value = APP_ROOT+"/borrowing/{accountid}",produces = MediaType.APPLICATION_JSON_VALUE)
     List<Borrowingfront> findBorrowingByAccountId(@PathVariable(name = "accountid")Integer accountId);
 
-    @PostMapping(value = APP_ROOT+"/delete/borrowing/{idBorrowing}/",produces = MediaType.APPLICATION_JSON_VALUE)
-    void deleteBorrowingById(@RequestBody Borrowingfront borrowing,
-                             @PathVariable(name = "idBorrowing") Integer idBorrowing,
-                             @RequestParam(name = "accountid") Integer accountid,
-                             @RequestParam(name = "exemplaryId") long exemplaryId,
-                             @RequestParam(name = "bookid")int bookid);
+    @PostMapping(value = APP_ROOT+"/delete/borrowing/{idBorrowing}/{accountid}/{bookid}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    void deleteBorrowingById(@PathVariable(name = "idBorrowing") Integer idBorrowing,
+                             @PathVariable(name = "accountid") Integer accountid,
+                             @PathVariable(name = "bookid")int bookid);
 
     @GetMapping(value = APP_ROOT+"/borrowing/available")
     List<Borrowingfront> findByAvailable(@RequestParam("available")boolean available);

@@ -20,8 +20,8 @@ public class BorrowingController implements BorrowingApi {
     }
 
     @Override
-    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, int bookid) {
-        borrowingServicesmpl.deleteBorrowingById(borrowing,id,accountid,bookid);
+    public void deleteBorrowingById(Integer id, Integer accountid, int bookid) {
+        borrowingServicesmpl.deleteBorrowingById(id,accountid,bookid);
     }
 
 

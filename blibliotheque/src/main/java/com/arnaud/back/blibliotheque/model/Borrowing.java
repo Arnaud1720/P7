@@ -34,7 +34,6 @@ public class Borrowing implements Serializable {
     private boolean outOfTime;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
-    @JsonIgnore
     private Exemplary exemplaryId;
     @OneToOne
     @JoinColumn(name = "book_Id",referencedColumnName = "book_id")

@@ -8,7 +8,7 @@ public interface BorrowingService {
 
     Borrowing save(Borrowing borrowing, long exemplaryId, Integer accountid,Integer bookid);
      List<Borrowing> findBorrrowingOutOfTime();
-    void deleteBorrowingById(Borrowing borrowing,Integer id,Integer accountid,int bookid);
+    void deleteBorrowingById(Integer id,Integer accountid,int bookid);
     void isOutOfTime();
     List<Borrowing> findAllByAccountId(Integer id);
     List<Borrowing> findall();

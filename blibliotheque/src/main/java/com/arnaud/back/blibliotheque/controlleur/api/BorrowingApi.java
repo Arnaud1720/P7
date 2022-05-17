@@ -21,12 +21,11 @@ public interface BorrowingApi {
 
 
 
-    @PostMapping(value = APP_ROOT+"/delete/borrowing/{idBorrowing}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT+"/delete/borrowing/{idBorrowing}/{accountid}/{bookid}/",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "",response = Borrowing.class)
-
-    void deleteBorrowingById(@RequestBody Borrowing borrowing, @PathVariable(name = "idBorrowing") Integer idBorrowing,
-                             @RequestParam(name = "accountid") Integer accountid,
-                             @RequestParam(name = "bookid")int bookid);
+    void deleteBorrowingById(@PathVariable(name = "idBorrowing") Integer idBorrowing,
+                             @PathVariable(name = "accountid") Integer accountid,
+                             @PathVariable(name = "bookid")int bookid);
 
     @GetMapping(value = APP_ROOT+"/borrowing/find/all/", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "affiche la liste des réservation en retard ",responseContainer ="List<Borrowing>")

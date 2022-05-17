@@ -3,6 +3,7 @@ package Spring.batch.modelFront;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,11 +22,11 @@ public class Borrowingfront {
     public String toString() {
         return "Borrowingfront{" +
                 "N°=" + id +
-                ", date debut=" + bookingDate +
+                ", date debut=" + bookingDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
                 ", nom =" + account.getLastName() +
                 ", prenom =" + account.getLastName() +
                 ", mail =" + account.getMail() +
-                ", date fin=" + bookingDateEnd +
+                ", date fin=" + bookingDateEnd.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
                 '}';
     }
 }

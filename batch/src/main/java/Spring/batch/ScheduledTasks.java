@@ -28,7 +28,7 @@ public class ScheduledTasks {
         log.info("liste des réservation en retard {}",listRetard.toString());
 
     }
-    @Scheduled(cron = "0 0 2 * 0 ")
+
     public void updateDelte(){
         System.out.println("---- Task 2 completed ----");
         microservice.isOutOfTime();

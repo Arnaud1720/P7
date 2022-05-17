@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,9 +72,9 @@ public class BorrowingServicesmpl implements BorrowingService {
 
       }else
       {
-          javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
+          javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                           +" a été crée avec succès"
-                  ,"vous avez jusque au"+ borrowing.getBookingDateEnd()+" pour venir chercher vôtre réservation,sinon elle sera automatiquement supprimée dans les 48 heures");
+                  ,"vous avez jusque au"+ borrowing.getBookingDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" pour venir chercher vôtre réservation,sinon elle sera automatiquement supprimée dans les 48 heures");
           return borrowingRepository.save(borrowing);
       }
 
@@ -92,18 +93,23 @@ public class BorrowingServicesmpl implements BorrowingService {
     }
 
     @Override
-    public void deleteBorrowingById(Borrowing borrowing, Integer id, Integer accountid, int bookid) {
-
+    public void deleteBorrowingById( Integer id, Integer accountid, int bookid) {
+        Borrowing borrowing = borrowingRepository.findById(id).orElse(null);
         // recupération de l'id du compte
         Account account = accountRepository.findById(accountid).orElseThrow(()->new EntityNotFoundException("aucun utilisateur trouvé",ErrorCode.USER_NOT_FOUND));
-        borrowing.setAccount(account);
-
+       LocalDateTime dateDebut = borrowing.getBookingDate();
+      LocalDateTime dateRetour =  borrowing.getBookingDateEnd();
+      int cmptTotal = borrowing.getTotal();
+      int compt = borrowing.getCmpt();
+      if(cmptTotal<0){
+          borrowing.setTotal(0);
+      }else if(compt<0){
+          borrowing.setCmpt(0);
+      }
         borrowingRepository.updateCmptBorrowing(bookid);
         borrowingRepository.updateTotalBorrowing(bookid);
-        javaMailSenderImpl.sendEmail(account.getMail(),"votre réservation au nom de"+ " " +account.getFristName()+ " en date du " +borrowing.getBookingDate()
-                        +" a été supprimé avec succès"
-                ,"vôtre reservation a été supprimé w");
-
+        javaMailSenderImpl.sendEmail(account.getMail()," prêt au nom de"+ " " +account.getFristName()+" "+account.getLastName()
+                ,"a été supprimer: "+" date de début : "+" " + dateDebut.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" "+ " date limite de retour:"+" "+dateRetour.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         borrowingRepository.deleteById(id);
 
     }

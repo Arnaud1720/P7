@@ -87,7 +87,7 @@ public class AccountImpl implements AccountService {
     public void validationMotsDePasse(String password) throws Exception {
         if (password != null && password.length() != 0) {
             if (password.length() <5) {
-                throw new Exception("Les mots de passe doivent contenir au moins 5 caractères.");
+                throw new Exception("Le mot de passe doit contenir au moins 5 caractères.");
             }
         }
     }

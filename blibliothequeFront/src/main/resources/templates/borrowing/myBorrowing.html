@@ -17,16 +17,16 @@
                     <th>N°</th>
                     <th>date debut</th>
                     <th>date fin</th>
-                    <th>Exemplaire</th>
+                    <th>File d'attente</th>
                     <th>annulée</th>
                 </tr>
                 <tr th:each="reservation : ${borrowingList}">
                     <td th:text="${reservation.id}"></td>
                     <td th:text="${reservation.bookingDate}"></td>
                     <td th:text="${reservation.bookingDateEnd}" ></td>
-                    <td th:text="${reservation.exemplaryId.id}"></td>
+                    <td th:text="${reservation.cmpt}"></td>
                     <td>
-                        <a th:href="@{/index}" class="btn btn-danger">valider</a>
+                        <a th:href="@{/delete/borrowing/{idBorrowing}/{accountid}/{bookid}/(idBorrowing=${reservation.id},accountid=${reservation.account.id},bookid=${reservation.book.bookId})}" class="btn btn-danger">valider</a>
                     </td>
                 </tr>
 
