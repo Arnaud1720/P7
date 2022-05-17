@@ -37,7 +37,7 @@ Cette application a été développé avec les outis suivant :
 - Spring Security
 - Swagger 
 ```
-Déploiement
+Déploiements
 
 ````
 1. Uploder le projet

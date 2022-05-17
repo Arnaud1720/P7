@@ -8,24 +8,25 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(	name = "account",
-            uniqueConstraints = {
-                    @UniqueConstraint(columnNames = "pseudo"),
-                    @UniqueConstraint(columnNames = "mail"),
-                    @UniqueConstraint(columnNames = "last_name"),
+@Table(name = "account",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "pseudo"),
+                @UniqueConstraint(columnNames = "mail"),
+                @UniqueConstraint(columnNames = "last_name"),
 
         })
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Account  {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "pseudo")
     private String pseudo;
     @Column(name = "last_name")
+
     private String lastName;
     @Column(name = "frist_name")
     private String fristName;
