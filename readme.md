@@ -40,7 +40,7 @@ Cette application a été développé avec les outis suivant :
 Déploiements
 
 ````
-1. Uploder le projet
+1. Uploder le projet depuis la branche "dev_branch"
 2. òuvrir le fichier Pom.xml (bibliotheque,bibliothequeFront,Batch)
 3. crée une base de données si besoin modifier la propriété du fichier application.properties
 4. récupéré le script de création de BDD /MPD/Dump/Dump.sql
