@@ -1,29 +1,32 @@
 package Spring.batch.modelFront;
 
-
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Borrowingfront {
-    private int id;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private boolean extension;
-    private Accountfront account;
-    private Exemplaryfront exemplaryId;
 
+    private Integer id;
+    private LocalDateTime bookingDate;
+    private Accountfront account;
+    private Bookfront bookpret;
+    private LocalDateTime bookingDateEnd;
+    private boolean outOfTime;
 
     @Override
     public String toString() {
         return "Borrowingfront{" +
-                "startdate"+startDate+
-                ", endDate=" + endDate +
-                ", account=" + account +
+                "N°=" + id +
+                ", date debut=" + bookingDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+                ", nom =" + account.getLastName() +
+                ", prenom =" + account.getLastName() +
+                ", mail =" + account.getMail() +
+                ", date fin=" + bookingDateEnd.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
                 '}';
     }
 }

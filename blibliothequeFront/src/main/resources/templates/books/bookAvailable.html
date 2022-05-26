@@ -44,9 +44,14 @@
                     <td th:text="${b.bookRef}"></td>
                     <td th:text="${b.bookSynopsis}"></td>
                     <td th:text="${b.available}"></td>
+                    <td><a th:if="${b.exemplaryId.remainingexemplary>0}" class="btn btn-secondary btn-sm" tabindex="-1"
+                           role="link" aria-disabled="false"
+                           th:href="@{/loan/{utilisateurid}/{exemplaryid}/save/(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">emprunter ce livre</a>
 
-
-                    <td><a th:href="@{/borrowing/{utilisateurid}/{exemplaryid}/save(utilisateurid =${session.utilisateurid},exemplaryid=${b.exemplaryId.id})}">reserver ce livre</a></td>
+                        <form method="POST" th:action="@{/borrowing/save/{bookid}/{accountid}/(accountid=${session.utilisateurid},exemplaryid=${b.exemplaryId.id},bookid=${b.bookId})}">
+                            <button   th:if="${b.exemplaryId.remainingexemplary==0}"  type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">demande de reservation</button>
+                        </form>
+                    </td>
 
                 </tr>
             </table>

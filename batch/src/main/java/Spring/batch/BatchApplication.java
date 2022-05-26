@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class BatchApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BatchApplication.class, args);
-	}
+		SpringApplication.run(BatchApplication.class, args);	}
 
 }

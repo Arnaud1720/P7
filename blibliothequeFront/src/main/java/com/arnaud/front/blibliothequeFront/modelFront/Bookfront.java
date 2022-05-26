@@ -1,6 +1,10 @@
 package com.arnaud.front.blibliothequeFront.modelFront;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -9,15 +13,15 @@ import lombok.*;
 @Setter
 public class Bookfront {
 
-    private int bookId;
+    private  int bookId;
     private String bookTitle;
     private String bookKide;
     private String bookAuthor;
     private String bookEditor;
     private String bookRef;
     private String bookSynopsis;
-    private Exemplaryfront exemplaryId;
     private boolean available;
-    private Accountfront account;
-
+    private List<Borrowingfront> borrowingList;
+    private Exemplaryfront exemplaryId;
+    private Borrowingfront borrowingfront;
 }

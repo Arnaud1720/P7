@@ -2,55 +2,58 @@ package com.arnaud.back.blibliotheque.controlleur;
 
 import com.arnaud.back.blibliotheque.controlleur.api.BorrowingApi;
 import com.arnaud.back.blibliotheque.model.Borrowing;
-import com.arnaud.back.blibliotheque.model.Exemplary;
-import com.arnaud.back.blibliotheque.services.BorrowingService;
-import io.swagger.models.auth.In;
+import com.arnaud.back.blibliotheque.services.impl.BorrowingServicesmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @RestController
 public class BorrowingController implements BorrowingApi {
     @Autowired
-    private BorrowingService borrowingService;
+    BorrowingServicesmpl borrowingServicesmpl;
+
 
     @Override
-    public Borrowing findById(Integer id) {
-        return borrowingService.findById(id);
+    public Borrowing save(Borrowing borrowing, long exemplaryid, Integer accountid, Integer bookid) {
+        return borrowingServicesmpl.save(borrowing, exemplaryid, accountid,bookid );
     }
 
     @Override
-    public Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid) {
-        Borrowing valueReturn = borrowingService.save(borrowing,utilisateurid,exemplaryid);
-        return valueReturn;
+    public void deleteBorrowingById(Integer id, Integer accountid, int bookid) {
+        borrowingServicesmpl.deleteBorrowingById(id,accountid,bookid);
+    }
+
+
+    @Override
+    public List<Borrowing> findBorrrowingOutOfTime() {
+        return borrowingServicesmpl.findBorrrowingOutOfTime();
     }
 
     @Override
-    public List<Borrowing> findAll() {
-        return borrowingService.findAll();
+    public void isOutOfTime() {
+        borrowingServicesmpl.isOutOfTime();
     }
 
     @Override
-    public String addExtension(int userid, int borrowingid,boolean avaible) {
-        return borrowingService.addExtension(userid,borrowingid,avaible);
+    public List<Borrowing> findBorrowingByAccountId(Integer accountId) {
+        return borrowingServicesmpl.findAllByAccountId(accountId);
     }
 
     @Override
-    public List<Borrowing> findByAccountId(Integer Uid) {
-        List<Borrowing> resultList = borrowingService.findAllByAccountId(Uid);
-        return resultList;
+    public List<Borrowing> findall() {
+        return borrowingServicesmpl.findall();
     }
 
     @Override
-    public List<Borrowing> findAllLateBorrowing() {
-        return borrowingService.findAllLateBorrowing();
+    public List<Borrowing> findByAvailable(boolean available) {
+        return borrowingServicesmpl.findAllByBookAvailable(available);
     }
 
     @Override
-    public void deleteBorrowingByid(Integer id, Integer exemplaryid) {
-        borrowingService.deleteBorrowingByid(id,exemplaryid);
+    public void deleteBorrowingByOutOfTimeTrue() {
+        borrowingServicesmpl.deleteBorrowingByOutOfTimeTrue();
     }
-
 
 
 }

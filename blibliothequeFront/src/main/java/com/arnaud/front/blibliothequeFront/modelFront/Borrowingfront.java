@@ -1,21 +1,25 @@
 package com.arnaud.front.blibliothequeFront.modelFront;
 
-
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
+import javax.persistence.Column;
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Borrowingfront {
-    private int id;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private boolean extension;
+
+    private long id;
+    private LocalDateTime bookingDate;
     private Accountfront account;
+    private Bookfront bookpret;
+    private LocalDateTime bookingDateEnd;
     private Exemplaryfront exemplaryId;
+    private Bookfront book;
+    private int cmpt =0;
+    private int total;
 
 
 }

@@ -6,13 +6,10 @@ public interface AccountService {
 
     Account save(Account account);
 
-   public Account findById(Integer id);
+    Account findById(Integer id);
 
 
     void deleteById(Integer id);
-
-    Account findByIdAccount(Integer Uid);
-
 
     Account findAccountByMail(String mail);
 

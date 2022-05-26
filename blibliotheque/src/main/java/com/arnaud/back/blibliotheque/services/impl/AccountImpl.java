@@ -52,13 +52,7 @@ public class AccountImpl implements AccountService {
         accountRepository.deleteById(id);
     }
 
-    @Override
-    public Account findByIdAccount(Integer Uid) {
-        /**
-         *  TODO a changer orElseThriw
-         */
-        return accountRepository.findById(Uid).orElse(null);
-    }
+
 
     @Override
     public Account findAccountByMail(String mail) {
@@ -92,8 +86,8 @@ public class AccountImpl implements AccountService {
     @Override
     public void validationMotsDePasse(String password) throws Exception {
         if (password != null && password.length() != 0) {
-;           if (password.length() <5) {
-                throw new Exception("Les mots de passe doivent contenir au moins 5 caractères.");
+            if (password.length() <5) {
+                throw new Exception("Le mot de passe doit contenir au moins 5 caractères.");
             }
         }
     }

@@ -1,8 +1,11 @@
 package com.arnaud.back.blibliotheque.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,11 +30,13 @@ public class Book  {
     private String bookRef;
     @Column(name = "synopsis")
     private String bookSynopsis;
+    @Column(name = "book_available")
+    private boolean available;
+    @OneToMany(mappedBy = "id")
+    @JsonIgnore
+    private List<Borrowing> borrowingList;
     @ManyToOne
     @JoinColumn(name = "id_examplary")
     private Exemplary exemplaryId;
-    @Column(name = "book_available")
-    private boolean available;
-
 
 }

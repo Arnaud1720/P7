@@ -1,26 +1,18 @@
 package com.arnaud.back.blibliotheque.services;
 
 import com.arnaud.back.blibliotheque.model.Borrowing;
-import com.arnaud.back.blibliotheque.model.Exemplary;
 
 import java.util.List;
 
 public interface BorrowingService {
 
-    Borrowing findById(Integer id);
-
-    Borrowing save(Borrowing borrowing,Integer utilisateurid,Integer exemplaryid);
-
-    List<Borrowing> findAll();
-
-
-    String addExtension(int userid, int borrowingid,boolean available);
-
+    Borrowing save(Borrowing borrowing, long exemplaryId, Integer accountid,Integer bookid);
+     List<Borrowing> findBorrrowingOutOfTime();
+    void deleteBorrowingById(Integer id,Integer accountid,int bookid);
+    void isOutOfTime();
     List<Borrowing> findAllByAccountId(Integer id);
+    List<Borrowing> findall();
+    List<Borrowing> findAllByBookAvailable(boolean available);
+    void deleteBorrowingByOutOfTimeTrue();
 
-    List<Borrowing> findAllByAccountMail(String mail);
-
-    List<Borrowing>findAllLateBorrowing();
-
-    void deleteBorrowingByid(Integer id,Integer exemplaryid);
 }

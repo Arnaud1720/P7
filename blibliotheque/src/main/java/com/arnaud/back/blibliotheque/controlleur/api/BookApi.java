@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.arnaud.back.blibliotheque.constant.Constants.APP_ROOT;
 
-@Api(APP_ROOT+"/book")
+@Api(APP_ROOT)
 public interface BookApi {
 
     @GetMapping(value = APP_ROOT + "/display/books/available", produces = MediaType.APPLICATION_JSON_VALUE)

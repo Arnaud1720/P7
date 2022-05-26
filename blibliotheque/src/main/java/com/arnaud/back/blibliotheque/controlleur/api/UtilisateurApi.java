@@ -35,12 +35,5 @@ public interface UtilisateurApi {
     })
     void deleteById(@PathVariable(name = "idutilisateur") Integer id);
 
-    @GetMapping(APP_ROOT+"/utilisateur/{utilisateurid}")
-    @ApiOperation(value = "rechercher un compte par son email",notes = " cette méthode permet de rechercher un compte avec son email",response = Account.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200,message = "l'utilisateur a été trouver le pseudo  "),
-            @ApiResponse(code = 404,message = "aucun utilisateur n'existe dans la BDD avec cet email")
-    })
-    Account findByIdAccount(@PathVariable(name = "utilisateurid") Integer Uid);
 
 }

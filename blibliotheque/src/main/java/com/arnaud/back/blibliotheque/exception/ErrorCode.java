@@ -7,8 +7,14 @@ public enum ErrorCode {
          MAIL_OR_PASSWORD_INVALID(1002),
     BOOK_NOT_FOUND(2000),
     BORROWING_NOT_FOUND(3000),
+        BORROWING_NOT_VALID(3001),
     EXEMPLARY_NOT_FOUND(4000),
-    IMPOSSIBLE_ADD_EXTENSION(5000);
+        EXEMPLARY_LIMIT_REACHED(4001),
+    IMPOSSIBLE_ADD_EXTENSION(5000),
+        LOAN_YEAR_INVALID(6000),
+            LOAN_MONTH_INVALID(6001),
+                LOAN_DAYS_INVALID(6002);
+
     private final int code;
 
     ErrorCode(int code) {

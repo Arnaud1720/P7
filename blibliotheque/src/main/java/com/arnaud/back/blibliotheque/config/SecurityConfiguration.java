@@ -34,14 +34,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/configuration/ui",
             "/configuration/security",
-            "/swagger-ui.html**",
+            "/swagger-ui.html/**",
             "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/authenticate",
             "/blibliotheque/v1/utilisateur/save",
             "/blibliotheque/v1/**/**",
-            "http://localhost:8001/test"
+            "http://localhost:8001/test",
+            "**/config/**/**"
 
 
     };

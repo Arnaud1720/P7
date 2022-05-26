@@ -10,31 +10,43 @@
 <body>
 <div class="container">
     <div class="panel panel-primary">
-
-
         <div class="panel-body">
             <table class="table">
+
                 <tr>
                     <th>N°</th>
                     <th>date debut</th>
                     <th>date fin</th>
                     <th>extension</th>
                     <th>ajouter une extension(1 mois)</th>
+                    <th>rendre la réservation</th>
 
 
 
                 </tr>
-                <tr th:each="reservation : ${listReservation}">
-                    <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.startDate}"></td>
-                    <td th:text="${reservation.endDate}" ></td>
-                    <td th:text="${reservation.extension}"></td>
+                <tr th:each="pret : ${listePret}">
+                    <td th:text="${pret.id}"></td>
+                    <td th:text="${pret.startDate}"></td>
+                    <td th:text="${pret.endDate}" ></td>
+                    <td th:text="${pret.extension}"></td>
                     <td>
-                        <a th:href="@{/borrowing/{utilisateurid}/{borrowingid}(utilisateurid = ${reservation.account.id}, borrowingid = ${reservation.id})}">ajouter
-                            une extension</a> </td>
+                        <a th:if="${pret.getEndDate()>pret.getD2()}" class="btn btn-secondary btn-sm" tabindex="-1" role="link" aria-disabled="false"
+                           th:href="@{/loan/{utilisateurid}/{loanid}(utilisateurid = ${pret.account.id}, loanid = ${pret.id})}">ajouter une extension
+                        </a>
+
+                        <form method="GET" th:action="@{/index}">
+                            <button   th:if="${pret.getEndDate()<pret.getD2()}" disabled type="submit" name="submit" value="value" class="link-button  btn-primary btn-sm">date de reservation dépassé</button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <a th:href="@{/delete/loan/{loanid}/{exemplaryid}/(loanid=${pret.id},exemplaryid=${pret.exemplaryId.id})}" class="btn btn-danger">rendre</a>
+                    </td>
+
                 </tr>
 
             </table>
+
         </div>
     </div>
 </div>
