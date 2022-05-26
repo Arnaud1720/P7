@@ -56,7 +56,7 @@ public interface BorrowingRepository extends JpaRepository<Borrowing,Integer> {
     @Modifying
     @Transactional
     void deleteBorrowingByOutOfTimeTrue();
-    @Query(nativeQuery = true,value = "select * from borrowing where date_limite_retour < now() limit 1")
+    @Query(nativeQuery = true,value = "select * from borrowing where date_limite_retour < now() limit 1 ")
     List<Borrowing> findallBorrowingBydateLimiteRetour();
 
 }

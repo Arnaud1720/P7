@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,7 +109,7 @@ public class LoanServicesImpl implements LoanService {
             loan.setExtension(true);
         }
         javaMailSenderImpl.sendEmail(account.getMail()," prêt au nom de"+ " " +account.getFristName()+" "+account.getLastName()
-                ,"vôtre prêt a été prolongé de 1 mois votre nouvelle date de retour : "+" "+loan.getEndDate());
+                ,"vôtre prêt a été prolongé de 1 mois votre nouvelle date de retour : "+" "+loan.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
            return loanRepository.save(loan);
 
     }

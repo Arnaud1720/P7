@@ -108,6 +108,7 @@ public class BorrowingServicesmpl implements BorrowingService {
       }
         borrowingRepository.updateCmptBorrowing(bookid);
         borrowingRepository.updateTotalBorrowing(bookid);
+
         javaMailSenderImpl.sendEmail(account.getMail()," prêt au nom de"+ " " +account.getFristName()+" "+account.getLastName()
                 ,"a été supprimer: "+" date de début : "+" " + dateDebut.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" "+ " date limite de retour:"+" "+dateRetour.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         borrowingRepository.deleteById(id);
