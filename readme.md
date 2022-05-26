@@ -23,7 +23,7 @@ Le projet :
 # schéma d'application
 
 
-![img_1.png](img_1.png)
+![diagram architecture application](diagram%20architecture%20application.png)
 
 
 #Déploiment 
